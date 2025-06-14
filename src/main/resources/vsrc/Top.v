@@ -1,9 +1,19 @@
 `timescale 1ns / 1ps
 
-module serving_bridge_top #(parameter AW=12)
+module serving_bridge_top 
+  #(
+      parameter AW = 12,
+      parameter memfile = "TEST.hex",
+      parameter memsize = 8192,
+      parameter sim = 1'b0,
+      parameter RESET_STRATEGY = "NONE",
+      parameter WITH_CSR = 1
+  )
+    
     (
-     input wire clk,
-     input wire rst,
+        input wire clk,
+        input wire rst,
+        input wire timer_irq,
      // AXI2WB AXI SIGNALS FROM EXTERNAL(BUS/PERIPHERAL/ADAPTER) TO BRIDGE
         // AXI adress write channel
         input wire [AW-1:0] i_awaddr,
@@ -77,45 +87,57 @@ module serving_bridge_top #(parameter AW=12)
            wire i_mwb_ack;
            
 //sel lines
-wire sel_radr;
-wire sel_wadr;           //1 for ext and 0 for if
-wire sel_wdata;
-wire sel_rdata;
-wire sel_wen ;     
+          wire sel_radr;
+          wire sel_wadr;           //1 for ext and 0 for if
+          wire sel_wdata;
+          wire sel_rdata;
+          wire sel_wen ;     
            
  //SERVING INSTANTIATION
- serving   serving
-      (
-       .i_clk(clk),
-       .i_rst(rst),
-// input wire           i_timer_irq,
+ serving   
+        #(.memfile (memfile),
+          .memsize (memsize),
+          .sim (sim),
+          .RESET_STRATEGY (RESET_STRATEGY),
+          .WITH_CSR (WITH_CSR)
+          )
+ serving
+         (
+         .i_clk(clk),
+         .i_rst(rst),
+         .i_timer_irq(timer_irq),
     
-       .o_wb_addr(i_swb_adr),
-       .o_wb_dat(i_swb_dat),
-       .o_wb_sel(i_swb_sel),
-       .o_wb_we(i_swb_we),
-       .o_wb_stb(i_swb_stb),
-       .i_wb_rdt(o_swb_rdt),
-       .i_wb_ack(o_swb_ack),
+         .o_wb_adr(i_swb_adr),
+         .o_wb_dat(i_swb_dat),
+         .o_wb_sel(i_swb_sel),
+         .o_wb_we(i_swb_we),
+         .o_wb_stb(i_swb_stb),
+         .i_wb_rdt(o_swb_rdt),
+         .i_wb_ack(o_swb_ack),
+             
        // WISHONE SIGNALS FROM BRIDGE TO SERVING
-       .adr_brg(o_mwb_adr),
-       .data_brg(o_mwb_dat),
-       .wen_brg(o_mwb_we),
-       .sel_brg(o_mwb_sel),
-       .stb_brg(o_mwb_stb),
-       .ack_brg(i_mwb_ack),
-       .rdt_brg(i_mwb_rdt),
+         .adr_brg(o_mwb_adr),
+         .data_brg(o_mwb_dat),
+         .wen_brg(o_mwb_we),
+         .sel_brg(o_mwb_sel),
+         .stb_brg(o_mwb_stb),
+         .ack_brg(i_mwb_ack),
+         .rdt_brg(i_mwb_rdt),
+             
         // MUX SELECTION 
-        .sel_radr(sel_radr),
-        .sel_wadr(sel_wadr),           //1 for ext and 0 for if
-        .sel_wdata(sel_wdata),
-        .sel_rdata(sel_rdata),
-        .sel_wen(sel_wen)
+         .sel_radr(sel_radr),
+         .sel_wadr(sel_wadr),           //1 for ext and 0 for if
+         .sel_wdata(sel_wdata),
+         .sel_rdata(sel_rdata),
+         .sel_wen(sel_wen)
        );
+       
+       
  //BRIDGE INSTANTIATION      
-       complete_bridge  
+complete_bridge  
          #(.AW(AW))
-         uut(
+    
+ uut(
           .i_clk(clk),
           .i_rst(rst),
        
@@ -178,10 +200,10 @@ wire sel_wen ;
           .o_rmready(o_rmready),
           
             //sel lines
-            .sel_radr(sel_radr),
-            .sel_wadr(sel_wadr),           //1 for ext and 0 for if
-            .sel_wdata(sel_wdata),
-            .sel_rdata(sel_rdata),
-            .sel_wen(sel_wen)
-              );
+          .sel_radr(sel_radr),
+          .sel_wadr(sel_wadr),           //1 for ext and 0 for if
+          .sel_wdata(sel_wdata),
+          .sel_rdata(sel_rdata),
+           .sel_wen(sel_wen)
+);
 endmodule
