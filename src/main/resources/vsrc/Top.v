@@ -13,7 +13,7 @@ module serving_bridge_top
     (
         input wire clk,
         input wire rst,
-        input wire timer_irq,
+        input wire i_timer_irq,
      // AXI2WB AXI SIGNALS FROM EXTERNAL(BUS/PERIPHERAL/ADAPTER) TO BRIDGE
         // AXI adress write channel
         input wire [AW-1:0] i_awaddr,
@@ -105,7 +105,7 @@ module serving_bridge_top
          (
          .i_clk(clk),
          .i_rst(rst),
-         .i_timer_irq(timer_irq),
+           .i_timer_irq(i_timer_irq),
     
          .o_wb_adr(i_swb_adr),
          .o_wb_dat(i_swb_dat),
