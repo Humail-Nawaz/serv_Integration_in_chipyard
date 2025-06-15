@@ -28,11 +28,11 @@ import freechips.rocketchip.amba.axi4._
 
 case class ServCoreParams(
   val bootFreqHz: BigInt = BigInt(32000000),
+  val xLen = 32
   val pmpEnable: Int = 0,
   val pmpGranularity: Int = 0,
   val pmpNumRegions: Int = 0
 ) extends CoreParams {
-  val xLen = 32
   val useVM: Boolean = false
   val useHypervisor: Boolean = false
   val useUser: Boolean = true
@@ -64,6 +64,13 @@ case class ServCoreParams(
   val mtvecWritable: Boolean = false
   val nL2TLBWays: Int = 0
   val lrscCycles: Int = 80
+  // SERV SPECIFIC
+  val aw_b: Int = 12
+  val with_csr_b: Boolean = true
+  val memsize: Int = 8192
+  val sim_b: Boolean = false
+  val memfile_b: String = ""
+  val reset_strategy: String = "NONE"
 }
 
 case class ServTileAttachParams(
@@ -199,70 +206,56 @@ class ServTileModuleImp(outer: ServTile) extends BaseTileModuleImp(outer){
   val core = Module(new ServCoreBlackbox(
 
     // general core params
-    xLen = outer.servParams.core.xLen,
+    xLen             = outer.servParams.core.xLen,
+    aw_b             = outer.servParams.core.aw_b,
+    with_csr_b       = outer.servParams.core.with_csr,
+    sim_b            = outer.servParams.core.sim_b,
+    memsize_b        = outer.servParams.core.memsize_b,
+    memfile_b        = outer.servParams.core.memfile_b,
+    reset_strategy_b = outer.servParams.core.reset_strategy_b
+    
      ))
 
-  core.io.clk_i := clock
-  core.io.rst_ni := ~reset.asBool
-  core.io.boot_addr_i := outer.resetVectorSinkNode.bundle
-  core.io.hart_id_i := outer.hartIdSinkNode.bundle
+  core.io.clk := clock
+  core.io.rst := reset.asBool    // Check Reset --
+  
 
   outer.connectServInterrupts(core.io.i_timer_irq)
 
 
   // connect the axi interface
   outer.ServAXI4Node.out foreach { case (out, edgeOut) =>
-    core.io.axi_resp_i_aw_ready    := out.aw.ready
-    out.aw.valid                   := core.io.axi_req_o_aw_valid
-    out.aw.bits.id                 := core.io.axi_req_o_aw_bits_id
-    out.aw.bits.addr               := core.io.axi_req_o_aw_bits_addr
-    out.aw.bits.len                := core.io.axi_req_o_aw_bits_len
-    out.aw.bits.size               := core.io.axi_req_o_aw_bits_size
-    out.aw.bits.burst              := core.io.axi_req_o_aw_bits_burst
-    out.aw.bits.lock               := core.io.axi_req_o_aw_bits_lock
-    out.aw.bits.cache              := core.io.axi_req_o_aw_bits_cache
-    out.aw.bits.prot               := core.io.axi_req_o_aw_bits_prot
-    out.aw.bits.qos                := core.io.axi_req_o_aw_bits_qos
+    core.io.i_awmready             := out.aw.ready
+    out.aw.valid                   := core.io.o_awmvalid
+    out.aw.bits.addr               := core.io.o_awmaddr
+    
     // unused signals
-    assert(core.io.axi_req_o_aw_bits_region === 0.U)
-    assert(core.io.axi_req_o_aw_bits_atop === 0.U)
-    assert(core.io.axi_req_o_aw_bits_user === 0.U)
+    //  assert(core.io.axi_req_o_aw_bits_region === 0.U)
 
-    core.io.axi_resp_i_w_ready     := out.w.ready
-    out.w.valid                    := core.io.axi_req_o_w_valid
-    out.w.bits.data                := core.io.axi_req_o_w_bits_data
-    out.w.bits.strb                := core.io.axi_req_o_w_bits_strb
-    out.w.bits.last                := core.io.axi_req_o_w_bits_last
+    core.io.i_wmready              := out.w.ready
+    out.w.valid                    := core.io.o_wmvalid
+    out.w.bits.data                := core.io.o_wmdata
+    out.w.bits.strb                := core.io.o_wmstrb
+    
     // unused signals
-    assert(core.io.axi_req_o_w_bits_user === 0.U)
+    //  assert(core.io.axi_req_o_w_bits_user === 0.U)
 
-    out.b.ready                    := core.io.axi_req_o_b_ready
-    core.io.axi_resp_i_b_valid     := out.b.valid
-    core.io.axi_resp_i_b_bits_id   := out.b.bits.id
-    core.io.axi_resp_i_b_bits_resp := out.b.bits.resp
-    core.io.axi_resp_i_b_bits_user := 0.U // unused
+    out.b.ready                    := core.io.o_bmready
+    core.io.i_bmvalid              := out.b.valid
+    core.io.i_bmresp               := out.b.bits.resp
+    //core.io.axi_resp_i_b_bits_user := 0.U // unused
 
-    core.io.axi_resp_i_ar_ready    := out.ar.ready
-    out.ar.valid                   := core.io.axi_req_o_ar_valid
-    out.ar.bits.id                 := core.io.axi_req_o_ar_bits_id
-    out.ar.bits.addr               := core.io.axi_req_o_ar_bits_addr
-    out.ar.bits.len                := core.io.axi_req_o_ar_bits_len
-    out.ar.bits.size               := core.io.axi_req_o_ar_bits_size
-    out.ar.bits.burst              := core.io.axi_req_o_ar_bits_burst
-    out.ar.bits.lock               := core.io.axi_req_o_ar_bits_lock
-    out.ar.bits.cache              := core.io.axi_req_o_ar_bits_cache
-    out.ar.bits.prot               := core.io.axi_req_o_ar_bits_prot
-    out.ar.bits.qos                := core.io.axi_req_o_ar_bits_qos
-    // unused signals
-    assert(core.io.axi_req_o_ar_bits_region === 0.U)
-    assert(core.io.axi_req_o_ar_bits_user === 0.U)
-
-    out.r.ready                    := core.io.axi_req_o_r_ready
-    core.io.axi_resp_i_r_valid     := out.r.valid
-    core.io.axi_resp_i_r_bits_id   := out.r.bits.id
-    core.io.axi_resp_i_r_bits_data := out.r.bits.data
-    core.io.axi_resp_i_r_bits_resp := out.r.bits.resp
-    core.io.axi_resp_i_r_bits_last := out.r.bits.last
-    core.io.axi_resp_i_r_bits_user := 0.U // unused
+    core.io.i_armready             := out.ar.ready
+    out.ar.valid                   := core.io.o_armvalid
+    out.ar.bits.addr               := core.io.o_armaddr
+    
+    // unused signals if any
+    
+    out.r.ready                    := core.io.o_rmready
+    core.io.i_rmvalid              := out.r.valid
+    core.io.i_rmdata                := out.r.bits.data
+    core.io.i_rmresp               := out.r.bits.resp
+    core.io.i_rmlast               := out.r.bits.last
+    //core.io.axi_resp_i_r_bits_user := 0.U // unused
   }
 }
