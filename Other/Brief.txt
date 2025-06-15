@@ -1,0 +1,5 @@
+This directory contains all supplementary files required to integrate the custom core into Chipyard, excluding the files placed inside the core's own directory under generators/. These files will include configuration fragments, build support, harness and relevant Config classes.
+
+For now:
+1. ServConfiges.scala - To be added to https://github.com/ucb-bar/chipyard/tree/main/generators/chipyard/src/main/scala/config
+2. Config info to be added  to https://github.com/ucb-bar/chipyard/blob/main/build.sbt
