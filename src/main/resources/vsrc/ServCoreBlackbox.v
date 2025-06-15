@@ -84,7 +84,7 @@ module ServCoreBlackbox
 );
 
 
-serv                                                  // serv here means: Serving(the convenience wrapper) plus the Bridge
+serving_bridge_top  // Serving (SoClet containing SERV and Servile Wrapper) plus the Bridge for conversion from Wishbone to AXI and vice versa when needed.
 #(
         .memfile(memfile_B),
         .memsize(memsize_B),
@@ -95,11 +95,11 @@ serv                                                  // serv here means: Servin
 
 )
 
-   i_serv (
+i_serving_bridge_top (
+   
         .clk          (clk),
         .rst          (rst),
         .i_timer_irq  (i_timer_irq),
-
 
 
         .i_awaddr     (i_awaddr),
