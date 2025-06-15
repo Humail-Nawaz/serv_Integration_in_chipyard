@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
-// serv Tile Wrapper
+// Serv Core Blackbox
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 package serv
@@ -14,54 +14,72 @@ import chisel3.experimental.{IntParam, StringParam, RawParam}
 import scala.collection.mutable.{ListBuffer}
 
 class ServCoreBlackbox(
-		withcsrb: Int,
-		pre_register_b: Int,
-		reset_strategy_b:Int,
-		reset_pc_b:Int,
-		mdu_b: Int,
-		compressed_b: Int,
-		align_b: Int,
-		rf_width_b: Int,
-		rf_l2d_b: Int,
-    aw_b: Int)
+	memfile_b: String,
+	memsize_b: Int,
+	sim_b: Int,
+	reset_strategy_b: String,
+	with_csr_b: Int,
+    	aw_b: Int
+)
 
 extends BlackBox(
    Map(
-	"WITH_CSR_B" -> IntParam(withcsrb),
-	"PRE_REGISTER_B" -> IntParam(pre_register_b),
-	"RESET_STRATEGY_B" ->IntParam(reset_strategy_b),
-	"RESET_PC_B" ->IntParam(reset_pc_b),
-	"MDU_B" ->IntParam(mdu_b),
-	"COMPRESSED_B" ->IntParam(compressed_b),
-	"ALIGN_B" ->IntParam(align_b),
-	"RF_WIDTH_B" ->IntParam(rf_width_b),
-	"RF_L2D_B" ->IntParam(rf_l2d_b))
-	)
+	"MEMFILE_B"        -> StringParam(memfile_b),
+	"MEMSIZE_B"        -> IntParam(memsize_b),
+	"SIM_B"		   -> IntParam(sim_b),
+	"RESET_STRATEGY_B" -> StringParam(reset_strategy_b),
+	"WITH_CSR_B"	   -> IntParam(with_csr_b),
+	"AW_B"             -> IntParam(aw_b)
+   ) )
+
+
   with HasBlackBoxPath
   {
-  	val io=IO(new Bundle{
-  		val  clk=Input(Clock())
-  		val  i_rst=Input(Bool())
-  		val  i_timer_irq=Input(Bool())
-  		val  o_ibus_adr=Output(UInt(32.W))
-  		val  o_ibus_cyc=Output(Bool())
-  		val  i_ibus_rdt=Input(UInt(32.W))
-  		val  i_ibus_ack=Input(Bool())
-  		val  o_dbus_adr=Output(UInt(32.W))
-  		val  o_dbus_dat=Output(UInt(32.W))
-  		val  o_dbus_sel=Output(UInt(4.W))
-  		val  o_dbus_we=Output(Bool())
-  		val  o_dbus_cyc=Output(Bool())
-  		val  i_dbus_rdt=Input(UInt(32.W))
-  		val  i_dbus_ack=Input(Bool())
-  		val  o_ext_rs1=Output(UInt(32.W))
-  		val  o_ext_rs2=Output(UInt(32.W))
-  		val  o_ext_funct3=Output(UInt(3.W))
-  		val  i_ext_rd=Input(UInt(32.W))
-  		val  i_ext_ready=Input(Bool())
-  		val  o_mdu_valid=Output(Bool())
-  		}
-  		)
+  val io = IO ( new Bundle {
+	  
+  		val  clk	 = Input(Clock())
+  		val  rst	 = Input(Bool())
+  		val  i_timer_irq = Input(Bool())
+  		val  i_awaddr    = Input(UInt(12.W))
+		val  i_awvalid   = Input(Bool())
+		val  o_awready   = Output(Bool())
+		val  i_araddr    = Input(UInt(12.W))
+		val  i_arvalid   = Input(Bool())
+		val  o_arready   = Output(Bool())
+		val  i_wdata     = Input(UInt(32.W))
+		val  i_wstrb     = Input(UInt(4.W))
+		val  i_wvalid    = Input(Bool())
+		val  o_wready    = Output(Bool())
+		val  i_bready    = Input(Bool())
+	        val  o_bresp     = Output(UInt(2.W))
+	        val  o_bvalid    = Output(Bool())
+	        val  i_rready    = Input(Bool())
+	        val  o_rdata     = Output(UInt(32.W))
+	        val  o_rresp     = Output(UInt(2.W))
+	  	val  o_rlast	 = Output(Bool())
+	  	val  o_rvalid    = Output(Bool())
+	  	val  i_awmready  = Input(Bool())
+	        val  o_awmaddr   = Output(UInt(12.W))
+	        val  o_awmvalid  = Output(Bool())
+	        val  i_armready  = Input(Bool())
+	        val  o_armaddr   = Output(UInt(12.W))
+	  	val  o_armvalid  = Output(Bool())
+	  	val  i_wmready   = Input(Bool())
+	  	val  o_wmdata	 = Output(UInt(32.W))
+	  	val  o_wmstrb    = Output(UInt(4.W))
+	  	val  o_wmvalid   = Output(Bool())
+	  	val  i_bmresp	 = Input(UInt(2.W))
+	  	val  i_bmvalid   = Input(Bool())
+	  	val  o_bmready   = Output(Bool())
+	  	val  i_rmdata    = Input(UInt(32.W))
+	  	val  i_rmresp    = Input(UInt(2.W))
+	  	val  i_rmlast	 = Input(Bool())
+	  	val  i_rmvalid   = Input(Bool())
+	  	val  o_rmready   = Output(Bool())
+	  
+}  )
+
+	  
     val chipyardDir = System.getProperty("user.dir")
     val servVsrcDir = s"$chipyardDir/generators/serv/src/main/resources/vsrc"
 
