@@ -1,9 +1,9 @@
 
 module ServCoreBlackbox 
 #(
-   parameter memfile_B = "",           // Hex file to be loaded into core RAM.
-   parameter memsize_B = 8192,
-   parameter sim_B = 1'b0,
+   parameter MEMFILE_B = "",           // Hex file to be loaded into core RAM.
+   parameter MEMSIZE_B = 8192,
+   parameter SIM_B = 1'b0,
    parameter RESET_STRATEGY_B = "NONE",
    parameter WITH_CSR_B = 1,
    parameter AW_B       = 12
@@ -86,9 +86,9 @@ module ServCoreBlackbox
 
 serving_bridge_top  // Serving (SoClet containing SERV and Servile Wrapper) plus the Bridge for conversion from Wishbone to AXI and vice versa when needed.
 #(
-        .memfile(memfile_B),
-        .memsize(memsize_B),
-        .sim(sim_B),
+        .memfile(MEMFILE_B),
+        .memsize(MEMSIZE_B),
+        .sim(SIM_B),
         .RESET_STRATEGY(RESET_STRATEGY_B),
         .WITH_CSR(WITH_CSR_B),
         .AW(AW_B)
