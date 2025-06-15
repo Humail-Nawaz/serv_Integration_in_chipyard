@@ -15,6 +15,7 @@ import chisel3.experimental.{IntParam, StringParam, RawParam}
 import org.chipsalliance.cde.config._
 import freechips.rocketchip.subsystem._
 import freechips.rocketchip.diplomacy._
+import freechips.rocketchip.devices.tilelink._
 import freechips.rocketchip.rocket._
 import freechips.rocketchip.subsystem.{RocketCrossingParams}
 import freechips.rocketchip.tilelink._
@@ -22,6 +23,8 @@ import freechips.rocketchip.interrupts._
 import freechips.rocketchip.util._
 import freechips.rocketchip.tile._
 import freechips.rocketchip.prci._
+import freechips.rocketchip.amba.axi4._
+
 
 case class ServCoreParams(
   val bootFreqHz: BigInt = BigInt(32000000),
