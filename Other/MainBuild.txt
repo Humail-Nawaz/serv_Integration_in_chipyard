@@ -1,0 +1,14 @@
+Stuff to be added to https://github.com/ucb-bar/chipyard/blob/main/build.sbt
+
+IN "lazy val chipyard = (project in file("generators/chipyard"))"
+serv
+
+
+BELOW "lazy val chipyard = (project in file("generators/chipyard"))"
+
+lazy val serv = (project in file("generators/serv"))
+  .dependsOn(rocketchip)
+  .settings(libraryDependencies ++= rocketLibDeps.value)
+  .settings(commonSettings)
+
+
