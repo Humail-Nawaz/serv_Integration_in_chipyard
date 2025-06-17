@@ -162,10 +162,11 @@ override def makeSlaveBoundaryBuffers(crossing: ClockCrossingType)(implicit p: P
 
 override lazy val module = new ServTileModuleImp(this)
 
-  val portName = "serv-axi4"
+
+  val portName = "serv-axi4-master"
   val idBits = 4
 
-  val ServAXI4Node = AXI4MasterNode(
+  val ServAXI4MNode = AXI4MasterNode(
     Seq(AXI4MasterPortParameters(
       masters = Seq(AXI4MasterParameters(
         name = portName,
@@ -187,10 +188,30 @@ override lazy val module = new ServTileModuleImp(this)
     := AXI4ToTL() // convert to TL
     := AXI4UserYanker(Some(2)) // remove user field on AXI interface. need but in reality user intf. not needed
     := AXI4Fragmenter() // deal with multi-beat xacts
-    := ServAXI4Node) // Custom SERV node.
+    := ServAXI4MNode) // Custom SERV node.
 
 
  // ------------------------- MASTER NODE ------------------------------- //
+
+  val portName = "serv-axi4-slave"
+  val idBits = 4
+
+  val ServAXI4SNode = AXI4SlaveNode(
+    Seq(AXI4SlavePortParameters(
+      slaves = Seq(AXI4SlaveParameters(
+        name = portName,
+        id = IdRange(0, 1 << idBits))))))
+
+// -------------------------- SLAVE NODE -------------------------------- //
+
+    (  TLToAXI4() 
+    := AXI4Deinterleaver(idBits) 
+    := AXI4UserYanker() 
+    := ServAXI4SNode 
+    := tlSlaveXbar.node
+    )
+
+// -------------------------- SLAVE NODE -------------------------------- //
 
 def connectServInterrupts(mtip: Bool) {
     val (interrupts, _) = intSinkNode.in(0)
@@ -224,7 +245,7 @@ class ServTileModuleImp(outer: ServTile) extends BaseTileModuleImp(outer){
 
 
   // connect the axi interface
-  outer.ServAXI4Node.out foreach { case (out, edgeOut) =>
+  outer.ServAXI4MNode.out foreach { case (out, edgeOut) =>
     core.io.i_awmready             := out.aw.ready
     out.aw.valid                   := core.io.o_awmvalid
     out.aw.bits.addr               := core.io.o_awmaddr
