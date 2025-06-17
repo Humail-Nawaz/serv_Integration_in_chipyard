@@ -122,7 +122,7 @@ class ServTile private(
   val masterNode = visibilityNode          // Master interface — TL visibility
   val slaveNode  = TLIdentityNode()        // Slave node for MMIO
 
-
+  val beatBytes = p(PeripheryBusKey).beatBytes
 
   tlOtherMastersNode := tlMasterXbar.node
   masterNode :=* tlOtherMastersNode
@@ -212,12 +212,13 @@ override lazy val module = new ServTileModuleImp(this)
 val slaveTLNode = TLIdentityNode()
 
 (tlSlaveXbar.node 
+    := ServAXI4SNode
     := AXI4Fragmenter()                 // fragment to AXI-Lite if needed
     := AXI4UserYanker()                 // strip TLToAXI4’s user field
-    := AXI4Deinterleaver(pbus.beatBytes)   // re-order AXI read beats
+    := AXI4Deinterleaver(beatBytes)   // re-order AXI read beats
     := TLToAXI4()                       // convert TL to AXI4
     := TLBuffer()                       // add buffering (decoupling)
-    := TLWidthWidget(pbus.beatBytes)    // match beat width
+    := TLWidthWidget(beatBytes)    // match beat width
     := slaveTLNode)
 // -------------------------- SLAVE NODE -------------------------------- //
 
