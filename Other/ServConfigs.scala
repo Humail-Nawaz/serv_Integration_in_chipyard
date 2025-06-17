@@ -5,7 +5,7 @@ import chisel3._
 import org.chipsalliance.cde.config.{Config}
 
 // ---------------------
-// VexiiRiscv Configs
+// Serv Configs
 // ---------------------
 
 class ServConfig extends Config(
