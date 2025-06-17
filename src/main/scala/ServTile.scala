@@ -193,24 +193,32 @@ override lazy val module = new ServTileModuleImp(this)
 
  // ------------------------- MASTER NODE ------------------------------- //
 
+
+
+
+
   val portName = "serv-axi4-slave"
   val idBits = 4
 
   val ServAXI4SNode = AXI4SlaveNode(
     Seq(AXI4SlavePortParameters(
-      slaves = Seq(AXI4SlaveParameters(
-        name = portName,
-        id = IdRange(0, 1 << idBits))))))
+        slaves  = Seq(AXI4SlaveParameters(
+        name    = portName,
+        address = AddressSet(0x4000_0000L, 0x3FF), 
+        id      = IdRange(0, 1 << idBits))))))
 
 // -------------------------- SLAVE NODE -------------------------------- //
 
-    (  TLToAXI4() 
-    := AXI4Deinterleaver(idBits) 
-    := AXI4UserYanker() 
-    := ServAXI4SNode 
-    := tlSlaveXbar.node
-    )
+val slaveTLNode = TLIdentityNode()
 
+(tlSlaveXbar.node 
+    := AXI4Fragmenter()                 // fragment to AXI-Lite if needed
+    := AXI4UserYanker()                 // strip TLToAXI4’s user field
+    := AXI4Deinterleaver(pbus.beatBytes)   // re-order AXI read beats
+    := TLToAXI4()                       // convert TL to AXI4
+    := TLBuffer()                       // add buffering (decoupling)
+    := TLWidthWidget(pbus.beatBytes)    // match beat width
+    := slaveTLNode)
 // -------------------------- SLAVE NODE -------------------------------- //
 
 def connectServInterrupts(mtip: Bool) {
