@@ -6,7 +6,7 @@ module ServCoreBlackbox
    parameter SIM_B = 1'b0,
    parameter RESET_STRATEGY_B = "MINI",
    parameter WITH_CSR_B = 1,
-   parameter AW_B       = 12
+   parameter AW_B       = 13
 
 )
 
@@ -22,6 +22,18 @@ module ServCoreBlackbox
     input   [AW_B-1:0] i_awaddr,
     input   i_awvalid,
     output  o_awready,
+    //unused signals
+        input  i_aw_id,
+        input  i_aw_len,
+        input  i_aw_size,
+        input  i_aw_burst,
+        input  i_aw_lock,
+        input  i_aw_cache,
+        input  i_aw_prot,
+        input  i_aw_qos,
+        input  i_aw_region,
+        input  i_aw_atop,
+        input  i_aw_user,
 
     // AXI address read channel 
     input   [AW_B-1:0] i_araddr,
