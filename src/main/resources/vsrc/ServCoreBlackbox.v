@@ -4,7 +4,7 @@ module ServCoreBlackbox
    parameter MEMFILE_B = "",           // Hex file to be loaded into core RAM.
    parameter MEMSIZE_B = 8192,
    parameter SIM_B = 1'b0,
-   parameter RESET_STRATEGY_B = "NONE",
+   parameter RESET_STRATEGY_B = "MINI",
    parameter WITH_CSR_B = 1,
    parameter AW_B       = 12
 
