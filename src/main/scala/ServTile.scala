@@ -70,7 +70,7 @@ case class ServCoreParams(
   val memsize: Int = 8192
   val sim_b: Boolean = false
   val memfile_b: String = ""
-  val reset_strategy: String = "NONE"
+  val reset_strategy: String = "MINI"
 }
 
 case class ServTileAttachParams(
