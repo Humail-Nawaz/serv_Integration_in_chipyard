@@ -119,7 +119,7 @@ class ServTile private(
 
   //TL nodes
   val intOutwardNode = None   
-  val masterNode = visibilityNode          // Master interface — TL visibility
+  val masterNode = visibilityNode         // Master interface — TL visibility
   val slaveNode  = TLIdentityNode()        // Slave node for MMIO
 
   val beatBytes = p(PeripheryBusKey).beatBytes
@@ -235,15 +235,15 @@ class ServTileModuleImp(outer: ServTile) extends BaseTileModuleImp(outer){
 
   val core = Module(new ServCoreBlackbox(
 
-    // general core params
-    xLen             = outer.servParams.core.xLen,
-    aw_b             = outer.servParams.core.aw_b,
-    with_csr_b       = outer.servParams.core.with_csr,
-    sim_b            = outer.servParams.core.sim_b,
-    memsize_b        = outer.servParams.core.memsize_b,
+    // general core params 
     memfile_b        = outer.servParams.core.memfile_b,
-    reset_strategy_b = outer.servParams.core.reset_strategy_b
-    
+    memsize_b        = outer.servParams.core.memsize_b,
+    sim_b            = outer.servParams.core.sim_b,
+    reset_strategy_b = outer.servParams.core.reset_strategy_b,
+    with_csr_b       = outer.servParams.core.with_csr,
+    aw_b             = outer.servParams.core.aw_b,
+    user_width       = outer.servPrams.core.uw_b,
+    id_width         = outer.servParams.core.iw_b
      ))
 
   core.io.clk := clock
