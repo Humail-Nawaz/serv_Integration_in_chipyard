@@ -6,8 +6,9 @@ module ServCoreBlackbox
    parameter SIM_B = 1'b0,
    parameter RESET_STRATEGY_B = "MINI",
    parameter WITH_CSR_B = 1,
-   parameter AW_B       = 13
-
+   parameter AW_B       = 13,
+   parameter USER_WIDTH = 0,
+   parameter ID_WIDTH   = 0
 )
 
 (
@@ -22,34 +23,51 @@ module ServCoreBlackbox
     input   [AW_B-1:0] i_awaddr,
     input   i_awvalid,
     output  o_awready,
-    //unused signals
-        input  i_aw_id,
-        input  i_aw_len,
-        input  i_aw_size,
-        input  i_aw_burst,
-        input  i_aw_lock,
-        input  i_aw_cache,
-        input  i_aw_prot,
-        input  i_aw_qos,
-        input  i_aw_region,
-        input  i_aw_atop,
-        input  i_aw_user,
+     //unused signals
+    input  [ID_WIDTH-1:0] i_aw_id,
+    input  [7:0] i_aw_len,
+    input  [3:0] i_aw_size,
+    input  [1:0] i_aw_burst,
+    input  i_aw_lock,
+    input  [3:0] i_aw_cache,
+    input  [2:0] i_aw_prot,
+    input  [3:0] i_aw_qos,
+    input  [3:0] i_aw_region,
+    input  [5:0] i_aw_atop,
+    input  [USER_WIDTH-1:0] i_aw_user,
 
     // AXI address read channel 
     input   [AW_B-1:0] i_araddr,
     input   i_arvalid,
     output  o_arready,
-
+    //unused signals
+    input [ID_WIDTH-1:0] i_ar_id,
+    input  [7:0] i_ar_len,
+    input  [2:0] i_ar_size,
+    input  [1:0] i_ar_burst,
+    input  i_ar_lock,
+    input  [3:0]i_ar_cache,
+    input  [2:0]i_ar_prot,
+    input  [3:0]i_ar_qos,
+    input  [3:0]i_ar_region,
+    input  [USER_WIDTH-1:0] i_ar_user,
+   
     // AXI write channel
     input   [31:0] i_wdata,
     input   [3:0] i_wstrb,
     input   i_wvalid,
     output  o_wready,
+   //unused signals
+    input   i_w_last,
+    input  [USER_WIDTH-1:0] i_w_user,
 
     // AXI response channel
     input   i_bready,
     output  [1:0] o_bresp,
     output  o_bvalid,
+   //unused signals 
+   output  [ID_WIDTH-1:0] o_b_id,
+   output  [USER_WIDTH-1:0] o_b_user,
     
     // AXI read channel
     input   i_rready,
@@ -57,7 +75,9 @@ module ServCoreBlackbox
     output  [1:0] o_rresp,
     output  o_rlast,
     output  o_rvalid,
-    
+    //unused signals
+    output  [ID_WIDTH-1:0] o_r_id,
+    output  [USER_WIDTH-1:0] o_r_user,
     // ---------------------------------------------------------------- //
 
     // AXI2WB AXI SIGNALS FROM BRIDGE TO EXTERNAL(PERIPHERAL/ADAPTER/BUS)
@@ -67,31 +87,61 @@ module ServCoreBlackbox
     input   i_awmready,
     output  [AW_B-1:0] o_awmaddr,
     output  o_awmvalid,
-
+    //unused signals
+    output  [ID_WIDTH-1:0] o_awm_id,
+    output  [7:0] o_awm_len,
+    output  [2:0] o_awm_size,
+    output  [1:0] o_awm_burst,
+    output  o_awm_lock,
+    output  [3:0] o_awm_cache,
+    output  [2:0] o_awm_prot,
+    output  [3:0] o_awm_qos,
+    output  [3:0] o_awm_region,
+    output  [5:0] o_awm_atop,
+    output  [USER_WIDTH-1:0] o_awm_user,
 
     // AXI address read channel
     input   i_armready,
     output  [AW_B-1:0] o_armaddr,
     output  o_armvalid,
+    //unused signals
+    output  [ID_WIDTH-1:0] o_arm_id,
+    output  [7:0] o_arm_len,
+    output  [2:0] o_arm_size,
+    output  [1:0] o_arm_burst,
+    output  o_arm_lock,
+    output  [3:0] o_arm_cache,
+    output  [2:0] o_arm_prot,
+    output  [3:0] o_arm_qos,
+    output  [3:0] o_arm_region,
+    output  [USER_WIDTH-1:0] o_arm_user,
 
     // AXI write channel
     input  i_wmready,
     output [31:0] o_wmdata,
     output [3:0] o_wmstrb,
     output o_wmvalid,
+    //unused signals
+    output  o_wm_last,
+    output  [USER_WIDTH-1:0] o_wm_user,
 
     // AXI response channel
     input  [1:0] i_bmresp,
     input  i_bmvalid,
     output o_bmready,
-
+    //unused signals 
+    input  [ID_WIDTH-1:0] i_bm_id,
+    input  [USER_WIDTH-1:0] i_bm_user,
+    
     //AXI read channel
     input   [31:0] i_rmdata,
     input   [1:0] i_rmresp,
     input   i_rmlast,
     input   i_rmvalid,
     output  o_rmready
-
+    //unused signals
+    input wire [ID_WIDTH-1:0] i_rm_id,
+    input wire [USER_WIDTH-1:0] i_rm_user
 
 );
 
