@@ -30,13 +30,13 @@ SERV_VSRCS = \
 	$(SERV_DIR)/rtl/servile_rf_mem_if.v \
 	$(SERV_DIR)/rtl/servile.v \
 	$(SERV_DIR)/rtl/servile_mux.v\
-  $(SERV_DIR)/rtl/serving.v\
-  $(SERV_DIR)/rtl/serving_ram.v\
-  $(SERV_DIR)/rtl/servile.v\
-  $(SERV_DIR)/rtl/servile_arbiter.v\
-  $(SERV_DIR)/rtl/servile_mux.v\
-  $(SERV_DIR)/rtl/servile_rf_mem_if.v\
-  // TOP FILE 
+        $(SERV_DIR)/rtl/serving.v\
+        $(SERV_DIR)/rtl/serving_ram.v\
+        $(SERV_DIR)/rtl/servile.v\
+        $(SERV_DIR)/rtl/servile_arbiter.v\
+        $(SERV_DIR)/rtl/servile_mux.v\
+        $(SERV_DIR)/rtl/servile_rf_mem_if.v\
+        $(SERV_DIR)/rtl/ServCore.v 
   
 
 # Top-level wrapper file (matches Chisel blackbox declaration)
