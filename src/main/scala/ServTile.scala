@@ -225,7 +225,6 @@ val slaveTLNode = TLIdentityNode()
 def connectServInterrupts(mtip: Bool) {
     val (interrupts, _) = intSinkNode.in(0)
     mtip := interrupts(1)
-
   }
 
 
@@ -252,40 +251,133 @@ class ServTileModuleImp(outer: ServTile) extends BaseTileModuleImp(outer){
 
   outer.connectServInterrupts(core.io.i_timer_irq)
 
-
+//------------------SERV MASTER NODE CONNCETION WITH AXI BUNDLE-----------//
+//--------------------FROM SERVING TO EXTERNAL
   // connect the axi interface
   outer.ServAXI4MNode.out foreach { case (out, edgeOut) =>
+    
     core.io.i_awmready             := out.aw.ready
     out.aw.valid                   := core.io.o_awmvalid
     out.aw.bits.addr               := core.io.o_awmaddr
-    
     // unused signals
-    //  assert(core.io.axi_req_o_aw_bits_region === 0.U)
+    assert (core.io.o_awm_id  === 0.U) 
+    assert (core.io.o_awm_len  === 0.U)
+    assert (core.io.o_awm_size  === 0.U)
+    assert (core.io.o_awm_burst === 0.U)
+    assert (core.io.o_awm_lock  === 0.U)
+    assert (core.io.o_awm_cache === 0.U)
+    assert (core.io.o_awm_prot  === 0.U)
+    assert (core.io.o_awm_qos   === 0.U)
+    assert (core.io.o_awm_region === 0.U
+    assert (core.io.o_awm_atop  === 0.U)
+    assert (core.io.o_awm_user  === 0.U)  
 
     core.io.i_wmready              := out.w.ready
     out.w.valid                    := core.io.o_wmvalid
     out.w.bits.data                := core.io.o_wmdata
-    out.w.bits.strb                := core.io.o_wmstrb
-    
+    out.w.bits.strb                := core.io.o_wmstrb   
     // unused signals
-    //  assert(core.io.axi_req_o_w_bits_user === 0.U)
+     assert(core.io.o_wm_user === 0.U)
+     assert(core.io.o_wm_last === 0.U)       
 
     out.b.ready                    := core.io.o_bmready
     core.io.i_bmvalid              := out.b.valid
     core.io.i_bmresp               := out.b.bits.resp
-    //core.io.axi_resp_i_b_bits_user := 0.U // unused
+    // unused signals
+    core.io.i_bm_id  := 0.U    
+    core.io.i_bm_user  := 0.U 
+    
 
     core.io.i_armready             := out.ar.ready
     out.ar.valid                   := core.io.o_armvalid
     out.ar.bits.addr               := core.io.o_armaddr
-    
-    // unused signals if any
+    // unused signals 
+    assert (core.io.o_arm_id  === 0.U) 
+    assert (core.io.o_arm_len  === 0.U)
+    assert (core.io.o_arm_size  === 0.U)
+    assert (core.io.o_arm_burst === 0.U)
+    assert (core.io.o_arm_lock  === 0.U)
+    assert (core.io.o_arm_cache === 0.U)
+    assert (core.io.o_arm_prot  === 0.U)
+    assert (core.io.o_arm_qos   === 0.U)
+    assert (core.io.o_arm_region === 0.U
+    assert (core.io.o_arm_user  === 0.U) 
     
     out.r.ready                    := core.io.o_rmready
     core.io.i_rmvalid              := out.r.valid
-    core.io.i_rmdata                := out.r.bits.data
+    core.io.i_rmdata               := out.r.bits.data
     core.io.i_rmresp               := out.r.bits.resp
     core.io.i_rmlast               := out.r.bits.last
-    //core.io.axi_resp_i_r_bits_user := 0.U // unused
+    //unused signals
+    core.io.i_rm_user := 0.U 
+    core.io.i_rm_id := 0.U 
   }
+            
+  //------------SERV SLAVE NODE CONNECTION WITH AXI BUNDLE-----------------//
+  //-------------FROM EXTERNAL TO SERVING
+outer.ServAXI4SNode.in foreach { case (in, edgeIn) =>
+  in.aw.ready := core.io.o_awready
+  core.io.i_awvalid := in.aw.valid
+  core.io.i_awaddr  := in.aw.bits.addr
+  //unused signals
+  core.io.i_aw_id     := 0.U
+  core.io.i_aw_len    := 0.U
+  core.io.i_aw_size   := 0.U
+  core.io.i_aw_burst  := 0.U
+  core.io.i_aw_lock   := 0.U
+  core.io.i_aw_cache  := 0.U
+  core.io.i_aw_prot   := 0.U
+  core.io.i_aw_qos    := 0.U
+  core.io.i_aw_region := 0.U
+  core.io.i_aw_atop   := 0.U
+  core.io.i_aw_user   := 0.U
+
+  
+
+  in.w.ready := core.io.o_wready
+  core.io.i_wvalid := in.w.valid
+  core.io.i_wdata  := in.w.bits.data
+  core.io.i_wstrb  := in.w.bits.strb
+  //unused signals
+  core.io.i_w_last := 0.U
+  core.io.i_w_user := 0.U
+
+  
+  core.io.i_bready := in.b.ready
+  in.b.valid := core.io.o_bvalid
+  in.b.bits.resp := core.io.o_bresp
+  //unused signals
+  assert(core.io.o_b_id   === 0.U)
+  assert(core.io.o_b_user === 0.U)
+
+  in.ar.ready := core.io.o_arready
+  core.io.i_arvalid := in.ar.valid
+  core.io.i_araddr  := in.ar.bits.addr
+  //unused signals:
+  core.io.i_ar_id     := 0.U
+  core.io.i_ar_len    := 0.U
+  core.io.i_ar_size   := 0.U
+  core.io.i_ar_burst  := 0.U
+  core.io.i_ar_lock   := 0.U
+  core.io.i_ar_cache  := 0.U
+  core.io.i_ar_prot   := 0.U
+  core.io.i_ar_qos    := 0.U
+  core.io.i_ar_region := 0.U
+  core.io.i_ar_user   := 0.U
+
+
+  core.io.i_rready := in.r.ready
+  in.r.valid := core.io.o_rvalid
+  in.r.bits.data := core.io.o_rdata
+  in.r.bits.resp := core.io.o_rresp
+  in.r.bits.last := core.io.o_rlast
+  //unused signals
+  assert(core.io.o_r_id   === 0.U)
+  assert(core.io.o_r_user === 0.U)
+
+  
+}
+
+
+  
 }
