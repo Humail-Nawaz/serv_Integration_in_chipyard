@@ -153,66 +153,118 @@ serving_bridge_top  // Serving (SoClet containing SERV and Servile Wrapper) plus
         .sim(SIM_B),
         .RESET_STRATEGY(RESET_STRATEGY_B),
         .WITH_CSR(WITH_CSR_B),
-        .AW(AW_B)
-
+        .AW(AW_B),
+        .ID_WIDTH(ID_WIDTH),
+        .USER_WIDTH(USER_WIDTH)
 )
 
 i_serving_bridge_top (
    
-        .clk          (clk),
-        .rst          (rst),
-        .i_timer_irq  (i_timer_irq),
+    .clk(clk),
+    .rst(rst),
+    .i_timer_irq(i_timer_irq),
 
+   // AXI SIGNALS FROM TILELINK---->BRIDGE---->SERVING
+    .i_awaddr(i_awaddr),
+    .i_awvalid(i_awvalid),
+    .o_awready(o_awready),
+    .i_aw_id(i_aw_id),
+    .i_aw_len(i_aw_len),
+    .i_aw_size(i_aw_size),
+    .i_aw_burst(i_aw_burst),
+    .i_aw_lock(i_aw_lock),
+    .i_aw_cache(i_aw_cache),
+    .i_aw_prot(i_aw_prot),
+    .i_aw_qos(i_aw_qos),
+    .i_aw_region(i_aw_region),
+    .i_aw_atop(i_aw_atop),
+    .i_aw_user(i_aw_user),
 
-        .i_awaddr     (i_awaddr),
-        .i_awvalid    (i_awvalid),
-        .o_awready    (o_awready),
+    .i_araddr(i_araddr),
+    .i_arvalid(i_arvalid),
+    .o_arready(o_arready),
+    .i_ar_id(i_ar_id),
+    .i_ar_len(i_ar_len),
+    .i_ar_size(i_ar_size),
+    .i_ar_burst(i_ar_burst),
+    .i_ar_lock(i_ar_lock),
+    .i_ar_cache(i_ar_cache),
+    .i_ar_prot(i_ar_prot),
+    .i_ar_qos(i_ar_qos),
+    .i_ar_region(i_ar_region),
+    .i_ar_user(i_ar_user),
 
-        .i_araddr     (i_araddr),
-        .i_arvalid    (i_arvalid),
-        .o_arready    (o_arready),
+    .i_wdata(i_wdata),
+    .i_wstrb(i_wstrb),
+    .i_wvalid(i_wvalid),
+    .o_wready(o_wready),
+    .i_w_last(i_w_last),
+    .i_w_user(i_w_user),
 
-        .i_wdata      (i_wdata),
-        .i_wstrb      (i_wstrb),
-        .i_wvalid     (i_wvalid),
-        .o_wready     (o_wready),
+    .o_bresp(o_bresp),
+    .o_bvalid(o_bvalid),
+    .i_bready(i_bready),
+    .o_b_id(o_b_id),
+    .o_b_user(o_b_user),
 
-        .i_bready    (i_bready),
-        .o_bresp     (o_bresp),
-        .o_bvalid    (o_bvalid),
+     .o_rdata(o_rdata),
+    .o_rresp(o_rresp),
+    .o_rlast(o_rlast),
+    .o_rvalid(o_rvalid),
+    .i_rready(i_rready),
+    .o_r_id(o_r_id),
+    .o_r_user(o_r_user),
+   
+// AXI SIGNALS FROM SERVING--->BRIDGE---->TILELINK
+    .o_awmaddr(o_awmaddr),
+    .o_awmvalid(o_awmvalid),
+    .i_awmready(i_awmready),
+    .o_awm_id(o_awm_id),
+    .o_awm_len(o_awm_len),
+    .o_awm_size(o_awm_size),
+    .o_awm_burst(o_awm_burst),
+    .o_awm_lock(o_awm_lock),
+    .o_awm_cache(o_awm_cache),
+    .o_awm_prot(o_awm_prot),
+    .o_awm_qos(o_awm_qos),
+    .o_awm_region(o_awm_region),
+    .o_awm_atop(o_awm_atop),
+    .o_awm_user(o_awm_user),
+   
+    .o_armaddr(o_armaddr),
+    .o_armvalid(o_armvalid),
+    .i_armready(i_armready),
+    .o_arm_id(o_arm_id),
+    .o_arm_len(o_arm_len),
+    .o_arm_size(o_arm_size),
+    .o_arm_burst(o_arm_burst),
+    .o_arm_lock(o_arm_lock),
+    .o_arm_cache(o_arm_cache),
+    .o_arm_prot(o_arm_prot),
+    .o_arm_qos(o_arm_qos),
+    .o_arm_region(o_arm_region),
+    .o_arm_user(o_arm_user),
 
-        .i_rready    (i_rready),
-        .o_rdata     (o_rdata),
-        .o_rresp     (o_rresp),
-        .o_rlast     (o_rlast),
-        .o_rvalid    (o_rvalid),
+    .o_wmdata(o_wmdata),
+    .o_wmstrb(o_wmstrb),
+    .o_wmvalid(o_wmvalid),
+    .i_wmready(i_wmready),
+    .o_wm_last(o_wm_last),
+    .o_wm_user(o_wm_user),
+   
+    .i_bmresp(i_bmresp),
+    .i_bmvalid(i_bmvalid),
+    .o_bmready(o_bmready),
+    .i_bm_id(i_bm_id),
+    .i_bm_user(i_bm_user),
 
-
-
-        .i_awmready  (i_awmready),
-        .o_awmaddr   (o_awmaddr),
-        .o_awmvalid  (o_awmvalid),
-
-        .i_armready  (i_armready),
-        .o_armaddr   (o_armaddr),
-        .o_armvalid  (o_armvalid),
-
-        .i_wmready   (i_wmready),
-        .o_wmdata    (o_wmdata),
-        .o_wmstrb    (o_wmstrb),
-        .o_wmvalid   (o_wmvalid),
-
-        .i_bmresp    (i_bmresp),
-        .i_bmvalid   (i_bmvalid),
-        .o_bmready   (o_bmready),
-
-        .i_rmdata    (i_rmdata),
-        .i_rmresp    (i_rmresp),
-        .i_rmlast    (i_rmlast),
-        .i_rmvalid   (i_rmvalid),
-        .o_rmready   (o_rmready)
-
-
+    .i_rmdata(i_rmdata),
+    .i_rmresp(i_rmresp),
+    .i_rmlast(i_rmlast),
+    .i_rmvalid(i_rmvalid),
+    .o_rmready(o_rmready),
+    .i_rm_id(i_rm_id),
+    .i_rm_user(i_rm_user)
     );
 
 endmodule
