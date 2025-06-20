@@ -138,7 +138,7 @@ module ServCoreBlackbox
     input   [1:0] i_rmresp,
     input   i_rmlast,
     input   i_rmvalid,
-    output  o_rmready
+    output  o_rmready,
     //unused signals
     input wire [ID_WIDTH-1:0] i_rm_id,
     input wire [USER_WIDTH-1:0] i_rm_user
