@@ -28,7 +28,7 @@ extends BlackBox(
    Map(
 	"MEMFILE_B"        -> StringParam(memfile_b),
 	"MEMSIZE_B"        -> IntParam(memsize_b),
-	"SIM_B"		   -> IntParam(sim_b),
+	"SIM_B"            -> IntParam(sim_b),
 	"RESET_STRATEGY_B" -> StringParam(reset_strategy_b),
 	"WITH_CSR_B"	   -> IntParam(with_csr_b),
 	"AW_B"             -> IntParam(aw_b),
