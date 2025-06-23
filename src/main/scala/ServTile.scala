@@ -24,11 +24,17 @@ import freechips.rocketchip.util._
 import freechips.rocketchip.tile._
 import freechips.rocketchip.prci._
 import freechips.rocketchip.amba.axi4._
+import freechips.rocketchip.resources.SimpleDevice
+import freechips.rocketchip.resources.ResourceAnchors
+import freechips.rocketchip.resources.ResourceBindings
+import freechips.rocketchip.resources.ResourceBinding
+import freechips.rocketchip.resources.Description
+import freechips.rocketchip.resources.{Resource, ResourceAddress}
 
 
 case class ServCoreParams(
   val bootFreqHz: BigInt = BigInt(32000000),
-  val xLen = 32
+  val xLen: Int = 32,
   val pmpEnable: Int = 0,
   val pmpGranularity: Int = 0,
   val pmpNumRegions: Int = 0
@@ -44,7 +50,7 @@ case class ServCoreParams(
   override val useVector: Boolean = false
   val useSCIE: Boolean = false
   val useRVE: Boolean = false
-  val mulDiv: Option[MulDivParams] = None
+  val mulDiv: Option[MulDivParams]= None
   val fpu: Option[FPUParams] = None //floating point not supported
   val fetchWidth: Int = 1
   val decodeWidth: Int = 1
@@ -64,14 +70,27 @@ case class ServCoreParams(
   val mtvecWritable: Boolean = false
   val nL2TLBWays: Int = 0
   val lrscCycles: Int = 80
+  val useNMI = false                  // SERV does not support NMI
+  val useConditionalZero = false     // No special optimization for zero
+  val useZba = false                 // Bit-manipulation extension not supported
+  val useZbb = false
+  val useZbs = false
+  val traceHasWdata = false          // No tracing with write data
+  val pgLevels = 0                   // No page tables (no virtual memory)
+  val nPTECacheEntries = 0           // No PTE cache
+  val mcontextWidth = 0              // No machine context
+  val scontextWidth = 0              // No supervisor context
   // SERV SPECIFIC
   val aw_b: Int = 12
+  val iw_b: Int = 0
+  val uw_b: Int = 0
   val with_csr_b: Boolean = true
   val memsize: Int = 8192
-  val sim_b: Boolean = false
+  val sim_b: Int = 1
   val memfile_b: String = ""
   val reset_strategy: String = "MINI"
 }
+
 
 case class ServTileAttachParams(
   tileParams: ServTileParams,
@@ -94,8 +113,6 @@ case class ServTileParams(
   val dcache: Option[DCacheParams] = None //no dcache
   val icache: Option[ICacheParams] = None //no icache -- Bit serial processing
   val clockSinkParams: ClockSinkParameters = ClockSinkParameters()
-
-
   def instantiate(crossing: HierarchicalElementCrossingParamsLike, lookup: LookupByHartIdImpl)(implicit p: Parameters): ServTile = {
     new ServTile(this, crossing, lookup)
   }
@@ -127,8 +144,7 @@ class ServTile private(
   tlOtherMastersNode := tlMasterXbar.node
   masterNode :=* tlOtherMastersNode
   DisableMonitors { implicit p => tlSlaveXbar.node :*= slaveNode }
-
-
+  
   // Required entry of CPU device in the device tree for interrupt purpose
   val cpuDevice: SimpleDevice = new SimpleDevice("cpu", Seq("OlofKindgren,serv", "riscv")) {
     override def parent = Some(ResourceAnchors.cpus)
@@ -145,8 +161,6 @@ class ServTile private(
     Resource(cpuDevice, "reg").bind(ResourceAddress(tileId))
   }
 
-  }
-
 
 override def makeMasterBoundaryBuffers(crossing: ClockCrossingType)(implicit p: Parameters) = crossing match {
     case _: RationalCrossing =>
@@ -155,32 +169,30 @@ override def makeMasterBoundaryBuffers(crossing: ClockCrossingType)(implicit p: 
     case _ => TLBuffer(BufferParams.none)
   }
 
-override def makeSlaveBoundaryBuffers(crossing: ClockCrossingType)(implicit p: Parameters) =
-  TLBuffer(BufferParams.none)
+override def makeSlaveBoundaryBuffers(crossing: ClockCrossingType)(implicit p: Parameters) = crossing match {
+    case _: RationalCrossing =>
+      if (!servParams.boundaryBuffers) TLBuffer(BufferParams.none)
+      else TLBuffer(BufferParams.flow, BufferParams.none, BufferParams.none, BufferParams.none, BufferParams.none)
+    case _ => TLBuffer(BufferParams.none)
+  }
 
 
 
 override lazy val module = new ServTileModuleImp(this)
 
 
-  val portName = "serv-axi4-master"
-  val idBits = 4
+  val portNameM = "serv-axi4-master"
+  val idBitsM = 0
+  //val beatBytes = 4
 
   val ServAXI4MNode = AXI4MasterNode(
     Seq(AXI4MasterPortParameters(
       masters = Seq(AXI4MasterParameters(
-        name = portName,
-        id = IdRange(0, 1 << idBits))))))
+        name = portNameM,
+        id = IdRange(0, 1 << idBitsM))))))
 
   val memoryTap = TLIdentityNode()
-
-
-
-  // ------------------------- MASTER NODE ---------------------------- //
-  // tlMasterXbar is the bus crossbar to be used when this core / tile is acting as a master; otherwise, use tlSlaveXBar
-
-
-  (tlMasterXbar.node  
+ (tlMasterXbar.node  
     := memoryTap
     := TLBuffer()
     := TLFIFOFixer(TLFIFOFixer.all) // fix FIFO ordering
@@ -191,59 +203,50 @@ override lazy val module = new ServTileModuleImp(this)
     := ServAXI4MNode) // Custom SERV node.
 
 
- // ------------------------- MASTER NODE ------------------------------- //
 
+/*val slaveTLNode = TLIdentityNode()
 
+val ServAXI4SNode = AXI4SlaveNode(Seq(
+  AXI4SlavePortParameters(
+    slaves = Seq(AXI4SlaveParameters(
+      address       = Seq(AddressSet(0x40000000L, 0x3FF)),
+      resources     = (new SimpleDevice("serv", Seq("ucbbar,serv"))).reg("mem"),
+      executable    = false,
+      supportsRead  = TransferSizes(1, beatBytes),
+      supportsWrite = TransferSizes(1, beatBytes)
+    )),
+    beatBytes = beatBytes
+  )
+))*/
 
+/* Connect TileLink side to AXI4 side
+ServAXI4SNode :=
+  AXI4Fragmenter() := AXI4UserYanker() := AXI4Deinterleaver(beatBytes) :=
+  TLToAXI4() := TLBuffer() := TLWidthWidget(beatBytes) := slaveTLNode*/
 
+// Directly attach the SERV slave TL node to the PeripheryBus (for internal access)
+//pbuss.node := TLBuffer() := slaveTLNode
 
-  val portName = "serv-axi4-slave"
-  val idBits = 4
-
-  val ServAXI4SNode = AXI4SlaveNode(
-    Seq(AXI4SlavePortParameters(
-        slaves  = Seq(AXI4SlaveParameters(
-        name    = portName,
-        address = AddressSet(0x4000_0000L, 0x3FF), 
-        id      = IdRange(0, 1 << idBits))))))
-
-// -------------------------- SLAVE NODE -------------------------------- //
-
-val slaveTLNode = TLIdentityNode()
-
-(tlSlaveXbar.node 
-    := ServAXI4SNode
-    := AXI4Fragmenter()                 // fragment to AXI-Lite if needed
-    := AXI4UserYanker()                 // strip TLToAXI4’s user field
-    := AXI4Deinterleaver(beatBytes)   // re-order AXI read beats
-    := TLToAXI4()                       // convert TL to AXI4
-    := TLBuffer()                       // add buffering (decoupling)
-    := TLWidthWidget(beatBytes)    // match beat width
-    := slaveTLNode)
-// -------------------------- SLAVE NODE -------------------------------- //
-
-def connectServInterrupts(mtip: Bool) {
+def connectServInterrupts(mtip: Bool): Unit = {
     val (interrupts, _) = intSinkNode.in(0)
     mtip := interrupts(1)
   }
-
-
-
+}
+  
 class ServTileModuleImp(outer: ServTile) extends BaseTileModuleImp(outer){
   
 
   val core = Module(new ServCoreBlackbox(
+  memfile_b        = outer.servParams.core.memfile_b,
+  memsize_b        = outer.servParams.core.memsize,
+  sim_b            = outer.servParams.core.sim_b ,
+  reset_strategy_b = outer.servParams.core.reset_strategy,
+  with_csr_b       = if(outer.servParams.core.with_csr_b) 1 else 0,
+  aw_b             = outer.servParams.core.aw_b,
+  uw_b             = outer.servParams.core.uw_b,
+  iw_b             = outer.servParams.core.iw_b
+))
 
-    // general core params 
-    memfile_b        = outer.servParams.core.memfile_b,
-    memsize_b        = outer.servParams.core.memsize_b,
-    sim_b            = outer.servParams.core.sim_b,
-    reset_strategy_b = outer.servParams.core.reset_strategy_b,
-    with_csr_b       = outer.servParams.core.with_csr,
-    aw_b             = outer.servParams.core.aw_b,
-    user_width       = outer.servPrams.core.uw_b,
-    id_width         = outer.servParams.core.iw_b
-     ))
 
   core.io.clk := clock
   core.io.rst := reset.asBool    // Check Reset --
@@ -268,7 +271,7 @@ class ServTileModuleImp(outer: ServTile) extends BaseTileModuleImp(outer){
     assert (core.io.o_awm_cache === 0.U)
     assert (core.io.o_awm_prot  === 0.U)
     assert (core.io.o_awm_qos   === 0.U)
-    assert (core.io.o_awm_region === 0.U
+    assert (core.io.o_awm_region === 0.U)
     assert (core.io.o_awm_atop  === 0.U)
     assert (core.io.o_awm_user  === 0.U)  
 
@@ -300,7 +303,7 @@ class ServTileModuleImp(outer: ServTile) extends BaseTileModuleImp(outer){
     assert (core.io.o_arm_cache === 0.U)
     assert (core.io.o_arm_prot  === 0.U)
     assert (core.io.o_arm_qos   === 0.U)
-    assert (core.io.o_arm_region === 0.U
+    assert (core.io.o_arm_region === 0.U)
     assert (core.io.o_arm_user  === 0.U) 
     
     out.r.ready                    := core.io.o_rmready
@@ -313,7 +316,7 @@ class ServTileModuleImp(outer: ServTile) extends BaseTileModuleImp(outer){
     core.io.i_rm_id := 0.U 
   }
             
-  //------------SERV SLAVE NODE CONNECTION WITH AXI BUNDLE-----------------//
+  /*------------SERV SLAVE NODE CONNECTION WITH AXI BUNDLE-----------------//
   //-------------FROM EXTERNAL TO SERVING
 outer.ServAXI4SNode.in foreach { case (in, edgeIn) =>
   in.aw.ready := core.io.o_awready
@@ -347,8 +350,8 @@ outer.ServAXI4SNode.in foreach { case (in, edgeIn) =>
   in.b.valid := core.io.o_bvalid
   in.b.bits.resp := core.io.o_bresp
   //unused signals
-  assert(core.io.o_b_id   === 0.U)
-  assert(core.io.o_b_user === 0.U)
+  assert (core.io.o_b_id   === 0.U)
+  assert (core.io.o_b_user === 0.U)
 
   in.ar.ready := core.io.o_arready
   core.io.i_arvalid := in.ar.valid
@@ -372,12 +375,9 @@ outer.ServAXI4SNode.in foreach { case (in, edgeIn) =>
   in.r.bits.resp := core.io.o_rresp
   in.r.bits.last := core.io.o_rlast
   //unused signals
-  assert(core.io.o_r_id   === 0.U)
-  assert(core.io.o_r_user === 0.U)
-
-  
-}
-
+  assert (core.io.o_r_id   === 0.U)
+  assert (core.io.o_r_user === 0.U) 
+}  */
 
   
 }
