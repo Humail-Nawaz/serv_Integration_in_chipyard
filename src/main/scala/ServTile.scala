@@ -24,6 +24,12 @@ import freechips.rocketchip.util._
 import freechips.rocketchip.tile._
 import freechips.rocketchip.prci._
 import freechips.rocketchip.amba.axi4._
+import freechips.rocketchip.resources.SimpleDevice
+import freechips.rocketchip.resources.ResourceAnchors
+import freechips.rocketchip.resources.ResourceBindings
+import freechips.rocketchip.resources.ResourceBinding
+import freechips.rocketchip.resources.Description
+import freechips.rocketchip.resources.{Resource, ResourceAddress}
 
 
 case class ServCoreParams(
