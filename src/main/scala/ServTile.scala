@@ -143,7 +143,9 @@ class ServTile private(
 
   tlOtherMastersNode := tlMasterXbar.node
   masterNode :=* tlOtherMastersNode
-  DisableMonitors { implicit p => tlSlaveXbar.node :*= slaveNode }
+  //DisableMonitors { implicit p => tlSlaveXbar.node :*= slaveNode }
+  tlSlaveXbar.node :*= slaveNode
+
   
   // Required entry of CPU device in the device tree for interrupt purpose
   val cpuDevice: SimpleDevice = new SimpleDevice("cpu", Seq("OlofKindgren,serv", "riscv")) {
