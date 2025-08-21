@@ -1,0 +1,910 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Wed Aug 20 14:49:17 2025
+# Process ID: 11041
+# Current directory: /home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig
+# Command line: vivado -nojournal -mode batch -source /home/u20/chipyard/fpga/fpga-shells/xilinx/common/tcl/vivado.tcl -tclargs -top-module Arty35THarness -F /home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/chipyard.fpga.arty.Arty35THarness.ServArtyConfig.vsrcs.f -board arty -ip-vivado-tcls 
+# Log file: /home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/vivado.log
+# Journal file: 
+#-----------------------------------------------------------
+source /home/u20/chipyard/fpga/fpga-shells/xilinx/common/tcl/vivado.tcl
+# set scriptdir [file dirname [info script]]
+# source [file join $scriptdir "prologue.tcl"]
+## set ip_vivado_tcls {}
+## while {[llength $argv]} {
+##   set argv [lassign $argv[set argv {}] flag]
+##   switch -glob $flag {
+##     -top-module {
+##       set argv [lassign $argv[set argv {}] top]
+##     }
+##     -F {
+##       # This should be a simple file format with one filepath per line
+##       set argv [lassign $argv[set argv {}] vsrc_manifest]
+##     }
+##     -board {
+##       set argv [lassign $argv[set argv {}] board]
+##     }
+##     -ip-vivado-tcls {
+##       set argv [lassign $argv[set argv {}] ip_vivado_tcls]
+##     }
+##     -pre-impl-debug-tcl {
+##       set argv [lassign $argv[set argv {}] pre_impl_debug_tcl]
+##     }
+##     -post-impl-debug-tcl {
+##       set argv [lassign $argv[set argv {}] post_impl_debug_tcl]
+##     }
+##     -env-var-srcs {
+##       set argv [lassign $argv[set argv {}] env_var_srcs]
+##     }
+##     default {
+##       return -code error [list {unknown option} $flag]
+##     }
+##   }
+## }
+## if {![info exists top]} {
+##   return -code error [list {--top-module option is required}]
+## }
+## if {![info exists vsrc_manifest]} {
+##   return -code error [list {-F option is required}]
+## }
+## if {![info exists board]} {
+##   return -code error [list {--board option is required}]
+## }
+## set commondir [file dirname $scriptdir]
+## set boarddir [file join [file dirname $commondir] $board]
+## source [file join $boarddir tcl board.tcl]
+### set name {arty}
+### set part_fpga {xc7a35ticsg324-1L}
+### set part_board {digilentinc.com:arty:part0:1.1}
+### set bootrom_inst {rom}
+## set constraintsdir [file join $boarddir constraints]
+## set srcdir [file join $commondir vsrc]
+## set wrkdir [file join [pwd] obj]
+## set ipdir [file join $wrkdir ip]
+## create_project -part $part_fpga -force $top
+create_project: Time (s): cpu = 00:00:10 ; elapsed = 00:00:11 . Memory (MB): peak = 2348.312 ; gain = 0.023 ; free physical = 17394 ; free virtual = 23943
+## set_param messaging.defaultLimit 1000000
+## set_property -dict [list \
+## 	BOARD_PART $part_board \
+## 	TARGET_LANGUAGE {Verilog} \
+## 	DEFAULT_LIB {xil_defaultlib} \
+## 	IP_REPO_PATHS $ipdir \
+## 	] [current_project]
+## if {[get_filesets -quiet sources_1] eq ""} {
+## 	create_fileset -srcset sources_1
+## }
+## set obj [current_fileset]
+## proc load_vsrc_manifest {obj vsrc_manifest} {
+##   set fp [open $vsrc_manifest r]
+##   set files [lsearch -not -exact -all -inline [split [read $fp] "\n"] {}]
+##   set relative_files {}
+##   foreach path $files {
+##     if {[string match {/*} $path]} {
+##       lappend relative_files $path
+##     } elseif {![string match {#*} $path]} {
+##       lappend relative_files [file join [file dirname $vsrc_manifest] $path]
+##     }
+##   }
+##   # Read environment variable vsrcs and append to relative_files
+##   upvar #0 env_var_srcs env_var_srcs
+##   set additions [info exists env_var_srcs]
+##   if {$additions} {
+##     if {[info exists ::env($env_var_srcs)]} {
+##       set resources [split $::env($env_var_srcs) :]
+##       set relative_files [list {*}$relative_files {*}$resources]
+##     }
+##   }
+##   add_files -norecurse -fileset $obj {*}$relative_files
+##   close $fp
+## }
+## load_vsrc_manifest $obj $vsrc_manifest
+## if {$ip_vivado_tcls ne {}} {
+##   # Split string into words even with multiple consecutive spaces
+##   # http://wiki.tcl.tk/989
+##   set ip_vivado_tcls [regexp -inline -all -- {\S+} $ip_vivado_tcls]
+## }
+## if {[get_filesets -quiet sim_1] eq ""} {
+## 	create_fileset -simset sim_1
+## }
+## set obj [current_fileset -simset]
+## if {[get_filesets -quiet constrs_1] eq ""} {
+## 	create_fileset -constrset constrs_1
+## }
+## set obj [current_fileset -constrset]
+## add_files -quiet -norecurse -fileset $obj [lsort [glob -directory $constraintsdir -nocomplain {*.tcl}]]
+## add_files -quiet -norecurse -fileset $obj [lsort [glob -directory $constraintsdir -nocomplain {*.xdc}]]
+# source [file join $scriptdir "init.tcl"]
+## source [file join $scriptdir "util.tcl"]
+### proc recglob { basedir pattern } {
+###   set dirlist [glob -nocomplain -directory $basedir -type d *]
+###   set findlist [glob -nocomplain -directory $basedir $pattern]
+###   foreach dir $dirlist {
+###     set reclist [recglob $dir $pattern]
+###     set findlist [concat $findlist $reclist]
+###   }
+###   return $findlist
+### }
+### proc findincludedir { basedir pattern } {
+###   set vhfiles [recglob $basedir $pattern]
+###   set vhdirs {}
+###   foreach match $vhfiles {
+###     lappend vhdirs [file dir $match]
+###   }
+###   set uniquevhdirs [lsort -unique $vhdirs]
+###   return $uniquevhdirs
+### }
+## file mkdir $ipdir
+## update_ip_catalog -rebuild
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/tools/Xilinx/Vivado/2020.2/data/ip'.
+## foreach ip_vivado_tcl $ip_vivado_tcls {
+##   source $ip_vivado_tcl
+## }
+## set boardiptcl [file join $boarddir tcl ip.tcl]
+## if {[file exists $boardiptcl]} {
+##   source $boardiptcl
+## }
+### create_ip -vendor xilinx.com -library ip -name clk_wiz -module_name mmcm -dir $ipdir -force
+create_ip: Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 2412.473 ; gain = 64.160 ; free physical = 17250 ; free virtual = 23799
+### set_property -dict [list \
+### 	CONFIG.PRIMITIVE {MMCM} \
+### 	CONFIG.RESET_TYPE {ACTIVE_LOW} \
+### 	CONFIG.CLKOUT1_USED {true} \
+###         CONFIG.CLKOUT2_USED {true} \
+###         CONFIG.CLKOUT3_USED {true} \
+### 	CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {8.388} \
+###         CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {65.000} \
+###         CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {32.500} \
+### 	] [get_ips mmcm]
+### create_ip -vendor xilinx.com -library ip -name proc_sys_reset -module_name reset_sys -dir $ipdir -force
+### set_property -dict [list \
+### 	CONFIG.C_EXT_RESET_HIGH {false} \
+### 	CONFIG.C_AUX_RESET_HIGH {false} \
+### 	CONFIG.C_NUM_BUS_RST {1} \
+### 	CONFIG.C_NUM_PERP_RST {1} \
+### 	CONFIG.C_NUM_INTERCONNECT_ARESETN {1} \
+### 	CONFIG.C_NUM_PERP_ARESETN {1} \
+### 	] [get_ips reset_sys]
+### create_ip -vendor xilinx.com -library ip -name ila -module_name ila -dir $ipdir -force
+create_ip: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 2412.473 ; gain = 0.000 ; free physical = 17177 ; free virtual = 23726
+### set_property -dict [list \
+### 	CONFIG.C_NUM_OF_PROBES {1} \
+### 	CONFIG.C_TRIGOUT_EN {false} \
+### 	CONFIG.C_TRIGIN_EN {false} \
+### 	CONFIG.C_MONITOR_TYPE {Native} \
+### 	CONFIG.C_ENABLE_ILA_AXI_MON {false} \
+### 	CONFIG.C_PROBE0_WIDTH {4} \
+### 	CONFIG.C_PROBE10_TYPE {1} \
+### 	CONFIG.C_PROBE10_WIDTH {32} \
+### 	CONFIG.C_PROBE11_TYPE {1} \
+### 	CONFIG.C_PROBE11_WIDTH {32} \
+### 	CONFIG.C_PROBE12_TYPE {1} \
+### 	CONFIG.C_PROBE12_WIDTH {64} \
+### 	CONFIG.C_PROBE13_TYPE {1} \
+### 	CONFIG.C_PROBE13_WIDTH {64} \
+### 	CONFIG.C_PROBE14_TYPE {1} \
+### 	CONFIG.C_PROBE14_WIDTH {97} \
+### 	] [get_ips ila]
+## set xci_files [get_files -all {*.xci}]
+## foreach xci_file $xci_files {
+##   set_property GENERATE_SYNTH_CHECKPOINT {false} -quiet $xci_file
+## }
+## set obj [get_ips]
+## generate_target all $obj
+INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'ila'...
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'ila'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'ila'...
+INFO: [IP_Flow 19-1686] Generating 'Implementation' target for IP 'ila'...
+INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'ila'...
+INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'mmcm'...
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'mmcm'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'mmcm'...
+INFO: [IP_Flow 19-1686] Generating 'Implementation' target for IP 'mmcm'...
+INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'mmcm'...
+INFO: [IP_Flow 19-1686] Generating 'Instantiation Template' target for IP 'reset_sys'...
+INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'reset_sys'...
+INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'reset_sys'...
+INFO: [IP_Flow 19-1686] Generating 'Implementation' target for IP 'reset_sys'...
+INFO: [IP_Flow 19-1686] Generating 'Change Log' target for IP 'reset_sys'...
+generate_target: Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 2412.473 ; gain = 0.000 ; free physical = 17167 ; free virtual = 23716
+## export_ip_user_files -of_objects $obj -no_script -force
+## set obj [current_fileset]
+## set property_include_dirs [get_property include_dirs $obj]
+## set ip_include_dirs [concat $property_include_dirs [findincludedir $ipdir "*.vh"]]
+## set ip_include_dirs [concat $ip_include_dirs [findincludedir $srcdir "*.h"]]
+## set ip_include_dirs [concat $ip_include_dirs [findincludedir $srcdir "*.vh"]]
+# source [file join $scriptdir "synth.tcl"]
+## read_ip [glob -directory $ipdir [file join * {*.xci}]]
+CRITICAL WARNING: [Vivado 12-1504] The IP is already part of the fileset 'sources_1'. Requested source '/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/reset_sys.xci' will not be added.
+CRITICAL WARNING: [Vivado 12-1504] The IP is already part of the fileset 'sources_1'. Requested source '/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/ila/ila.xci' will not be added.
+CRITICAL WARNING: [Vivado 12-1504] The IP is already part of the fileset 'sources_1'. Requested source '/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/mmcm/mmcm.xci' will not be added.
+## synth_design -top $top -flatten_hierarchy rebuilt
+Command: synth_design -top Arty35THarness -flatten_hierarchy rebuilt
+Starting synth_design
+Using part: xc7a35ticsg324-1L
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a35ti'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a35ti'
+INFO: [Device 21-403] Loading part xc7a35ticsg324-1L
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 11054
+WARNING: [Synth 8-6901] identifier 'trap_pending' is used before its declaration [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:1286]
+WARNING: [Synth 8-6901] identifier 'trap_pending' is used before its declaration [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:1293]
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:01:06 ; elapsed = 00:02:15 . Memory (MB): peak = 2444.484 ; gain = 8.000 ; free physical = 16646 ; free virtual = 23196
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'Arty35THarness' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Arty35THarness.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'mmcm' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/mmcm/mmcm.v:72]
+INFO: [Synth 8-6157] synthesizing module 'mmcm_clk_wiz' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/mmcm/mmcm_clk_wiz.v:70]
+INFO: [Synth 8-6157] synthesizing module 'IBUF' [/tools/Xilinx/Vivado/2020.2/scripts/rt/data/unisim_comp.v:32983]
+	Parameter CAPACITANCE bound to: DONT_CARE - type: string 
+	Parameter IBUF_DELAY_VALUE bound to: 0 - type: string 
+	Parameter IBUF_LOW_PWR bound to: TRUE - type: string 
+	Parameter IFD_DELAY_VALUE bound to: AUTO - type: string 
+	Parameter IOSTANDARD bound to: DEFAULT - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'IBUF' (1#1) [/tools/Xilinx/Vivado/2020.2/scripts/rt/data/unisim_comp.v:32983]
+INFO: [Synth 8-6157] synthesizing module 'MMCME2_ADV' [/tools/Xilinx/Vivado/2020.2/scripts/rt/data/unisim_comp.v:39998]
+	Parameter BANDWIDTH bound to: OPTIMIZED - type: string 
+	Parameter CLKFBOUT_MULT_F bound to: 62.375000 - type: double 
+	Parameter CLKFBOUT_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKFBOUT_USE_FINE_PS bound to: FALSE - type: string 
+	Parameter CLKIN1_PERIOD bound to: 10.000000 - type: double 
+	Parameter CLKIN2_PERIOD bound to: 0.000000 - type: double 
+	Parameter CLKOUT0_DIVIDE_F bound to: 123.875000 - type: double 
+	Parameter CLKOUT0_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT0_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT0_USE_FINE_PS bound to: FALSE - type: string 
+	Parameter CLKOUT1_DIVIDE bound to: 16 - type: integer 
+	Parameter CLKOUT1_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT1_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT1_USE_FINE_PS bound to: FALSE - type: string 
+	Parameter CLKOUT2_DIVIDE bound to: 32 - type: integer 
+	Parameter CLKOUT2_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT2_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT2_USE_FINE_PS bound to: FALSE - type: string 
+	Parameter CLKOUT3_DIVIDE bound to: 1 - type: integer 
+	Parameter CLKOUT3_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT3_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT3_USE_FINE_PS bound to: FALSE - type: string 
+	Parameter CLKOUT4_CASCADE bound to: FALSE - type: string 
+	Parameter CLKOUT4_DIVIDE bound to: 1 - type: integer 
+	Parameter CLKOUT4_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT4_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT4_USE_FINE_PS bound to: FALSE - type: string 
+	Parameter CLKOUT5_DIVIDE bound to: 1 - type: integer 
+	Parameter CLKOUT5_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT5_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT5_USE_FINE_PS bound to: FALSE - type: string 
+	Parameter CLKOUT6_DIVIDE bound to: 1 - type: integer 
+	Parameter CLKOUT6_DUTY_CYCLE bound to: 0.500000 - type: double 
+	Parameter CLKOUT6_PHASE bound to: 0.000000 - type: double 
+	Parameter CLKOUT6_USE_FINE_PS bound to: FALSE - type: string 
+	Parameter COMPENSATION bound to: ZHOLD - type: string 
+	Parameter DIVCLK_DIVIDE bound to: 6 - type: integer 
+	Parameter IS_CLKINSEL_INVERTED bound to: 1'b0 
+	Parameter IS_PSEN_INVERTED bound to: 1'b0 
+	Parameter IS_PSINCDEC_INVERTED bound to: 1'b0 
+	Parameter IS_PWRDWN_INVERTED bound to: 1'b0 
+	Parameter IS_RST_INVERTED bound to: 1'b0 
+	Parameter REF_JITTER1 bound to: 0.010000 - type: double 
+	Parameter REF_JITTER2 bound to: 0.010000 - type: double 
+	Parameter SS_EN bound to: FALSE - type: string 
+	Parameter SS_MODE bound to: CENTER_HIGH - type: string 
+	Parameter SS_MOD_PERIOD bound to: 10000 - type: integer 
+	Parameter STARTUP_WAIT bound to: FALSE - type: string 
+INFO: [Synth 8-6155] done synthesizing module 'MMCME2_ADV' (2#1) [/tools/Xilinx/Vivado/2020.2/scripts/rt/data/unisim_comp.v:39998]
+INFO: [Synth 8-6157] synthesizing module 'BUFG' [/tools/Xilinx/Vivado/2020.2/scripts/rt/data/unisim_comp.v:1083]
+INFO: [Synth 8-6155] done synthesizing module 'BUFG' (3#1) [/tools/Xilinx/Vivado/2020.2/scripts/rt/data/unisim_comp.v:1083]
+INFO: [Synth 8-6155] done synthesizing module 'mmcm_clk_wiz' (4#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/mmcm/mmcm_clk_wiz.v:70]
+INFO: [Synth 8-6155] done synthesizing module 'mmcm' (5#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/mmcm/mmcm.v:72]
+INFO: [Synth 8-638] synthesizing module 'reset_sys' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/synth/reset_sys.vhd:74]
+	Parameter C_FAMILY bound to: artix7 - type: string 
+	Parameter C_EXT_RST_WIDTH bound to: 4 - type: integer 
+	Parameter C_AUX_RST_WIDTH bound to: 4 - type: integer 
+	Parameter C_EXT_RESET_HIGH bound to: 1'b0 
+	Parameter C_AUX_RESET_HIGH bound to: 1'b0 
+	Parameter C_NUM_BUS_RST bound to: 1 - type: integer 
+	Parameter C_NUM_PERP_RST bound to: 1 - type: integer 
+	Parameter C_NUM_INTERCONNECT_ARESETN bound to: 1 - type: integer 
+	Parameter C_NUM_PERP_ARESETN bound to: 1 - type: integer 
+INFO: [Synth 8-3491] module 'proc_sys_reset' declared at '/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/proc_sys_reset_v5_0_vh_rfs.vhd:1264' bound to instance 'U0' of component 'proc_sys_reset' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/synth/reset_sys.vhd:129]
+INFO: [Synth 8-638] synthesizing module 'proc_sys_reset' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/proc_sys_reset_v5_0_vh_rfs.vhd:1323]
+	Parameter C_FAMILY bound to: artix7 - type: string 
+	Parameter C_EXT_RST_WIDTH bound to: 4 - type: integer 
+	Parameter C_AUX_RST_WIDTH bound to: 4 - type: integer 
+	Parameter C_EXT_RESET_HIGH bound to: 1'b0 
+	Parameter C_AUX_RESET_HIGH bound to: 1'b0 
+	Parameter C_NUM_BUS_RST bound to: 1 - type: integer 
+	Parameter C_NUM_PERP_RST bound to: 1 - type: integer 
+	Parameter C_NUM_INTERCONNECT_ARESETN bound to: 1 - type: integer 
+	Parameter C_NUM_PERP_ARESETN bound to: 1 - type: integer 
+	Parameter INIT bound to: 1'b1 
+	Parameter IS_C_INVERTED bound to: 1'b0 
+	Parameter IS_D_INVERTED bound to: 1'b0 
+	Parameter IS_R_INVERTED bound to: 1'b0 
+INFO: [Synth 8-113] binding component instance 'FDRE_inst' to cell 'FDRE' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/proc_sys_reset_v5_0_vh_rfs.vhd:1392]
+	Parameter INIT bound to: 1'b1 
+	Parameter IS_C_INVERTED bound to: 1'b0 
+	Parameter IS_D_INVERTED bound to: 1'b0 
+	Parameter IS_R_INVERTED bound to: 1'b0 
+INFO: [Synth 8-113] binding component instance 'FDRE_BSR' to cell 'FDRE' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/proc_sys_reset_v5_0_vh_rfs.vhd:1408]
+	Parameter INIT bound to: 1'b0 
+	Parameter IS_C_INVERTED bound to: 1'b0 
+	Parameter IS_D_INVERTED bound to: 1'b0 
+	Parameter IS_R_INVERTED bound to: 1'b0 
+INFO: [Synth 8-113] binding component instance 'FDRE_BSR_N' to cell 'FDRE' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/proc_sys_reset_v5_0_vh_rfs.vhd:1434]
+	Parameter INIT bound to: 1'b1 
+	Parameter IS_C_INVERTED bound to: 1'b0 
+	Parameter IS_D_INVERTED bound to: 1'b0 
+	Parameter IS_R_INVERTED bound to: 1'b0 
+INFO: [Synth 8-113] binding component instance 'FDRE_PER' to cell 'FDRE' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/proc_sys_reset_v5_0_vh_rfs.vhd:1457]
+	Parameter INIT bound to: 1'b0 
+	Parameter IS_C_INVERTED bound to: 1'b0 
+	Parameter IS_D_INVERTED bound to: 1'b0 
+	Parameter IS_R_INVERTED bound to: 1'b0 
+INFO: [Synth 8-113] binding component instance 'FDRE_PER_N' to cell 'FDRE' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/proc_sys_reset_v5_0_vh_rfs.vhd:1481]
+INFO: [Synth 8-638] synthesizing module 'lpf' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/proc_sys_reset_v5_0_vh_rfs.vhd:816]
+	Parameter C_EXT_RST_WIDTH bound to: 4 - type: integer 
+	Parameter C_AUX_RST_WIDTH bound to: 4 - type: integer 
+	Parameter C_EXT_RESET_HIGH bound to: 1'b0 
+	Parameter C_AUX_RESET_HIGH bound to: 1'b0 
+INFO: [Synth 8-3491] module 'SRL16' declared at '/tools/Xilinx/Vivado/2020.2/scripts/rt/data/unisim_comp.v:78018' bound to instance 'POR_SRL_I' of component 'SRL16' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/proc_sys_reset_v5_0_vh_rfs.vhd:868]
+INFO: [Synth 8-6157] synthesizing module 'SRL16' [/tools/Xilinx/Vivado/2020.2/scripts/rt/data/unisim_comp.v:78018]
+	Parameter INIT bound to: 16'b0000000000000000 
+INFO: [Synth 8-6155] done synthesizing module 'SRL16' (6#1) [/tools/Xilinx/Vivado/2020.2/scripts/rt/data/unisim_comp.v:78018]
+INFO: [Synth 8-638] synthesizing module 'cdc_sync' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/lib_cdc_v1_0_rfs.vhd:106]
+	Parameter C_CDC_TYPE bound to: 1 - type: integer 
+	Parameter C_RESET_STATE bound to: 0 - type: integer 
+	Parameter C_SINGLE_BIT bound to: 1 - type: integer 
+	Parameter C_FLOP_INPUT bound to: 0 - type: integer 
+	Parameter C_VECTOR_WIDTH bound to: 2 - type: integer 
+	Parameter C_MTBF_STAGES bound to: 4 - type: integer 
+	Parameter INIT bound to: 1'b0 
+INFO: [Synth 8-113] binding component instance 'CROSS_PLEVEL_IN2SCNDRY_IN_cdc_to' to cell 'FDR' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/lib_cdc_v1_0_rfs.vhd:514]
+	Parameter INIT bound to: 1'b0 
+INFO: [Synth 8-113] binding component instance 'CROSS_PLEVEL_IN2SCNDRY_s_level_out_d2' to cell 'FDR' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/lib_cdc_v1_0_rfs.vhd:545]
+	Parameter INIT bound to: 1'b0 
+INFO: [Synth 8-113] binding component instance 'CROSS_PLEVEL_IN2SCNDRY_s_level_out_d3' to cell 'FDR' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/lib_cdc_v1_0_rfs.vhd:554]
+	Parameter INIT bound to: 1'b0 
+INFO: [Synth 8-113] binding component instance 'CROSS_PLEVEL_IN2SCNDRY_s_level_out_d4' to cell 'FDR' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/lib_cdc_v1_0_rfs.vhd:564]
+	Parameter INIT bound to: 1'b0 
+INFO: [Synth 8-113] binding component instance 'CROSS_PLEVEL_IN2SCNDRY_s_level_out_d5' to cell 'FDR' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/lib_cdc_v1_0_rfs.vhd:574]
+	Parameter INIT bound to: 1'b0 
+INFO: [Synth 8-113] binding component instance 'CROSS_PLEVEL_IN2SCNDRY_s_level_out_d6' to cell 'FDR' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/lib_cdc_v1_0_rfs.vhd:584]
+INFO: [Synth 8-256] done synthesizing module 'cdc_sync' (7#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/lib_cdc_v1_0_rfs.vhd:106]
+INFO: [Synth 8-256] done synthesizing module 'lpf' (8#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/proc_sys_reset_v5_0_vh_rfs.vhd:816]
+INFO: [Synth 8-638] synthesizing module 'sequence_psr' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/proc_sys_reset_v5_0_vh_rfs.vhd:301]
+INFO: [Synth 8-638] synthesizing module 'upcnt_n' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/proc_sys_reset_v5_0_vh_rfs.vhd:125]
+	Parameter C_SIZE bound to: 6 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'upcnt_n' (9#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/proc_sys_reset_v5_0_vh_rfs.vhd:125]
+INFO: [Synth 8-256] done synthesizing module 'sequence_psr' (10#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/proc_sys_reset_v5_0_vh_rfs.vhd:301]
+INFO: [Synth 8-256] done synthesizing module 'proc_sys_reset' (11#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/hdl/proc_sys_reset_v5_0_vh_rfs.vhd:1323]
+INFO: [Synth 8-256] done synthesizing module 'reset_sys' (12#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/ip/reset_sys/synth/reset_sys.vhd:74]
+INFO: [Synth 8-6157] synthesizing module 'ChipTop' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ChipTop.sv:46]
+INFO: [Synth 8-6157] synthesizing module 'DigitalTop' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/DigitalTop.sv:46]
+INFO: [Synth 8-6157] synthesizing module 'IntXbar_i1_o1' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/IntXbar_i1_o1.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'IntXbar_i1_o1' (13#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/IntXbar_i1_o1.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'SystemBus' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/SystemBus.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'FixedClockBroadcast_4' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/FixedClockBroadcast_4.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'FixedClockBroadcast_4' (14#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/FixedClockBroadcast_4.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLXbar_sbus_i2_o2_a31d32s3k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLXbar_sbus_i2_o2_a31d32s3k1z4u.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLXbar_sbus_i2_o2_a31d32s3k1z4u.sv:417]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'plusarg_reader' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/plusarg_reader.v:7]
+	Parameter FORMAT bound to: tilelink_timeout=%d - type: string 
+	Parameter WIDTH bound to: 32 - type: integer 
+	Parameter DEFAULT bound to: 32'b00000000000000000000000000000000 
+INFO: [Synth 8-6155] done synthesizing module 'plusarg_reader' (15#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/plusarg_reader.v:7]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor' (16#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLXbar_sbus_i2_o2_a31d32s3k1z4u.sv:438]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_1' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_1.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_1' (17#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_1.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLXbar_sbus_i2_o2_a31d32s3k1z4u' (18#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLXbar_sbus_i2_o2_a31d32s3k1z4u.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'TLFIFOFixer' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFIFOFixer.sv:2]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFIFOFixer.sv:113]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_2' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_2.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_2' (19#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_2.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFIFOFixer.sv:134]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_3' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_3.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_3' (20#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_3.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLFIFOFixer' (21#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFIFOFixer.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLInterconnectCoupler_sbus_to_bus_named_cbus' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_sbus_to_bus_named_cbus.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLWidthWidget4' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLWidthWidget4.sv:46]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLWidthWidget4.sv:209]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_4' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_4.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_4' (22#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_4.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Repeater_TLBundleD_a29d64s3k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Repeater_TLBundleD_a29d64s3k1z4u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Repeater_TLBundleD_a29d64s3k1z4u' (23#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Repeater_TLBundleD_a29d64s3k1z4u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'TLWidthWidget4' (24#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLWidthWidget4.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'TLInterconnectCoupler_sbus_to_bus_named_cbus' (25#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_sbus_to_bus_named_cbus.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLInterconnectCoupler_sbus_from_bus_named_fbus' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_sbus_from_bus_named_fbus.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLWidthWidget8' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLWidthWidget8.sv:46]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLWidthWidget8.sv:169]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_5' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_5.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_5' (26#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_5.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Repeater_TLBundleA_a31d64s1k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Repeater_TLBundleA_a31d64s1k1z4u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Repeater_TLBundleA_a31d64s1k1z4u' (27#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Repeater_TLBundleA_a31d64s1k1z4u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'TLWidthWidget8' (28#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLWidthWidget8.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'TLInterconnectCoupler_sbus_from_bus_named_fbus' (29#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_sbus_from_bus_named_fbus.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'SystemBus' (30#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/SystemBus.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'PeripheryBus_pbus' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/PeripheryBus_pbus.sv:46]
+INFO: [Synth 8-6157] synthesizing module 'FixedClockBroadcast_2' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/FixedClockBroadcast_2.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'FixedClockBroadcast_2' (31#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/FixedClockBroadcast_2.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLFIFOFixer_1' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFIFOFixer_1.sv:46]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFIFOFixer_1.sv:147]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_6' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_6.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_6' (32#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_6.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLFIFOFixer_1' (33#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFIFOFixer_1.sv:46]
+INFO: [Synth 8-6157] synthesizing module 'TLXbar_pbus_out_i1_o2_a29d64s4k1z3u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLXbar_pbus_out_i1_o2_a29d64s4k1z3u.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLXbar_pbus_out_i1_o2_a29d64s4k1z3u.sv:193]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_7' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_7.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_7' (34#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_7.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLXbar_pbus_out_i1_o2_a29d64s4k1z3u' (35#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLXbar_pbus_out_i1_o2_a29d64s4k1z3u.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'TLBuffer_a29d64s4k1z3u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a29d64s4k1z3u.sv:2]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a29d64s4k1z3u.sv:52]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_8' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_8.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_8' (36#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_8.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Queue2_TLBundleA_a29d64s4k1z3u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleA_a29d64s4k1z3u.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'ram_2x115' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x115.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'ram_2x115' (37#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x115.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'Queue2_TLBundleA_a29d64s4k1z3u' (38#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleA_a29d64s4k1z3u.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'Queue2_TLBundleD_a29d64s4k1z3u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleD_a29d64s4k1z3u.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'ram_2x79' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x79.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'ram_2x79' (39#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x79.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'Queue2_TLBundleD_a29d64s4k1z3u' (40#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleD_a29d64s4k1z3u.sv:59]
+INFO: [Synth 8-6155] done synthesizing module 'TLBuffer_a29d64s4k1z3u' (41#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a29d64s4k1z3u.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLAtomicAutomata_pbus' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLAtomicAutomata_pbus.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLAtomicAutomata_pbus.sv:338]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_9' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_9.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_9' (42#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_9.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLAtomicAutomata_pbus' (43#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLAtomicAutomata_pbus.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'TLBuffer_a29d64s4k1z3u_1' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a29d64s4k1z3u_1.sv:2]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a29d64s4k1z3u_1.sv:56]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_10' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_10.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_10' (44#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_10.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLBuffer_a29d64s4k1z3u_1' (45#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a29d64s4k1z3u_1.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLInterconnectCoupler_pbus_to_bootaddressreg' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_pbus_to_bootaddressreg.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLFragmenter_BootAddrReg' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFragmenter_BootAddrReg.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFragmenter_BootAddrReg.sv:186]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_11' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_11.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_11' (46#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_11.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Repeater_TLBundleA_a13d64s4k1z3u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Repeater_TLBundleA_a13d64s4k1z3u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Repeater_TLBundleA_a13d64s4k1z3u' (47#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Repeater_TLBundleA_a13d64s4k1z3u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'TLFragmenter_BootAddrReg' (48#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFragmenter_BootAddrReg.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLInterconnectCoupler_pbus_to_bootaddressreg' (49#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_pbus_to_bootaddressreg.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLInterconnectCoupler_pbus_to_device_named_uart_0' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_pbus_to_device_named_uart_0.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLFragmenter_UART' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFragmenter_UART.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFragmenter_UART.sv:186]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_12' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_12.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_12' (50#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_12.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Repeater_TLBundleA_a29d64s4k1z3u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Repeater_TLBundleA_a29d64s4k1z3u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Repeater_TLBundleA_a29d64s4k1z3u' (51#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Repeater_TLBundleA_a29d64s4k1z3u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'TLFragmenter_UART' (52#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFragmenter_UART.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLInterconnectCoupler_pbus_to_device_named_uart_0' (53#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_pbus_to_device_named_uart_0.sv:2]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/PeripheryBus_pbus.sv:541]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_13' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_13.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_13' (54#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_13.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'PeripheryBus_pbus' (55#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/PeripheryBus_pbus.sv:46]
+INFO: [Synth 8-6157] synthesizing module 'TLBuffer_a31d64s1k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a31d64s1k1z4u.sv:2]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a31d64s1k1z4u.sv:58]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_14' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_14.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_14' (56#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_14.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Queue2_TLBundleA_a31d64s1k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleA_a31d64s1k1z4u.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'ram_2x122' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x122.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'ram_2x122' (57#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x122.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'Queue2_TLBundleA_a31d64s1k1z4u' (58#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleA_a31d64s1k1z4u.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'Queue2_TLBundleD_a31d64s1k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleD_a31d64s1k1z4u.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'ram_2x77' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x77.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'ram_2x77' (59#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x77.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'Queue2_TLBundleD_a31d64s1k1z4u' (60#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleD_a31d64s1k1z4u.sv:59]
+INFO: [Synth 8-6155] done synthesizing module 'TLBuffer_a31d64s1k1z4u' (61#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a31d64s1k1z4u.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLInterconnectCoupler_fbus_from_debug_sb' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_fbus_from_debug_sb.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLWidthWidget1' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLWidthWidget1.sv:46]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLWidthWidget1.sv:194]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_15' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_15.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_15' (62#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_15.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Repeater_TLBundleD_a31d64s1k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Repeater_TLBundleD_a31d64s1k1z4u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Repeater_TLBundleD_a31d64s1k1z4u' (63#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Repeater_TLBundleD_a31d64s1k1z4u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'TLWidthWidget1' (64#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLWidthWidget1.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'TLInterconnectCoupler_fbus_from_debug_sb' (65#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_fbus_from_debug_sb.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'PeripheryBus_cbus' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/PeripheryBus_cbus.sv:46]
+INFO: [Synth 8-6157] synthesizing module 'FixedClockBroadcast_7' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/FixedClockBroadcast_7.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'FixedClockBroadcast_7' (66#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/FixedClockBroadcast_7.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLFIFOFixer_2' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFIFOFixer_2.sv:46]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFIFOFixer_2.sv:157]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_16' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_16.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_16' (67#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_16.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLFIFOFixer_2' (68#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFIFOFixer_2.sv:46]
+INFO: [Synth 8-6157] synthesizing module 'TLXbar_cbus_in_i2_o1_a29d64s4k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLXbar_cbus_in_i2_o1_a29d64s4k1z4u.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLXbar_cbus_in_i2_o1_a29d64s4k1z4u.sv:190]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_17' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_17.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_17' (69#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_17.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLXbar_cbus_in_i2_o1_a29d64s4k1z4u.sv:212]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_18' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_18.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_18' (70#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_18.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLXbar_cbus_in_i2_o1_a29d64s4k1z4u' (71#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLXbar_cbus_in_i2_o1_a29d64s4k1z4u.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'TLXbar_cbus_out_i1_o7_a29d64s4k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLXbar_cbus_out_i1_o7_a29d64s4k1z4u.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLXbar_cbus_out_i1_o7_a29d64s4k1z4u.sv:343]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_19' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_19.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_19' (72#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_19.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLXbar_cbus_out_i1_o7_a29d64s4k1z4u' (73#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLXbar_cbus_out_i1_o7_a29d64s4k1z4u.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'TLBuffer_a29d64s4k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a29d64s4k1z4u.sv:2]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a29d64s4k1z4u.sv:56]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_20' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_20.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_20' (74#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_20.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Queue2_TLBundleA_a29d64s4k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleA_a29d64s4k1z4u.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'ram_2x116' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x116.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'ram_2x116' (75#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x116.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'Queue2_TLBundleA_a29d64s4k1z4u' (76#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleA_a29d64s4k1z4u.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'Queue2_TLBundleD_a29d64s4k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleD_a29d64s4k1z4u.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'ram_2x80' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x80.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'ram_2x80' (77#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x80.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'Queue2_TLBundleD_a29d64s4k1z4u' (78#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleD_a29d64s4k1z4u.sv:59]
+INFO: [Synth 8-6155] done synthesizing module 'TLBuffer_a29d64s4k1z4u' (79#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a29d64s4k1z4u.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLAtomicAutomata_cbus' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLAtomicAutomata_cbus.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLAtomicAutomata_cbus.sv:341]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_21' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_21.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_21' (80#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_21.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLAtomicAutomata_cbus' (81#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLAtomicAutomata_cbus.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'ErrorDeviceWrapper' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ErrorDeviceWrapper.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLError' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLError.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLError.sv:134]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_22' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_22.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_22' (82#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_22.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Queue1_TLBundleA_a14d64s4k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_TLBundleA_a14d64s4k1z4u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Queue1_TLBundleA_a14d64s4k1z4u' (83#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_TLBundleA_a14d64s4k1z4u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'TLError' (84#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLError.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'TLBuffer_a14d64s4k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a14d64s4k1z4u.sv:2]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a14d64s4k1z4u.sv:52]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_23' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_23.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_23' (85#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_23.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Queue2_TLBundleA_a14d64s4k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleA_a14d64s4k1z4u.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'ram_2x101' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x101.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'ram_2x101' (86#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x101.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'Queue2_TLBundleA_a14d64s4k1z4u' (87#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleA_a14d64s4k1z4u.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'Queue2_TLBundleD_a14d64s4k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleD_a14d64s4k1z4u.sv:59]
+INFO: [Synth 8-6155] done synthesizing module 'Queue2_TLBundleD_a14d64s4k1z4u' (88#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleD_a14d64s4k1z4u.sv:59]
+INFO: [Synth 8-6155] done synthesizing module 'TLBuffer_a14d64s4k1z4u' (89#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a14d64s4k1z4u.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'ErrorDeviceWrapper' (90#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ErrorDeviceWrapper.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLInterconnectCoupler_cbus_to_clint' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_cbus_to_clint.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLFragmenter_CLINT' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFragmenter_CLINT.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFragmenter_CLINT.sv:186]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_24' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_24.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_24' (91#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_24.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Repeater_TLBundleA_a26d64s4k1z3u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Repeater_TLBundleA_a26d64s4k1z3u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Repeater_TLBundleA_a26d64s4k1z3u' (92#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Repeater_TLBundleA_a26d64s4k1z3u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'TLFragmenter_CLINT' (93#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFragmenter_CLINT.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLInterconnectCoupler_cbus_to_clint' (94#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_cbus_to_clint.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLInterconnectCoupler_cbus_to_plic' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_cbus_to_plic.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLFragmenter_PLIC' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFragmenter_PLIC.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFragmenter_PLIC.sv:186]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_25' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_25.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_25' (95#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_25.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Repeater_TLBundleA_a28d64s4k1z3u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Repeater_TLBundleA_a28d64s4k1z3u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Repeater_TLBundleA_a28d64s4k1z3u' (96#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Repeater_TLBundleA_a28d64s4k1z3u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'TLFragmenter_PLIC' (97#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFragmenter_PLIC.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLInterconnectCoupler_cbus_to_plic' (98#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_cbus_to_plic.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLInterconnectCoupler_cbus_to_debug' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_cbus_to_debug.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLFragmenter_Debug' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFragmenter_Debug.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFragmenter_Debug.sv:186]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_26' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_26.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_26' (99#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_26.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Repeater_TLBundleA_a12d64s4k1z3u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Repeater_TLBundleA_a12d64s4k1z3u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Repeater_TLBundleA_a12d64s4k1z3u' (100#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Repeater_TLBundleA_a12d64s4k1z3u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'TLFragmenter_Debug' (101#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFragmenter_Debug.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLInterconnectCoupler_cbus_to_debug' (102#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_cbus_to_debug.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLInterconnectCoupler_cbus_to_bootrom' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_cbus_to_bootrom.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLFragmenter_BootROM' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFragmenter_BootROM.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFragmenter_BootROM.sv:172]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_27' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_27.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_27.sv:635]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_27' (103#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_27.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Repeater_TLBundleA_a17d64s4k1z3u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Repeater_TLBundleA_a17d64s4k1z3u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Repeater_TLBundleA_a17d64s4k1z3u' (104#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Repeater_TLBundleA_a17d64s4k1z3u.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'TLFragmenter_BootROM' (105#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFragmenter_BootROM.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLInterconnectCoupler_cbus_to_bootrom' (106#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_cbus_to_bootrom.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLInterconnectCoupler_cbus_to_prci_ctrl' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_cbus_to_prci_ctrl.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLFIFOFixer_3' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFIFOFixer_3.sv:46]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFIFOFixer_3.sv:147]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_28' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_28.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_28' (107#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_28.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLFIFOFixer_3' (108#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFIFOFixer_3.sv:46]
+INFO: [Synth 8-6157] synthesizing module 'TLBuffer_a21d64s4k1z3u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a21d64s4k1z3u.sv:2]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a21d64s4k1z3u.sv:52]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_29' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_29.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_29' (109#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_29.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Queue2_TLBundleA_a21d64s4k1z3u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleA_a21d64s4k1z3u.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'ram_2x107' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x107.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'ram_2x107' (110#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x107.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'Queue2_TLBundleA_a21d64s4k1z3u' (111#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleA_a21d64s4k1z3u.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'Queue2_TLBundleD_a21d64s4k1z3u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleD_a21d64s4k1z3u.sv:59]
+INFO: [Synth 8-6155] done synthesizing module 'Queue2_TLBundleD_a21d64s4k1z3u' (112#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleD_a21d64s4k1z3u.sv:59]
+INFO: [Synth 8-6155] done synthesizing module 'TLBuffer_a21d64s4k1z3u' (113#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a21d64s4k1z3u.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'TLInterconnectCoupler_cbus_to_prci_ctrl' (114#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLInterconnectCoupler_cbus_to_prci_ctrl.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'PeripheryBus_cbus' (115#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/PeripheryBus_cbus.sv:46]
+INFO: [Synth 8-6157] synthesizing module 'TilePRCIDomain' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TilePRCIDomain.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'ServTile' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServTile.sv:20]
+INFO: [Synth 8-6157] synthesizing module 'IntXbar_i3_o1' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/IntXbar_i3_o1.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'IntXbar_i3_o1' (116#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/IntXbar_i3_o1.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLBuffer_a31d32s2k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a31d32s2k1z4u.sv:2]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a31d32s2k1z4u.sv:68]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_30' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_30.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_30' (117#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_30.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Queue2_TLBundleA_a31d32s2k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleA_a31d32s2k1z4u.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'ram_2x87' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x87.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'ram_2x87' (118#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x87.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'Queue2_TLBundleA_a31d32s2k1z4u' (119#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleA_a31d32s2k1z4u.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'Queue2_TLBundleD_a31d32s2k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleD_a31d32s2k1z4u.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'ram_2x46' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x46.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'ram_2x46' (120#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x46.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'Queue2_TLBundleD_a31d32s2k1z4u' (121#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_TLBundleD_a31d32s2k1z4u.sv:59]
+INFO: [Synth 8-6155] done synthesizing module 'TLBuffer_a31d32s2k1z4u' (122#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLBuffer_a31d32s2k1z4u.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'TLFIFOFixer_4' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFIFOFixer_4.sv:46]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFIFOFixer_4.sv:162]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_31' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_31.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_31' (123#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_31.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLFIFOFixer_4' (124#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLFIFOFixer_4.sv:46]
+INFO: [Synth 8-6157] synthesizing module 'AXI4ToTL' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/AXI4ToTL.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Queue1_AXI4BundleR' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_AXI4BundleR.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Queue1_AXI4BundleR' (125#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_AXI4BundleR.sv:46]
+INFO: [Synth 8-6157] synthesizing module 'Queue1_AXI4BundleB' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_AXI4BundleB.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Queue1_AXI4BundleB' (126#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_AXI4BundleB.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'AXI4ToTL' (127#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/AXI4ToTL.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'AXI4UserYanker' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/AXI4UserYanker.sv:20]
+INFO: [Synth 8-6157] synthesizing module 'Queue2_BundleMap' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_BundleMap.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'ram_real_last_2x1' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_real_last_2x1.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'ram_real_last_2x1' (128#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_real_last_2x1.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'Queue2_BundleMap' (129#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_BundleMap.sv:59]
+INFO: [Synth 8-6155] done synthesizing module 'AXI4UserYanker' (130#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/AXI4UserYanker.sv:20]
+INFO: [Synth 8-6157] synthesizing module 'AXI4Fragmenter' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/AXI4Fragmenter.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Queue1_AXI4BundleAR' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_AXI4BundleAR.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Queue1_AXI4BundleAR' (131#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_AXI4BundleAR.sv:46]
+INFO: [Synth 8-6157] synthesizing module 'Queue1_AXI4BundleAW' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_AXI4BundleAW.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Queue1_AXI4BundleAW' (132#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_AXI4BundleAW.sv:46]
+INFO: [Synth 8-6157] synthesizing module 'Queue1_AXI4BundleW' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_AXI4BundleW.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Queue1_AXI4BundleW' (133#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_AXI4BundleW.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'AXI4Fragmenter' (134#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/AXI4Fragmenter.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'TLXbar_i1_o2_a31d32s3k1z4u' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLXbar_i1_o2_a31d32s3k1z4u.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLXbar_i1_o2_a31d32s3k1z4u.sv:190]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_32' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_32.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_32' (135#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_32.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLXbar_i1_o2_a31d32s3k1z4u' (136#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLXbar_i1_o2_a31d32s3k1z4u.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'AXI4Buffer' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/AXI4Buffer.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'Queue2_AXI4BundleAW' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_AXI4BundleAW.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'ram_2x31' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x31.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'ram_2x31' (137#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x31.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'Queue2_AXI4BundleAW' (138#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_AXI4BundleAW.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'Queue2_AXI4BundleW' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_AXI4BundleW.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'ram_2x36' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x36.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'ram_2x36' (139#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x36.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'Queue2_AXI4BundleW' (140#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_AXI4BundleW.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'Queue2_AXI4BundleB' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_AXI4BundleB.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'ram_2x3' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x3.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'ram_2x3' (141#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ram_2x3.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'Queue2_AXI4BundleB' (142#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_AXI4BundleB.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'Queue2_AXI4BundleAR' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_AXI4BundleAR.sv:59]
+INFO: [Synth 8-6155] done synthesizing module 'Queue2_AXI4BundleAR' (143#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_AXI4BundleAR.sv:59]
+INFO: [Synth 8-6157] synthesizing module 'Queue2_AXI4BundleR' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_AXI4BundleR.sv:59]
+INFO: [Synth 8-6155] done synthesizing module 'Queue2_AXI4BundleR' (144#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue2_AXI4BundleR.sv:59]
+INFO: [Synth 8-6155] done synthesizing module 'AXI4Buffer' (145#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/AXI4Buffer.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'AXI4UserYanker_1' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/AXI4UserYanker_1.sv:20]
+INFO: [Synth 8-6157] synthesizing module 'Queue1_BundleMap' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_BundleMap.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Queue1_BundleMap' (146#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_BundleMap.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'AXI4UserYanker_1' (147#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/AXI4UserYanker_1.sv:20]
+INFO: [Synth 8-6157] synthesizing module 'AXI4IdIndexer' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/AXI4IdIndexer.sv:2]
+INFO: [Synth 8-6155] done synthesizing module 'AXI4IdIndexer' (148#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/AXI4IdIndexer.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'AXI4Fragmenter_1' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/AXI4Fragmenter_1.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Queue1_AXI4BundleAR_1' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_AXI4BundleAR_1.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Queue1_AXI4BundleAR_1' (149#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_AXI4BundleAR_1.sv:46]
+INFO: [Synth 8-6157] synthesizing module 'Queue1_AXI4BundleAW_1' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_AXI4BundleAW_1.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Queue1_AXI4BundleAW_1' (150#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_AXI4BundleAW_1.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'AXI4Fragmenter_1' (151#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/AXI4Fragmenter_1.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'TLToAXI4' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLToAXI4.sv:64]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLToAXI4.sv:242]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_33' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_33.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_33' (152#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_33.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'Queue1_AXI4BundleARW' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_AXI4BundleARW.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'Queue1_AXI4BundleARW' (153#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Queue1_AXI4BundleARW.sv:46]
+INFO: [Synth 8-6155] done synthesizing module 'TLToAXI4' (154#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLToAXI4.sv:64]
+INFO: [Synth 8-6157] synthesizing module 'TLSourceShrinker_1' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLSourceShrinker_1.sv:46]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLSourceShrinker_1.sv:153]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_34' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_34.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_34' (155#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_34.sv:64]
+INFO: [Synth 8-6155] done synthesizing module 'TLSourceShrinker_1' (156#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLSourceShrinker_1.sv:46]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServTile.sv:1380]
+INFO: [Synth 8-6157] synthesizing module 'TLMonitor_35' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_35.sv:20]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_35.sv:358]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_35.sv:365]
+INFO: [Synth 8-6155] done synthesizing module 'TLMonitor_35' (157#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TLMonitor_35.sv:20]
+INFO: [Synth 8-6157] synthesizing module 'ServCoreBlackbox' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:5075]
+	Parameter AW_B bound to: 32 - type: integer 
+	Parameter USER_WIDTH bound to: 0 - type: integer 
+	Parameter ID_WIDTH bound to: 0 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'ServCore' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:3183]
+	Parameter AW bound to: 32 - type: integer 
+	Parameter USER_WIDTH bound to: 0 - type: integer 
+	Parameter ID_WIDTH bound to: 0 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'serving' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:2351]
+	Parameter memfile bound to: (null) - type: string 
+	Parameter memsize bound to: 1024 - type: integer 
+	Parameter sim bound to: 1'b0 
+	Parameter RESET_STRATEGY bound to: NONE - type: string 
+	Parameter WITH_CSR bound to: 1 - type: integer 
+	Parameter regs bound to: 36 - type: integer 
+	Parameter rf_width bound to: 8 - type: integer 
+	Parameter w bound to: 31 - type: integer 
+INFO: [Synth 8-155] case statement is not full and has no default [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:2457]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:2521]
+INFO: [Synth 8-155] case statement is not full and has no default [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:2495]
+INFO: [Synth 8-6157] synthesizing module 'serving_ram' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:2283]
+	Parameter depth bound to: 1024 - type: integer 
+	Parameter aw bound to: 10 - type: integer 
+	Parameter memfile bound to: (null) - type: string 
+INFO: [Synth 8-251] [serving_ram] WRITE: addr=0xxxx data=0xxx [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:2311]
+INFO: [Synth 8-6155] done synthesizing module 'serving_ram' (158#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:2283]
+WARNING: [Synth 8-689] width (32) of port connection 'i_waddr' does not match port width (10) of module 'serving_ram' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:2602]
+WARNING: [Synth 8-689] width (32) of port connection 'i_raddr' does not match port width (10) of module 'serving_ram' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:2605]
+INFO: [Synth 8-6157] synthesizing module 'servile_rf_mem_if' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:2688]
+	Parameter depth bound to: 1024 - type: integer 
+	Parameter rf_regs bound to: 36 - type: integer 
+	Parameter rf_depth bound to: 8 - type: integer 
+	Parameter aw bound to: 10 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'servile_rf_mem_if' (159#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:2688]
+WARNING: [Synth 8-689] width (32) of port connection 'o_sram_waddr' does not match port width (10) of module 'servile_rf_mem_if' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:2626]
+WARNING: [Synth 8-689] width (32) of port connection 'o_sram_raddr' does not match port width (10) of module 'servile_rf_mem_if' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:2629]
+INFO: [Synth 8-6157] synthesizing module 'servile' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:2765]
+	Parameter width bound to: 1 - type: integer 
+	Parameter reset_pc bound to: 0 - type: integer 
+	Parameter reset_strategy bound to: NONE - type: string 
+	Parameter rf_width bound to: 8 - type: integer 
+	Parameter sim bound to: 1'b0 
+	Parameter debug bound to: 1'b0 
+	Parameter with_c bound to: 1'b0 
+	Parameter with_csr bound to: 1 - type: integer 
+	Parameter with_mdu bound to: 1'b0 
+	Parameter B bound to: 0 - type: integer 
+	Parameter regs bound to: 36 - type: integer 
+	Parameter rf_l2d bound to: 8 - type: integer 
+INFO: [Synth 8-6157] synthesizing module 'servile_mux' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:3088]
+	Parameter sim bound to: 1'b0 
+	Parameter sim_sig_adr bound to: -2147483648 - type: integer 
+	Parameter sim_halt_adr bound to: -1879048192 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'servile_mux' (160#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:3088]
+INFO: [Synth 8-6157] synthesizing module 'servile_arbiter' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:3044]
+INFO: [Synth 8-6155] done synthesizing module 'servile_arbiter' (161#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:3044]
+INFO: [Synth 8-6157] synthesizing module 'serv_rf_ram_if' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:2084]
+	Parameter width bound to: 8 - type: integer 
+	Parameter W bound to: 1 - type: integer 
+	Parameter reset_strategy bound to: NONE - type: string 
+	Parameter csr_regs bound to: 4 - type: integer 
+	Parameter B bound to: 0 - type: integer 
+	Parameter raw bound to: 6 - type: integer 
+	Parameter l2w bound to: 3 - type: integer 
+	Parameter aw bound to: 8 - type: integer 
+	Parameter ratio bound to: 8 - type: integer 
+	Parameter CMSB bound to: 4 - type: integer 
+	Parameter l2r bound to: 3 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'serv_rf_ram_if' (162#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:2084]
+INFO: [Synth 8-6157] synthesizing module 'serv_top' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:1417]
+	Parameter WITH_CSR bound to: 1 - type: integer 
+	Parameter W bound to: 1 - type: integer 
+	Parameter B bound to: 0 - type: integer 
+	Parameter PRE_REGISTER bound to: 1'b1 
+	Parameter RESET_STRATEGY bound to: NONE - type: string 
+	Parameter RESET_PC bound to: 0 - type: integer 
+	Parameter DEBUG bound to: 1'b0 
+	Parameter MDU bound to: 1'b0 
+	Parameter COMPRESSED bound to: 1'b0 
+	Parameter ALIGN bound to: 1'b0 
+INFO: [Synth 8-6157] synthesizing module 'serv_csr' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:4219]
+	Parameter RESET_STRATEGY bound to: NONE - type: string 
+	Parameter W bound to: 1 - type: integer 
+	Parameter B bound to: 0 - type: integer 
+	Parameter CSR_SOURCE_CSR bound to: 2'b00 
+	Parameter CSR_SOURCE_EXT bound to: 2'b01 
+	Parameter CSR_SOURCE_SET bound to: 2'b10 
+	Parameter CSR_SOURCE_CLR bound to: 2'b11 
+WARNING: [Synth 8-693] zero replication count - replication ignored [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:4304]
+INFO: [Synth 8-6155] done synthesizing module 'serv_csr' (163#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:4219]
+INFO: [Synth 8-6157] synthesizing module 'serv_state' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:1182]
+	Parameter RESET_STRATEGY bound to: NONE - type: string 
+	Parameter WITH_CSR bound to: 1'b1 
+	Parameter ALIGN bound to: 1'b0 
+	Parameter MDU bound to: 1'b0 
+	Parameter W bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'serv_state' (164#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:1182]
+INFO: [Synth 8-6157] synthesizing module 'serv_decode' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:387]
+	Parameter PRE_REGISTER bound to: 1'b1 
+	Parameter MDU bound to: 1'b0 
+INFO: [Synth 8-6155] done synthesizing module 'serv_decode' (165#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:387]
+INFO: [Synth 8-6157] synthesizing module 'serv_immdec' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:749]
+	Parameter SHARED_RFADDR_IMM_REGS bound to: 1 - type: integer 
+	Parameter W bound to: 1 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'serv_immdec' (166#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:749]
+INFO: [Synth 8-6157] synthesizing module 'serv_bufreg' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:83]
+	Parameter MDU bound to: 1'b0 
+	Parameter W bound to: 1 - type: integer 
+	Parameter B bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'serv_bufreg' (167#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:83]
+INFO: [Synth 8-6157] synthesizing module 'serv_bufreg2' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:178]
+	Parameter W bound to: 1 - type: integer 
+	Parameter B bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'serv_bufreg2' (168#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:178]
+INFO: [Synth 8-6157] synthesizing module 'serv_ctrl' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:278]
+	Parameter RESET_STRATEGY bound to: NONE - type: string 
+	Parameter RESET_PC bound to: 0 - type: integer 
+	Parameter WITH_CSR bound to: 1 - type: integer 
+	Parameter W bound to: 1 - type: integer 
+	Parameter B bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'serv_ctrl' (169#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:278]
+INFO: [Synth 8-6157] synthesizing module 'serv_alu' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:3]
+	Parameter W bound to: 1 - type: integer 
+	Parameter B bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'serv_alu' (170#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:3]
+INFO: [Synth 8-6157] synthesizing module 'serv_rf_if' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:1030]
+	Parameter WITH_CSR bound to: 1 - type: integer 
+	Parameter W bound to: 1 - type: integer 
+	Parameter B bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'serv_rf_if' (171#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:1030]
+INFO: [Synth 8-6157] synthesizing module 'serv_mem_if' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:977]
+	Parameter WITH_CSR bound to: 1'b1 
+	Parameter W bound to: 1 - type: integer 
+	Parameter B bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'serv_mem_if' (172#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:977]
+INFO: [Synth 8-6155] done synthesizing module 'serv_top' (173#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:1417]
+INFO: [Synth 8-6155] done synthesizing module 'servile' (174#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:2765]
+INFO: [Synth 8-6155] done synthesizing module 'serving' (175#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:2351]
+INFO: [Synth 8-6157] synthesizing module 'complete_bridge' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:3467]
+	Parameter AW bound to: 32 - type: integer 
+	Parameter bridge_idle bound to: 4'b0000 
+	Parameter AXI2WB_start bound to: 4'b0001 
+	Parameter AXI2WB_WBWACK bound to: 4'b0010 
+	Parameter AXI2WB_AWACK bound to: 4'b0011 
+	Parameter AXI2WB_WBRACK bound to: 4'b0100 
+	Parameter AXI2WB_BAXI bound to: 4'b0101 
+	Parameter AXI2WB_RRAXI bound to: 4'b0110 
+	Parameter WB2AXI_start bound to: 4'b0111 
+	Parameter WBREAD bound to: 4'b1000 
+	Parameter WBWRITE bound to: 4'b1001 
+	Parameter WB2AXI_WRESP bound to: 4'b1010 
+	Parameter WB2AXI_RRESP bound to: 4'b1011 
+INFO: [Synth 8-251] Error while writing [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:3847]
+INFO: [Synth 8-251] Successfully data written --- message from bridge [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:3849]
+INFO: [Synth 8-251] Error while reading data [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:3872]
+INFO: [Synth 8-251] Successfully data read -----message from bridge [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:3876]
+INFO: [Synth 8-6155] done synthesizing module 'complete_bridge' (176#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:3467]
+WARNING: [Synth 8-689] width (32) of port connection 'i_swb_adr' does not match port width (30) of module 'complete_bridge' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:3396]
+INFO: [Synth 8-6155] done synthesizing module 'ServCore' (177#1) [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:3183]
+WARNING: [Synth 8-689] width (4) of port connection 'i_aw_size' does not match port width (3) of module 'ServCore' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:5236]
+ERROR: [Synth 8-448] named port connection 'i_aw_atop' does not exist for instance 'uut' of module 'ServCore' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:5243]
+WARNING: [Synth 8-689] width (2) of port connection 'o_awm_id' does not match port width (1) of module 'ServCore' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:5285]
+WARNING: [Synth 8-689] width (2) of port connection 'o_awm_user' does not match port width (1) of module 'ServCore' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:5295]
+WARNING: [Synth 8-689] width (2) of port connection 'o_arm_id' does not match port width (1) of module 'ServCore' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:5300]
+WARNING: [Synth 8-689] width (2) of port connection 'o_arm_user' does not match port width (1) of module 'ServCore' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:5309]
+WARNING: [Synth 8-689] width (2) of port connection 'o_wm_user' does not match port width (1) of module 'ServCore' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:5316]
+WARNING: [Synth 8-689] width (2) of port connection 'i_bm_id' does not match port width (1) of module 'ServCore' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:5321]
+WARNING: [Synth 8-689] width (2) of port connection 'i_bm_user' does not match port width (1) of module 'ServCore' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:5322]
+WARNING: [Synth 8-689] width (2) of port connection 'i_rm_id' does not match port width (1) of module 'ServCore' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:5329]
+WARNING: [Synth 8-689] width (2) of port connection 'i_rm_user' does not match port width (1) of module 'ServCore' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:5330]
+ERROR: [Synth 8-6156] failed synthesizing module 'ServCoreBlackbox' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServCoreBlackbox.preprocessed.v:5075]
+ERROR: [Synth 8-6156] failed synthesizing module 'ServTile' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ServTile.sv:20]
+ERROR: [Synth 8-6156] failed synthesizing module 'TilePRCIDomain' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/TilePRCIDomain.sv:2]
+ERROR: [Synth 8-6156] failed synthesizing module 'DigitalTop' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/DigitalTop.sv:46]
+ERROR: [Synth 8-6156] failed synthesizing module 'ChipTop' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/ChipTop.sv:46]
+ERROR: [Synth 8-6156] failed synthesizing module 'Arty35THarness' [/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/gen-collateral/Arty35THarness.sv:2]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:02:16 ; elapsed = 00:04:25 . Memory (MB): peak = 2742.266 ; gain = 305.781 ; free physical = 16679 ; free virtual = 23228
+---------------------------------------------------------------------------------
+RTL Elaboration failed
+INFO: [Common 17-83] Releasing license: Synthesis
+387 Infos, 57 Warnings, 0 Critical Warnings and 8 Errors encountered.
+synth_design failed
+ERROR: [Common 17-69] Command failed: Synthesis failed - please see the console or run log file for details
+
+    while executing
+"source [file join $scriptdir "synth.tcl"]"
+    (file "/home/u20/chipyard/fpga/fpga-shells/xilinx/common/tcl/vivado.tcl" line 13)
+INFO: [Common 17-206] Exiting Vivado at Wed Aug 20 14:55:08 2025...

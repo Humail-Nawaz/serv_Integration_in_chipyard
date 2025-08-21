@@ -1,0 +1,14 @@
+[
+	{
+		"class":"sifive.enterprise.firrtl.MarkDUTAnnotation",
+		"target":"~Arty35THarness|ChipTop"
+	},
+	{
+		"class": "sifive.enterprise.firrtl.TestHarnessHierarchyAnnotation",
+		"filename": "/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/model_module_hierarchy.json"
+	},
+	{
+		"class": "sifive.enterprise.firrtl.ModuleHierarchyAnnotation",
+		"filename": "/home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/top_module_hierarchy.json"
+	}
+]

@@ -1,0 +1,221 @@
+[ServTile] tapNode identity: TLIdentityNode()
+ServTile: tlSlaveNode connected from tapFork
+[ChipyardSubsystem] tapNode connected for ServTile 0
+make[1]: Entering directory '/home/u20/chipyard/generators/serv/src/main/resources/vsrc'
+mkdir -p ./
+# Create temp define/undef files
+echo "\`define VERILATOR" >> def.v;
+echo "\`undef VERILATOR" >> undef.v;
+# Combine files into single .sv
+cat def.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/serv_debug.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/serv_compdec.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/serv_aligner.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/serv_csr.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/serv_mem_if.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/serv_rf_if.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/serv_alu.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/serv_ctrl.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/serv_bufreg2.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/serv_bufreg.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/serv_immdec.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/serv_decode.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/serv_state.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/serv_top.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/serv_rf_ram_if.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/servile_arbiter.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/servile_mux.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/servile.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/servile_rf_mem_if.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/serving_ram.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/serving.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/complete_bridge.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl/ServCore.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/ServCoreBlackbox.v undef.v > combined.v
+# Insert `include statements
+/home/u20/chipyard/scripts/insert-includes.py combined.v ServCoreBlackbox.preprocessed.v /home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl   
+[INFO] Replaces includes from: combined.v
+[INFO] Searching following dirs for includes: ['/home/u20/chipyard/generators/serv/src/main/resources/vsrc/serv/rtl']
+[INFO] Success. Output written to: ServCoreBlackbox.preprocessed.v
+# Optional: remove unsupported modules if needed for Verilator
+# sed -i '/.*unsupported_module/,/;/c\    // removed for verilator' ServCoreBlackbox.preprocessed.v
+# Cleanup
+rm -f combined.v def.v undef.v
+make[1]: Leaving directory '/home/u20/chipyard/generators/serv/src/main/resources/vsrc'
+Interrupt map (1 harts 1 interrupts):
+  [1, 1] => uart_0
+
+Clock sbus_0: using diplomatically specified frequency of 32.0.
+Clock pbus_0: using diplomatically specified frequency of 32.0.
+Clock fbus_0: using diplomatically specified frequency of 32.0.
+Clock cbus_0: using diplomatically specified frequency of 32.0.
+/dts-v1/;
+
+/ {
+	#address-cells = <1>;
+	#size-cells = <1>;
+	compatible = "ucb-bar,chipyard-dev";
+	model = "ucb-bar,chipyard";
+	L3: aliases {
+		serial0 = &L22;
+	};
+	L15: chosen {
+		stdout-path = &L22;
+	};
+	L2: cpus {
+		#address-cells = <1>;
+		#size-cells = <0>;
+		timebase-frequency = <32000>;
+		L10: cpu@0 {
+			clock-frequency = <32000000>;
+			compatible = "OlofKindgren,serv", "riscv";
+			device_type = "cpu";
+			hardware-exec-breakpoint-count = <0>;
+			reg = <0x0>;
+			riscv,isa = "rv32izicsr_zifencei_zihpm";
+			status = "okay";
+			timebase-frequency = <32000>;
+			L9: interrupt-controller {
+				#interrupt-cells = <1>;
+				compatible = "riscv,cpu-intc";
+				interrupt-controller;
+			};
+		};
+	};
+	L1: soc {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		compatible = "ucb-bar,chipyard-soc", "simple-bus";
+		ranges;
+		L21: boot-address-reg@1000 {
+			reg = <0x1000 0x1000>;
+			reg-names = "control";
+		};
+		L7: cbus_clock {
+			#clock-cells = <0>;
+			clock-frequency = <32000000>;
+			clock-output-names = "cbus_clock";
+			compatible = "fixed-clock";
+		};
+		L11: clint@2000000 {
+			compatible = "riscv,clint0";
+			interrupts-extended = <&L9 3 &L9 7>;
+			reg = <0x2000000 0x10000>;
+			reg-names = "control";
+		};
+		L23: clock-gater@100000 {
+			reg = <0x100000 0x1000>;
+			reg-names = "control";
+		};
+		L13: debug-controller@0 {
+			compatible = "sifive,debug-013", "riscv,debug-013";
+			debug-attach = "jtag";
+			interrupts-extended = <&L9 65535>;
+			reg = <0x0 0x1000>;
+			reg-names = "control";
+		};
+		L8: error-device@3000 {
+			compatible = "sifive,error0";
+			reg = <0x3000 0x1000>;
+		};
+		L6: fbus_clock {
+			#clock-cells = <0>;
+			clock-frequency = <32000000>;
+			clock-output-names = "fbus_clock";
+			compatible = "fixed-clock";
+		};
+		L12: interrupt-controller@c000000 {
+			#interrupt-cells = <1>;
+			compatible = "riscv,plic0";
+			interrupt-controller;
+			interrupts-extended = <&L9 11>;
+			reg = <0xc000000 0x4000000>;
+			reg-names = "control";
+			riscv,max-priority = <1>;
+			riscv,ndev = <1>;
+		};
+		L5: pbus_clock {
+			#clock-cells = <0>;
+			clock-frequency = <32000000>;
+			clock-output-names = "pbus_clock";
+			compatible = "fixed-clock";
+		};
+		L20: rom@10000 {
+			compatible = "sifive,rom0";
+			reg = <0x10000 0x10000>;
+			reg-names = "mem";
+		};
+		L4: sbus_clock {
+			#clock-cells = <0>;
+			clock-frequency = <32000000>;
+			clock-output-names = "sbus_clock";
+			compatible = "fixed-clock";
+		};
+		L22: serial@10020000 {
+			clocks = <&L5>;
+			compatible = "sifive,uart0";
+			interrupt-parent = <&L12>;
+			interrupts = <1>;
+			reg = <0x10020000 0x1000>;
+			reg-names = "control";
+		};
+		L24: tile-reset-setter@110000 {
+			reg = <0x110000 0x1000>;
+			reg-names = "control";
+		};
+	};
+};
+
+Generated Address Map
+	       0 -     1000 ARWX  debug-controller@0
+	    1000 -     2000 ARW   boot-address-reg@1000
+	    3000 -     4000 ARWX  error-device@3000
+	   10000 -    20000  R X  rom@10000
+	  100000 -   101000 ARW   clock-gater@100000
+	  110000 -   111000 ARW   tile-reset-setter@110000
+	 2000000 -  2010000 ARW   clint@2000000
+	 c000000 - 10000000 ARW   interrupt-controller@c000000
+	10020000 - 10021000 ARW   serial@10020000
+
+Address map described by DTS differs from physical implementation:
+	exists, but undescribed by DTS: AddressRange(0x54000000, 0x4000000)
+	exists, but undescribed by DTS: AddressRange(0x60000000, 0x10000000)
+
+IOCells generated by IOBinders:
+  IOBinder for interface sifive.blocks.devices.uart.HasPeripheryUART generated:
+    1 X GenericDigitalInIOCell
+    1 X GenericDigitalOutIOCell
+  IOBinder for interface testchipip.boot.CanHavePeripheryCustomBootPin generated:
+    1 X GenericDigitalInIOCell
+  IOBinder for interface freechips.rocketchip.devices.debug.HasPeripheryDebug generated:
+    3 X GenericDigitalInIOCell
+    1 X GenericDigitalOutIOCell
+  IOBinder for interface chipyard.clocking.CanHaveClockTap generated:
+    1 X GenericDigitalOutIOCell
+
+  Total generated 8 IOCells:
+    5 X GenericDigitalInIOCell
+    3 X GenericDigitalOutIOCell
+Harness binder clock is 32.0
+[warn] generators/rocket-chip/src/main/scala/tilelink/FIFOFixer.scala 80:43: [W004] Dynamic index with width 1 is too wide for Vec of size 1 (expected index width 0).
+[warn]       when (a_first && in.a.fire) { flight(in.a.bits.source) := !a_notFIFO }
+[warn]                                           ^
+[warn] generators/rocket-chip/src/main/scala/tilelink/FIFOFixer.scala 81:43: [W004] Dynamic index with width 1 is too wide for Vec of size 1 (expected index width 0).
+[warn]       when (d_first && in.d.fire) { flight(in.d.bits.source) := false.B }
+[warn]                                           ^
+[warn] generators/rocket-chip/src/main/scala/amba/axi4/ToTL.scala 111:35: [W004] Dynamic index with width 1 is too wide for Vec of size 1 (expected index width 0).
+[warn]         Cat(in.ar.bits.id, r_count(in.ar.bits.id)(logFlight-1,0), 0.U(1.W))
+[warn]                                   ^
+[warn] generators/rocket-chip/src/main/scala/amba/axi4/ToTL.scala 147:35: [W004] Dynamic index with width 1 is too wide for Vec of size 1 (expected index width 0).
+[warn]         Cat(in.aw.bits.id, w_count(in.aw.bits.id)(logFlight-1,0), 1.U(1.W))
+[warn]                                   ^
+[warn] generators/rocket-chip/src/main/scala/amba/axi4/ToTL.scala 209:28: [W004] Dynamic index with width 1 is too wide for Vec of size 1 (expected index width 0).
+[warn]       val b_allow = b_count(in.b.bits.id) =/= w_count(in.b.bits.id)
+[warn]                            ^
+[warn] generators/rocket-chip/src/main/scala/amba/axi4/ToTL.scala 209:54: [W004] Dynamic index with width 1 is too wide for Vec of size 1 (expected index width 0).
+[warn]       val b_allow = b_count(in.b.bits.id) =/= w_count(in.b.bits.id)
+[warn]                                                      ^
+[warn] generators/rocket-chip/src/main/scala/amba/axi4/UserYanker.scala 59:55: [W004] Dynamic index with width 1 is too wide for Vec of size 1 (expected index width 0).
+[warn]       val ar_ready = VecInit(rqueues.map(_.enq.ready))(arid)
+[warn]                                                       ^
+[warn] generators/rocket-chip/src/main/scala/amba/axi4/UserYanker.scala 67:54: [W004] Dynamic index with width 1 is too wide for Vec of size 1 (expected index width 0).
+[warn]       val r_valid = VecInit(rqueues.map(_.deq.valid))(rid)
+[warn]                                                      ^
+[warn] generators/rocket-chip/src/main/scala/amba/axi4/UserYanker.scala 68:52: [W004] Dynamic index with width 1 is too wide for Vec of size 1 (expected index width 0).
+[warn]       val r_bits = VecInit(rqueues.map(_.deq.bits))(rid)
+[warn]                                                    ^
+[warn] generators/rocket-chip/src/main/scala/amba/axi4/UserYanker.scala 88:55: [W004] Dynamic index with width 1 is too wide for Vec of size 1 (expected index width 0).
+[warn]       val aw_ready = VecInit(wqueues.map(_.enq.ready))(awid)
+[warn]                                                       ^
+[warn] generators/rocket-chip/src/main/scala/amba/axi4/UserYanker.scala 96:54: [W004] Dynamic index with width 1 is too wide for Vec of size 1 (expected index width 0).
+[warn]       val b_valid = VecInit(wqueues.map(_.deq.valid))(bid)
+[warn]                                                      ^
+[warn] generators/rocket-chip/src/main/scala/amba/axi4/UserYanker.scala 97:52: [W004] Dynamic index with width 1 is too wide for Vec of size 1 (expected index width 0).
+[warn]       val b_bits = VecInit(wqueues.map(_.deq.bits))(bid)
+[warn]                                                    ^
+[warn] generators/rocket-chip/src/main/scala/amba/axi4/Fragmenter.scala 212:48: [W004] Dynamic index with width 1 is too wide for Vec of size 1 (expected index width 0).
+[warn]       in.b.bits.resp := out.b.bits.resp | error(out.b.bits.id)
+[warn]                                                ^
+[warn] generators/rocket-chip/src/main/scala/tilelink/ToAXI4.scala 172:31: [W004] Dynamic index with width 1 is too wide for Vec of size 1 (expected index width 0).
+[warn]       arw.id    := sourceTable(a_source)
+[warn]                               ^
+[warn] generators/rocket-chip/src/main/scala/tilelink/ToAXI4.scala 205:30: [W004] Dynamic index with width 1 is too wide for Vec of size 1 (expected index width 0).
+[warn]       val stall = sourceStall(in.a.bits.source) && a_first
+[warn]                              ^
+[warn] There were 15 warning(s) during hardware elaboration.
