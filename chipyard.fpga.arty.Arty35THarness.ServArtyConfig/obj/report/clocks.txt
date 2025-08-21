@@ -1,0 +1,81 @@
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
+| Date         : Wed Aug 20 19:19:45 2025
+| Host         : u20-VirtualBox running 64-bit Ubuntu 20.04 LTS
+| Command      : report_clocks -file /home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/report/clocks.txt
+| Design       : Arty35THarness
+| Device       : 7a35ti-csg324
+| Speed File   : -1L  PRODUCTION 1.23 2018-06-13
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+Clock Report
+
+
+Attributes
+  P: Propagated
+  G: Generated
+  A: Auto-derived
+  R: Renamed
+  V: Virtual
+  I: Inverted
+  S: Pin phase-shifted with Latency mode
+
+Clock            Period(ns)  Waveform(ns)    Attributes  Sources
+CLK100MHZ        10.000      {0.000 5.000}   P           {CLK100MHZ}
+JTCK             100.000     {0.000 50.000}  P           {jd_2}
+qspi_sck_pin     20.000      {0.000 10.000}  P           {qspi_sck}
+sys_clk_pin      10.000      {0.000 5.000}   P           {CLK100MHZ}
+clk_out3_mmcm    30.782      {0.000 15.391}  P,G,A       {ip_mmcm/inst/mmcm_adv_inst/CLKOUT2}
+clk_out3_mmcm_1  30.782      {0.000 15.391}  P,G,A       {ip_mmcm/inst/mmcm_adv_inst/CLKOUT2}
+clkfbout_mmcm    60.000      {0.000 30.000}  P,G,A       {ip_mmcm/inst/mmcm_adv_inst/CLKFBOUT}
+clkfbout_mmcm_1  60.000      {0.000 30.000}  P,G,A       {ip_mmcm/inst/mmcm_adv_inst/CLKFBOUT}
+
+
+====================================================
+Generated Clocks
+====================================================
+
+Generated Clock     : clk_out3_mmcm
+Master Source       : ip_mmcm/inst/mmcm_adv_inst/CLKIN1
+Master Clock        : CLK100MHZ
+Edges               : {1 2 3}
+Edge Shifts(ns)     : {0.000 10.391 20.782}
+Generated Sources   : {ip_mmcm/inst/mmcm_adv_inst/CLKOUT2}
+
+Generated Clock     : clk_out3_mmcm_1
+Master Source       : ip_mmcm/inst/mmcm_adv_inst/CLKIN1
+Master Clock        : sys_clk_pin
+Edges               : {1 2 3}
+Edge Shifts(ns)     : {0.000 10.391 20.782}
+Generated Sources   : {ip_mmcm/inst/mmcm_adv_inst/CLKOUT2}
+
+Generated Clock     : clkfbout_mmcm
+Master Source       : ip_mmcm/inst/mmcm_adv_inst/CLKIN1
+Master Clock        : CLK100MHZ
+Edges               : {1 2 3}
+Edge Shifts(ns)     : {0.000 25.000 50.000}
+Generated Sources   : {ip_mmcm/inst/mmcm_adv_inst/CLKFBOUT}
+
+Generated Clock     : clkfbout_mmcm_1
+Master Source       : ip_mmcm/inst/mmcm_adv_inst/CLKIN1
+Master Clock        : sys_clk_pin
+Edges               : {1 2 3}
+Edge Shifts(ns)     : {0.000 25.000 50.000}
+Generated Sources   : {ip_mmcm/inst/mmcm_adv_inst/CLKFBOUT}
+
+
+
+====================================================
+User Uncertainty
+====================================================
+
+
+
+====================================================
+User Jitter
+====================================================
+
+Clock      Jitter(ns)
+CLK100MHZ  0.100
+

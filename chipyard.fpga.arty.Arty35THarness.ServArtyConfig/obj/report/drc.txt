@@ -1,0 +1,166 @@
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
+| Date         : Wed Aug 20 19:19:44 2025
+| Host         : u20-VirtualBox running 64-bit Ubuntu 20.04 LTS
+| Command      : report_drc -file /home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/report/drc.txt
+| Design       : Arty35THarness
+| Device       : xc7a35ticsg324-1L
+| Speed File   : -1L
+| Design State : Fully Routed
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Report DRC
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: Arty35THarness
+          Floorplan: design_1
+      Design limits: <entire design considered>
+           Ruledeck: default
+             Max violations: <unlimited>
+             Violations found: 25
++-----------+----------+----------------------------+------------+
+| Rule      | Severity | Description                | Violations |
++-----------+----------+----------------------------+------------+
+| BUFC-1    | Warning  | Input Buffer Connections   | 3          |
+| CHECK-3   | Warning  | Report rule limit reached  | 1          |
+| IOSR-1    | Warning  | IOB set reset sharing      | 1          |
+| REQP-1839 | Warning  | RAMB36 async control check | 20         |
++-----------+----------+----------------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+BUFC-1#1 Warning
+Input Buffer Connections  
+Input buffer SRST_n_pad/IBUF (in SRST_n_pad macro) has no loads. It is recommended to have an input buffer drive an internal load.
+Related violations: <none>
+
+BUFC-1#2 Warning
+Input Buffer Connections  
+Input buffer pad/IBUF (in pad macro) has no loads. It is recommended to have an input buffer drive an internal load.
+Related violations: <none>
+
+BUFC-1#3 Warning
+Input Buffer Connections  
+Input buffer pad_3/IBUF (in pad_3 macro) has no loads. It is recommended to have an input buffer drive an internal load.
+Related violations: <none>
+
+CHECK-3#1 Warning
+Report rule limit reached  
+REQP-1839 rule limit reached: 20 violations have been found.
+Related violations: <none>
+
+IOSR-1#1 Warning
+IOB set reset sharing  
+IO jd_4 connects to flops which have these chiptop0/system/dtm/tapIO_controllerInternal/stateMachine/_tapIO_controllerInternal_io_dataChainOut_capture,
+chiptop0/system/dtm/tapIO_controllerInternal/stateMachine/io_chainIn_capture012_out
+chiptop0/system/dtm/tapIO_controllerInternal/stateMachine/irChain_io_chainIn_update[0] set/reset signals.  For optimal IOB flop packing there should be only one set/reset signal coming into the IOB.
+Related violations: <none>
+
+REQP-1839#1 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRARDADDR[10] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/wadr[8]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#2 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRARDADDR[11] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/wadr[9]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#3 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRARDADDR[12] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/wadr[10]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#4 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRARDADDR[13] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/wadr[11]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#5 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRARDADDR[14] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/wadr[12]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#6 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRARDADDR[2] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/wadr[0]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#7 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRARDADDR[3] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/wadr[1]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#8 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRARDADDR[4] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/wadr[2]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#9 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRARDADDR[5] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/wadr[3]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#10 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRARDADDR[6] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/wadr[4]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#11 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRARDADDR[7] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/wadr[5]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#12 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRARDADDR[8] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/wadr[6]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#13 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRARDADDR[9] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/wadr[7]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#14 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRBWRADDR[10] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/radr[8]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#15 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRBWRADDR[11] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/radr[9]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#16 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRBWRADDR[12] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/radr[10]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#17 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRBWRADDR[13] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/radr[11]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#18 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRBWRADDR[14] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/radr[12]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#19 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRBWRADDR[8] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/radr[6]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+REQP-1839#20 Warning
+RAMB36 async control check  
+The RAMB36E1 ServCore_uut/serving/ram/mem_reg_0 has an input control pin ServCore_uut/serving/ram/mem_reg_0/ADDRBWRADDR[9] (net: system/tile_prci_domain/element_reset_domain_serv_tile/core/ServCore_uut/serving/radr[7]) which is driven by a register (chiptop0/system/chipyard_prcictrl_domain/resetSynchronizer/nodeOut_member_allClocks_uncore_reset_catcher/io_sync_reset_chain/output_chain/sync_0_reg) that has an active asychronous set or reset. This may cause corruption of the memory contents and/or read values when the set/reset is asserted and is not analyzed by the default static timing analysis. It is suggested to eliminate the use of a set/reset to registers driving this RAMB pin or else use a synchronous reset in which the assertion of the reset is timed by default.
+Related violations: <none>
+
+

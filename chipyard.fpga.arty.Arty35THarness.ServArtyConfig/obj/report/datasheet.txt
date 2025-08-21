@@ -1,0 +1,58 @@
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
+| Date         : Wed Aug 20 19:19:10 2025
+| Host         : u20-VirtualBox running 64-bit Ubuntu 20.04 LTS
+| Command      : report_datasheet -file /home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/report/datasheet.txt
+| Design       : Arty35THarness
+| Device       : 7a35ti-csg324
+| Speed File   : -1L  PRODUCTION 1.23 2018-06-13
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Data Sheet Report
+
+Input Ports Setup/Hold
+
+------------+-------------+---------+-------+---------------+---------+---------------+---------+-----------------+
+Reference   | Input       | IO Reg  | Delay |     Setup(ns) | Process |      Hold(ns) | Process | Internal        |
+Clock       | Port        | Type    | Type  | to Clk (Edge) | Corner  | to Clk (Edge) | Corner  | Clock           |
+------------+-------------+---------+-------+---------------+---------+---------------+---------+-----------------+
+CLK100MHZ   | ck_rst      | FDCE    | -     |     6.277 (r) | SLOW    |    -2.273 (r) | FAST    | clk_out3_mmcm   |
+CLK100MHZ   | uart_txd_in | FDRE    | -     |    10.191 (r) | SLOW    |    -2.073 (r) | FAST    | clk_out3_mmcm   |
+JTCK        | jd_4        | FDRE    | -     |     0.509 (r) | FAST    |     2.468 (r) | SLOW    |                 |
+JTCK        | jd_5        | FDPE    | -     |     0.244 (r) | FAST    |     1.799 (r) | SLOW    |                 |
+sys_clk_pin | ck_rst      | FDCE    | -     |     6.277 (r) | SLOW    |    -2.273 (r) | FAST    | clk_out3_mmcm_1 |
+sys_clk_pin | uart_txd_in | FDRE    | -     |    10.191 (r) | SLOW    |    -2.073 (r) | FAST    | clk_out3_mmcm_1 |
+------------+-------------+---------+-------+---------------+---------+---------------+---------+-----------------+
+
+
+Output Ports Clock-to-out
+
+------------+--------------+--------+-------+----------------+---------+----------------+---------+-----------------+
+Reference   | Output       | IO Reg | Delay | Max Clk (Edge) | Process | Min Clk (Edge) | Process | Internal        |
+Clock       | Port         | Type   | Type  |    to port(ns) | Corner  |    to port(ns) | Corner  | Clock           |
+------------+--------------+--------+-------+----------------+---------+----------------+---------+-----------------+
+CLK100MHZ   | uart_rxd_out | FDSE   | -     |      6.541 (r) | SLOW    |      1.111 (r) | FAST    | clk_out3_mmcm   |
+JTCK        | jd_0         | FDCE   | -     |     12.460 (f) | SLOW    |      3.910 (f) | FAST    |                 |
+sys_clk_pin | uart_rxd_out | FDSE   | -     |      6.539 (r) | SLOW    |      1.113 (r) | FAST    | clk_out3_mmcm_1 |
+------------+--------------+--------+-------+----------------+---------+----------------+---------+-----------------+
+
+
+Setup between Clocks
+
+------------+-------------+---------------+---------+---------------+---------+---------------+---------+---------------+---------+
+Source      | Destination |  Src:Rise     | Process |  Src:Rise     | Process |  Src:Fall     | Process |  Src:Fall     | Process |
+Clock       | Clock       | Dest:Rise(ns) | Corner  | Dest:Fall(ns) | Corner  | Dest:Rise(ns) | Corner  | Dest:Fall(ns) | Corner  |
+------------+-------------+---------------+---------+---------------+---------+---------------+---------+---------------+---------+
+CLK100MHZ   | CLK100MHZ   |        22.679 | SLOW    |         3.918 | SLOW    |               |         |               |         |
+JTCK        | CLK100MHZ   |         8.635 | SLOW    |               |         |               |         |               |         |
+sys_clk_pin | CLK100MHZ   |        22.679 | SLOW    |         3.918 | SLOW    |               |         |               |         |
+CLK100MHZ   | JTCK        |         1.589 | SLOW    |        -0.781 | FAST    |               |         |               |         |
+JTCK        | JTCK        |        11.654 | SLOW    |         3.338 | SLOW    |         8.571 | SLOW    |         3.382 | SLOW    |
+sys_clk_pin | JTCK        |         1.587 | SLOW    |        -0.783 | FAST    |               |         |               |         |
+CLK100MHZ   | sys_clk_pin |        22.679 | SLOW    |         3.918 | SLOW    |               |         |               |         |
+JTCK        | sys_clk_pin |         8.633 | SLOW    |               |         |               |         |               |         |
+sys_clk_pin | sys_clk_pin |        22.677 | SLOW    |         3.916 | SLOW    |               |         |               |         |
+------------+-------------+---------------+---------+---------------+---------+---------------+---------+---------------+---------+
+
+

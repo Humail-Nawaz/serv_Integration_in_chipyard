@@ -1,0 +1,736 @@
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
+| Date         : Wed Aug 20 19:19:13 2025
+| Host         : u20-VirtualBox running 64-bit Ubuntu 20.04 LTS
+| Command      : report_utilization -hierarchical -file /home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/report/utilization.txt
+| Design       : Arty35THarness
+| Device       : 7a35ticsg324-1L
+| Design State : Physopt postRoute
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++---------------------------------------------------------+--------------------------------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+|                         Instance                        |                         Module                         | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++---------------------------------------------------------+--------------------------------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+| Arty35THarness                                          |                                                  (top) |       7033 |       6201 |     832 |    0 | 3919 |      2 |      0 |          0 |
+|   (Arty35THarness)                                      |                                                  (top) |          0 |          0 |       0 |    0 |    0 |      2 |      0 |          0 |
+|   chiptop0                                              |                                                ChipTop |       7033 |       6201 |     832 |    0 | 3918 |      0 |      0 |          0 |
+|     (chiptop0)                                          |                                                ChipTop |         15 |         15 |       0 |    0 |    1 |      0 |      0 |          0 |
+|     debug_reset_syncd_debug_reset_sync                  |                AsyncResetSynchronizerShiftReg_w1_d3_i0 |          1 |          1 |       0 |    0 |    3 |      0 |      0 |          0 |
+|       output_chain                                      |       AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_60 |          1 |          1 |       0 |    0 |    3 |      0 |      0 |          0 |
+|     dmactiveAck_dmactiveAck                             |                     ResetSynchronizerShiftReg_w1_d3_i0 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|       output_chain                                      |       InferredResetSynchronizerPrimitiveShiftReg_d3_i0 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|     gated_clock_debug_clock_gate                        |                                           EICG_wrapper |          1 |          1 |       0 |    0 |    1 |      0 |      0 |          0 |
+|     system                                              |                                             DigitalTop |       7020 |       6188 |     832 |    0 | 3910 |      0 |      0 |          0 |
+|       (system)                                          |                                             DigitalTop |          8 |          8 |       0 |    0 |   10 |      0 |      0 |          0 |
+|       cbus                                              |                                      PeripheryBus_cbus |       2928 |       2724 |     204 |    0 |  470 |      0 |      0 |          0 |
+|         (cbus)                                          |                                      PeripheryBus_cbus |          0 |          0 |       0 |    0 |    6 |      0 |      0 |          0 |
+|         atomics                                         |                                  TLAtomicAutomata_cbus |        301 |        301 |       0 |    0 |  200 |      0 |      0 |          0 |
+|         buffer                                          |                                 TLBuffer_a29d64s4k1z4u |        341 |        205 |     136 |    0 |    6 |      0 |      0 |          0 |
+|           nodeIn_d_q                                    |                         Queue2_TLBundleD_a29d64s4k1z4u |        149 |         93 |      56 |    0 |    3 |      0 |      0 |          0 |
+|             (nodeIn_d_q)                                |                         Queue2_TLBundleD_a29d64s4k1z4u |          3 |          3 |       0 |    0 |    3 |      0 |      0 |          0 |
+|             ram_ext                                     |                                            ram_2x80_59 |        146 |         90 |      56 |    0 |    0 |      0 |      0 |          0 |
+|           nodeOut_a_q                                   |                         Queue2_TLBundleA_a29d64s4k1z4u |        192 |        112 |      80 |    0 |    3 |      0 |      0 |          0 |
+|             (nodeOut_a_q)                               |                         Queue2_TLBundleA_a29d64s4k1z4u |          2 |          2 |       0 |    0 |    3 |      0 |      0 |          0 |
+|             ram_ext                                     |                                              ram_2x116 |        190 |        110 |      80 |    0 |    0 |      0 |      0 |          0 |
+|         coupler_to_bootrom                              |                  TLInterconnectCoupler_cbus_to_bootrom |        662 |        662 |       0 |    0 |   30 |      0 |      0 |          0 |
+|           fragmenter                                    |                                   TLFragmenter_BootROM |        662 |        662 |       0 |    0 |   30 |      0 |      0 |          0 |
+|             (fragmenter)                                |                                   TLFragmenter_BootROM |          4 |          4 |       0 |    0 |    9 |      0 |      0 |          0 |
+|             repeater                                    |                       Repeater_TLBundleA_a17d64s4k1z3u |        658 |        658 |       0 |    0 |   21 |      0 |      0 |          0 |
+|         coupler_to_clint                                |                    TLInterconnectCoupler_cbus_to_clint |        120 |        120 |       0 |    0 |   33 |      0 |      0 |          0 |
+|           fragmenter                                    |                                     TLFragmenter_CLINT |        120 |        120 |       0 |    0 |   33 |      0 |      0 |          0 |
+|             (fragmenter)                                |                                     TLFragmenter_CLINT |          3 |          3 |       0 |    0 |    9 |      0 |      0 |          0 |
+|             repeater                                    |                       Repeater_TLBundleA_a26d64s4k1z3u |        117 |        117 |       0 |    0 |   24 |      0 |      0 |          0 |
+|         coupler_to_debug                                |                    TLInterconnectCoupler_cbus_to_debug |       1103 |       1103 |       0 |    0 |   38 |      0 |      0 |          0 |
+|           fragmenter                                    |                                     TLFragmenter_Debug |       1103 |       1103 |       0 |    0 |   38 |      0 |      0 |          0 |
+|             (fragmenter)                                |                                     TLFragmenter_Debug |          3 |          3 |       0 |    0 |    9 |      0 |      0 |          0 |
+|             repeater                                    |                       Repeater_TLBundleA_a12d64s4k1z3u |       1100 |       1100 |       0 |    0 |   29 |      0 |      0 |          0 |
+|         coupler_to_plic                                 |                     TLInterconnectCoupler_cbus_to_plic |         34 |         34 |       0 |    0 |   43 |      0 |      0 |          0 |
+|           fragmenter                                    |                                      TLFragmenter_PLIC |         34 |         34 |       0 |    0 |   43 |      0 |      0 |          0 |
+|             (fragmenter)                                |                                      TLFragmenter_PLIC |          6 |          6 |       0 |    0 |    9 |      0 |      0 |          0 |
+|             repeater                                    |                       Repeater_TLBundleA_a28d64s4k1z3u |         28 |         28 |       0 |    0 |   34 |      0 |      0 |          0 |
+|         coupler_to_prci_ctrl                            |                TLInterconnectCoupler_cbus_to_prci_ctrl |         67 |         27 |      40 |    0 |   18 |      0 |      0 |          0 |
+|           buffer                                        |                                 TLBuffer_a21d64s4k1z3u |         52 |         12 |      40 |    0 |    6 |      0 |      0 |          0 |
+|             nodeIn_d_q                                  |                         Queue2_TLBundleD_a21d64s4k1z3u |         18 |          6 |      12 |    0 |    3 |      0 |      0 |          0 |
+|               (nodeIn_d_q)                              |                         Queue2_TLBundleD_a21d64s4k1z3u |          3 |          3 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               ram_ext                                   |                                            ram_2x79_58 |         15 |          3 |      12 |    0 |    0 |      0 |      0 |          0 |
+|             nodeOut_a_q                                 |                         Queue2_TLBundleA_a21d64s4k1z3u |         34 |          6 |      28 |    0 |    3 |      0 |      0 |          0 |
+|               (nodeOut_a_q)                             |                         Queue2_TLBundleA_a21d64s4k1z3u |          2 |          2 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               ram_ext                                   |                                              ram_2x107 |         33 |          5 |      28 |    0 |    0 |      0 |      0 |          0 |
+|           fixer                                         |                                          TLFIFOFixer_3 |         15 |         15 |       0 |    0 |   12 |      0 |      0 |          0 |
+|         fixer                                           |                                          TLFIFOFixer_2 |         28 |         28 |       0 |    0 |   25 |      0 |      0 |          0 |
+|         in_xbar                                         |                     TLXbar_cbus_in_i2_o1_a29d64s4k1z4u |         36 |         36 |       0 |    0 |   13 |      0 |      0 |          0 |
+|         out_xbar                                        |                    TLXbar_cbus_out_i1_o7_a29d64s4k1z4u |        156 |        156 |       0 |    0 |   22 |      0 |      0 |          0 |
+|         wrapped_error_device                            |                                     ErrorDeviceWrapper |         85 |         57 |      28 |    0 |   36 |      0 |      0 |          0 |
+|           buffer                                        |                                 TLBuffer_a14d64s4k1z4u |         47 |         19 |      28 |    0 |    6 |      0 |      0 |          0 |
+|             nodeIn_d_q                                  |                         Queue2_TLBundleD_a14d64s4k1z4u |         32 |         16 |      16 |    0 |    3 |      0 |      0 |          0 |
+|               (nodeIn_d_q)                              |                         Queue2_TLBundleD_a14d64s4k1z4u |          5 |          5 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               ram_ext                                   |                                               ram_2x80 |         28 |         12 |      16 |    0 |    0 |      0 |      0 |          0 |
+|             nodeOut_a_q                                 |                         Queue2_TLBundleA_a14d64s4k1z4u |         15 |          3 |      12 |    0 |    3 |      0 |      0 |          0 |
+|               (nodeOut_a_q)                             |                         Queue2_TLBundleA_a14d64s4k1z4u |          3 |          3 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               ram_ext                                   |                                              ram_2x101 |         12 |          0 |      12 |    0 |    0 |      0 |      0 |          0 |
+|           error                                         |                                                TLError |         38 |         38 |       0 |    0 |   30 |      0 |      0 |          0 |
+|             (error)                                     |                                                TLError |         10 |         10 |       0 |    0 |   18 |      0 |      0 |          0 |
+|             a_q                                         |                         Queue1_TLBundleA_a14d64s4k1z4u |         28 |         28 |       0 |    0 |   12 |      0 |      0 |          0 |
+|       chipyard_prcictrl_domain                          |                        ChipyardPRCICtrlClockSinkDomain |         90 |         90 |       0 |    0 |   60 |      0 |      0 |          0 |
+|         clock_gater                                     |                                         TileClockGater |          0 |          0 |       0 |    0 |    1 |      0 |      0 |          0 |
+|           regs_0                                        |                                 AsyncResetRegVec_w1_i1 |          0 |          0 |       0 |    0 |    1 |      0 |      0 |          0 |
+|         fragmenter                                      |                            TLFragmenter_TileClockGater |         36 |         36 |       0 |    0 |   29 |      0 |      0 |          0 |
+|           (fragmenter)                                  |                            TLFragmenter_TileClockGater |          4 |          4 |       0 |    0 |    9 |      0 |      0 |          0 |
+|           repeater                                      |                    Repeater_TLBundleA_a21d64s4k1z3u_57 |         33 |         33 |       0 |    0 |   20 |      0 |      0 |          0 |
+|         fragmenter_1                                    |                           TLFragmenter_TileResetSetter |         31 |         31 |       0 |    0 |   20 |      0 |      0 |          0 |
+|           (fragmenter_1)                                |                           TLFragmenter_TileResetSetter |          3 |          3 |       0 |    0 |    9 |      0 |      0 |          0 |
+|           repeater                                      |                       Repeater_TLBundleA_a21d64s4k1z3u |         28 |         28 |       0 |    0 |   11 |      0 |      0 |          0 |
+|         resetSynchronizer                               |                            ClockGroupResetSynchronizer |          3 |          3 |       0 |    0 |    3 |      0 |      0 |          0 |
+|           nodeOut_member_allClocks_uncore_reset_catcher |                                   ResetCatchAndSync_d3 |          3 |          3 |       0 |    0 |    3 |      0 |      0 |          0 |
+|             io_sync_reset_chain                         |             AsyncResetSynchronizerShiftReg_w1_d3_i0_55 |          3 |          3 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               output_chain                              |       AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_56 |          3 |          3 |       0 |    0 |    3 |      0 |      0 |          0 |
+|         xbar                                            |                     TLXbar_prcibus_i1_o2_a21d64s4k1z3u |         20 |         20 |       0 |    0 |    7 |      0 |      0 |          0 |
+|       clint_domain                                      |                                   CLINTClockSinkDomain |          2 |          2 |       0 |    0 |  130 |      0 |      0 |          0 |
+|         clint                                           |                                                  CLINT |          2 |          2 |       0 |    0 |  129 |      0 |      0 |          0 |
+|         intsource                                       |                             IntSyncCrossingSource_n1x2 |          0 |          0 |       0 |    0 |    1 |      0 |      0 |          0 |
+|           reg_0                                         |                                 AsyncResetRegVec_w2_i0 |          0 |          0 |       0 |    0 |    1 |      0 |      0 |          0 |
+|       dtm                                               |                               DebugTransportModuleJTAG |        105 |        105 |       0 |    0 |  167 |      0 |      0 |          0 |
+|         (dtm)                                           |                               DebugTransportModuleJTAG |         10 |         10 |       0 |    0 |   46 |      0 |      0 |          0 |
+|         dmiAccessChain                                  | CaptureUpdateChain_DMIAccessCapture_To_DMIAccessUpdate |          9 |          9 |       0 |    0 |   41 |      0 |      0 |          0 |
+|         dtmInfoChain                                    |                  CaptureUpdateChain_DTMInfo_To_DTMInfo |          0 |          0 |       0 |    0 |   32 |      0 |      0 |          0 |
+|         tapIO_bypassChain                               |                                        JtagBypassChain |          0 |          0 |       0 |    0 |    1 |      0 |      0 |          0 |
+|         tapIO_controllerInternal                        |                                      JtagTapController |         87 |         87 |       0 |    0 |   15 |      0 |      0 |          0 |
+|           (tapIO_controllerInternal)                    |                                      JtagTapController |          3 |          3 |       0 |    0 |    6 |      0 |      0 |          0 |
+|           irChain                                       |                      CaptureUpdateChain_UInt5_To_UInt5 |          2 |          2 |       0 |    0 |    5 |      0 |      0 |          0 |
+|           stateMachine                                  |                                       JtagStateMachine |         82 |         82 |       0 |    0 |    4 |      0 |      0 |          0 |
+|         tapIO_idcodeChain                               |                          CaptureChain_JTAGIdcodeBundle |          0 |          0 |       0 |    0 |   32 |      0 |      0 |          0 |
+|       fbus_buffer                                       |                                 TLBuffer_a31d64s1k1z4u |        143 |         11 |     132 |    0 |    6 |      0 |      0 |          0 |
+|         nodeIn_d_q                                      |                         Queue2_TLBundleD_a31d64s1k1z4u |         57 |          5 |      52 |    0 |    3 |      0 |      0 |          0 |
+|           (nodeIn_d_q)                                  |                         Queue2_TLBundleD_a31d64s1k1z4u |          5 |          5 |       0 |    0 |    3 |      0 |      0 |          0 |
+|           ram_ext                                       |                                               ram_2x77 |         53 |          1 |      52 |    0 |    0 |      0 |      0 |          0 |
+|         nodeOut_a_q                                     |                         Queue2_TLBundleA_a31d64s1k1z4u |         86 |          6 |      80 |    0 |    3 |      0 |      0 |          0 |
+|           (nodeOut_a_q)                                 |                         Queue2_TLBundleA_a31d64s1k1z4u |          3 |          3 |       0 |    0 |    3 |      0 |      0 |          0 |
+|           ram_ext                                       |                                              ram_2x122 |         83 |          3 |      80 |    0 |    0 |      0 |      0 |          0 |
+|       fbus_coupler_from_debug_sb                        |               TLInterconnectCoupler_fbus_from_debug_sb |         59 |         59 |       0 |    0 |  133 |      0 |      0 |          0 |
+|         widget                                          |                                         TLWidthWidget1 |         59 |         59 |       0 |    0 |  133 |      0 |      0 |          0 |
+|           (widget)                                      |                                         TLWidthWidget1 |          7 |          7 |       0 |    0 |   69 |      0 |      0 |          0 |
+|           repeated_repeater                             |                       Repeater_TLBundleD_a31d64s1k1z4u |         52 |         52 |       0 |    0 |   64 |      0 |      0 |          0 |
+|       pbus                                              |                                      PeripheryBus_pbus |        773 |        525 |     248 |    0 |  331 |      0 |      0 |          0 |
+|         (pbus)                                          |                                      PeripheryBus_pbus |          0 |          0 |       0 |    0 |   64 |      0 |      0 |          0 |
+|         atomics                                         |                                  TLAtomicAutomata_pbus |        310 |        310 |       0 |    0 |  178 |      0 |      0 |          0 |
+|         buffer                                          |                                 TLBuffer_a29d64s4k1z3u |        149 |         25 |     124 |    0 |    6 |      0 |      0 |          0 |
+|           nodeIn_d_q                                    |                      Queue2_TLBundleD_a29d64s4k1z3u_51 |         61 |          9 |      52 |    0 |    3 |      0 |      0 |          0 |
+|             (nodeIn_d_q)                                |                      Queue2_TLBundleD_a29d64s4k1z3u_51 |          3 |          3 |       0 |    0 |    3 |      0 |      0 |          0 |
+|             ram_ext                                     |                                            ram_2x79_54 |         58 |          6 |      52 |    0 |    0 |      0 |      0 |          0 |
+|           nodeOut_a_q                                   |                      Queue2_TLBundleA_a29d64s4k1z3u_52 |         88 |         16 |      72 |    0 |    3 |      0 |      0 |          0 |
+|             (nodeOut_a_q)                               |                      Queue2_TLBundleA_a29d64s4k1z3u_52 |          5 |          5 |       0 |    0 |    3 |      0 |      0 |          0 |
+|             ram_ext                                     |                                           ram_2x115_53 |         83 |         11 |      72 |    0 |    0 |      0 |      0 |          0 |
+|         buffer_1                                        |                               TLBuffer_a29d64s4k1z3u_1 |        137 |         13 |     124 |    0 |    6 |      0 |      0 |          0 |
+|           nodeIn_d_q                                    |                         Queue2_TLBundleD_a29d64s4k1z3u |         57 |          5 |      52 |    0 |    3 |      0 |      0 |          0 |
+|             (nodeIn_d_q)                                |                         Queue2_TLBundleD_a29d64s4k1z3u |          1 |          1 |       0 |    0 |    3 |      0 |      0 |          0 |
+|             ram_ext                                     |                                               ram_2x79 |         57 |          5 |      52 |    0 |    0 |      0 |      0 |          0 |
+|           nodeOut_a_q                                   |                         Queue2_TLBundleA_a29d64s4k1z3u |         80 |          8 |      72 |    0 |    3 |      0 |      0 |          0 |
+|             (nodeOut_a_q)                               |                         Queue2_TLBundleA_a29d64s4k1z3u |          1 |          1 |       0 |    0 |    3 |      0 |      0 |          0 |
+|             ram_ext                                     |                                              ram_2x115 |         79 |          7 |      72 |    0 |    0 |      0 |      0 |          0 |
+|         coupler_to_bootaddressreg                       |           TLInterconnectCoupler_pbus_to_bootaddressreg |         54 |         54 |       0 |    0 |   29 |      0 |      0 |          0 |
+|           fragmenter                                    |                               TLFragmenter_BootAddrReg |         54 |         54 |       0 |    0 |   29 |      0 |      0 |          0 |
+|             (fragmenter)                                |                               TLFragmenter_BootAddrReg |          4 |          4 |       0 |    0 |    9 |      0 |      0 |          0 |
+|             repeater                                    |                       Repeater_TLBundleA_a13d64s4k1z3u |         51 |         51 |       0 |    0 |   20 |      0 |      0 |          0 |
+|         coupler_to_device_named_uart_0                  |      TLInterconnectCoupler_pbus_to_device_named_uart_0 |         49 |         49 |       0 |    0 |   29 |      0 |      0 |          0 |
+|           fragmenter                                    |                                      TLFragmenter_UART |         49 |         49 |       0 |    0 |   29 |      0 |      0 |          0 |
+|             (fragmenter)                                |                                      TLFragmenter_UART |          4 |          4 |       0 |    0 |    9 |      0 |      0 |          0 |
+|             repeater                                    |                       Repeater_TLBundleA_a29d64s4k1z3u |         46 |         46 |       0 |    0 |   20 |      0 |      0 |          0 |
+|         fixer                                           |                                          TLFIFOFixer_1 |         13 |         13 |       0 |    0 |   12 |      0 |      0 |          0 |
+|         out_xbar                                        |                    TLXbar_pbus_out_i1_o2_a29d64s4k1z3u |         62 |         62 |       0 |    0 |    7 |      0 |      0 |          0 |
+|       plic_domain                                       |                                    PLICClockSinkDomain |         30 |         30 |       0 |    0 |   48 |      0 |      0 |          0 |
+|         plic                                            |                                                 TLPLIC |         30 |         30 |       0 |    0 |   48 |      0 |      0 |          0 |
+|           (plic)                                        |                                                 TLPLIC |          3 |          3 |       0 |    0 |    5 |      0 |      0 |          0 |
+|           gateways_gateway                              |                                           LevelGateway |          0 |          0 |       0 |    0 |    1 |      0 |      0 |          0 |
+|           out_back_front_q                              |                           Queue1_RegMapperInput_i23_m8 |         27 |         27 |       0 |    0 |   42 |      0 |      0 |          0 |
+|       sbus                                              |                                              SystemBus |        516 |        516 |       0 |    0 |  263 |      0 |      0 |          0 |
+|         coupler_from_bus_named_fbus                     |         TLInterconnectCoupler_sbus_from_bus_named_fbus |        224 |        224 |       0 |    0 |  116 |      0 |      0 |          0 |
+|           widget                                        |                                         TLWidthWidget8 |        224 |        224 |       0 |    0 |  116 |      0 |      0 |          0 |
+|             (widget)                                    |                                         TLWidthWidget8 |         32 |         32 |       0 |    0 |   36 |      0 |      0 |          0 |
+|             repeated_repeater                           |                       Repeater_TLBundleA_a31d64s1k1z4u |        192 |        192 |       0 |    0 |   80 |      0 |      0 |          0 |
+|         coupler_to_bus_named_cbus                       |           TLInterconnectCoupler_sbus_to_bus_named_cbus |         48 |         48 |       0 |    0 |   94 |      0 |      0 |          0 |
+|           widget                                        |                                         TLWidthWidget4 |         48 |         48 |       0 |    0 |   94 |      0 |      0 |          0 |
+|             (widget)                                    |                                         TLWidthWidget4 |          0 |          0 |       0 |    0 |   46 |      0 |      0 |          0 |
+|             repeated_repeater                           |                       Repeater_TLBundleD_a29d64s3k1z4u |         48 |         48 |       0 |    0 |   48 |      0 |      0 |          0 |
+|         system_bus_xbar                                 |                        TLXbar_sbus_i2_o2_a31d32s3k1z4u |        245 |        245 |       0 |    0 |   53 |      0 |      0 |          0 |
+|       tile_prci_domain                                  |                                         TilePRCIDomain |       1221 |        997 |     224 |    0 |  987 |      0 |      0 |          0 |
+|         (tile_prci_domain)                              |                                         TilePRCIDomain |          1 |          1 |       0 |    0 |    0 |      0 |      0 |          0 |
+|         buffer                                          |                               TLBuffer_a31d32s2k1z4u_2 |         81 |          5 |      76 |    0 |    6 |      0 |      0 |          0 |
+|           nodeIn_d_q                                    |                      Queue2_TLBundleD_a31d32s2k1z4u_47 |         34 |          2 |      32 |    0 |    3 |      0 |      0 |          0 |
+|             (nodeIn_d_q)                                |                      Queue2_TLBundleD_a31d32s2k1z4u_47 |          2 |          2 |       0 |    0 |    3 |      0 |      0 |          0 |
+|             ram_ext                                     |                                            ram_2x46_50 |         32 |          0 |      32 |    0 |    0 |      0 |      0 |          0 |
+|           nodeOut_a_q                                   |                      Queue2_TLBundleA_a31d32s2k1z4u_48 |         47 |          3 |      44 |    0 |    3 |      0 |      0 |          0 |
+|             (nodeOut_a_q)                               |                      Queue2_TLBundleA_a31d32s2k1z4u_48 |          3 |          3 |       0 |    0 |    3 |      0 |      0 |          0 |
+|             ram_ext                                     |                                            ram_2x87_49 |         44 |          0 |      44 |    0 |    0 |      0 |      0 |          0 |
+|         element_reset_domain_serv_tile                  |                                               ServTile |       1139 |        991 |     148 |    0 |  981 |      0 |      0 |          0 |
+|           axi42tl                                       |                                               AXI4ToTL |         68 |         68 |       0 |    0 |   62 |      0 |      0 |          0 |
+|             (axi42tl)                                   |                                               AXI4ToTL |         31 |         31 |       0 |    0 |   26 |      0 |      0 |          0 |
+|             nodeIn_r_deq_q                              |                                     Queue1_AXI4BundleR |         37 |         37 |       0 |    0 |   35 |      0 |      0 |          0 |
+|             q_b_deq_q                                   |                                     Queue1_AXI4BundleB |          1 |          1 |       0 |    0 |    1 |      0 |      0 |          0 |
+|           axi4buf                                       |                                             AXI4Buffer |        130 |         58 |      72 |    0 |   15 |      0 |      0 |          0 |
+|             nodeIn_b_deq_q                              |                                     Queue2_AXI4BundleB |          7 |          7 |       0 |    0 |    3 |      0 |      0 |          0 |
+|             nodeIn_r_deq_q                              |                                     Queue2_AXI4BundleR |         33 |          9 |      24 |    0 |    3 |      0 |      0 |          0 |
+|               (nodeIn_r_deq_q)                          |                                     Queue2_AXI4BundleR |          4 |          4 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               ram_ext                                   |                                            ram_2x36_46 |         29 |          5 |      24 |    0 |    0 |      0 |      0 |          0 |
+|             nodeOut_ar_deq_q                            |                                    Queue2_AXI4BundleAR |         19 |          7 |      12 |    0 |    3 |      0 |      0 |          0 |
+|               (nodeOut_ar_deq_q)                        |                                    Queue2_AXI4BundleAR |          6 |          6 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               ram_ext                                   |                                            ram_2x31_45 |         13 |          1 |      12 |    0 |    0 |      0 |      0 |          0 |
+|             nodeOut_aw_deq_q                            |                                    Queue2_AXI4BundleAW |         32 |         20 |      12 |    0 |    3 |      0 |      0 |          0 |
+|               (nodeOut_aw_deq_q)                        |                                    Queue2_AXI4BundleAW |          6 |          6 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               ram_ext                                   |                                               ram_2x31 |         26 |         14 |      12 |    0 |    0 |      0 |      0 |          0 |
+|             nodeOut_w_deq_q                             |                                     Queue2_AXI4BundleW |         39 |         15 |      24 |    0 |    3 |      0 |      0 |          0 |
+|               (nodeOut_w_deq_q)                         |                                     Queue2_AXI4BundleW |         14 |         14 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               ram_ext                                   |                                               ram_2x36 |         25 |          1 |      24 |    0 |    0 |      0 |      0 |          0 |
+|           axi4frag                                      |                                         AXI4Fragmenter |         71 |         71 |       0 |    0 |   65 |      0 |      0 |          0 |
+|             (axi4frag)                                  |                                         AXI4Fragmenter |          1 |          1 |       0 |    0 |   10 |      0 |      0 |          0 |
+|             deq_q                                       |                                    Queue1_AXI4BundleAR |          5 |          5 |       0 |    0 |    9 |      0 |      0 |          0 |
+|             deq_q_1                                     |                                    Queue1_AXI4BundleAW |         20 |         20 |       0 |    0 |    9 |      0 |      0 |          0 |
+|             in_w_deq_q                                  |                                  Queue1_AXI4BundleW_44 |         46 |         46 |       0 |    0 |   37 |      0 |      0 |          0 |
+|           axi4frag_1                                    |                                       AXI4Fragmenter_1 |        168 |        168 |       0 |    0 |  167 |      0 |      0 |          0 |
+|             (axi4frag_1)                                |                                       AXI4Fragmenter_1 |          0 |          0 |       0 |    0 |   64 |      0 |      0 |          0 |
+|             deq_q                                       |                                  Queue1_AXI4BundleAR_1 |         62 |         62 |       0 |    0 |   33 |      0 |      0 |          0 |
+|             deq_q_1                                     |                                  Queue1_AXI4BundleAW_1 |         69 |         69 |       0 |    0 |   33 |      0 |      0 |          0 |
+|             in_w_deq_q                                  |                                  Queue1_AXI4BundleW_43 |         37 |         37 |       0 |    0 |   37 |      0 |      0 |          0 |
+|           axi4yank                                      |                                         AXI4UserYanker |         11 |         11 |       0 |    0 |    6 |      0 |      0 |          0 |
+|             Queue2_BundleMap                            |                                       Queue2_BundleMap |          8 |          8 |       0 |    0 |    3 |      0 |      0 |          0 |
+|             Queue2_BundleMap_1                          |                                    Queue2_BundleMap_42 |          3 |          3 |       0 |    0 |    3 |      0 |      0 |          0 |
+|           axi4yank_1                                    |                                       AXI4UserYanker_1 |         26 |         26 |       0 |    0 |   14 |      0 |      0 |          0 |
+|             Queue1_BundleMap                            |                                       Queue1_BundleMap |          7 |          7 |       0 |    0 |    7 |      0 |      0 |          0 |
+|             Queue1_BundleMap_1                          |                                    Queue1_BundleMap_41 |         23 |         23 |       0 |    0 |    7 |      0 |      0 |          0 |
+|           buffer                                        |                                 TLBuffer_a31d32s2k1z4u |         95 |         19 |      76 |    0 |    6 |      0 |      0 |          0 |
+|             nodeIn_d_q                                  |                         Queue2_TLBundleD_a31d32s2k1z4u |         47 |         15 |      32 |    0 |    3 |      0 |      0 |          0 |
+|               (nodeIn_d_q)                              |                         Queue2_TLBundleD_a31d32s2k1z4u |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               ram_ext                                   |                                               ram_2x46 |         47 |         15 |      32 |    0 |    0 |      0 |      0 |          0 |
+|             nodeOut_a_q                                 |                         Queue2_TLBundleA_a31d32s2k1z4u |         48 |          4 |      44 |    0 |    3 |      0 |      0 |          0 |
+|               (nodeOut_a_q)                             |                         Queue2_TLBundleA_a31d32s2k1z4u |          4 |          4 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               ram_ext                                   |                                               ram_2x87 |         44 |          0 |      44 |    0 |    0 |      0 |      0 |          0 |
+|           core                                          |                                       ServCoreBlackbox |        454 |        454 |       0 |    0 |  530 |      0 |      0 |          0 |
+|             ServCore_uut                                |                                               ServCore |        454 |        454 |       0 |    0 |  530 |      0 |      0 |          0 |
+|               bridge                                    |                                        complete_bridge |        130 |        130 |       0 |    0 |  185 |      0 |      0 |          0 |
+|               serving                                   |                                                serving |        327 |        327 |       0 |    0 |  345 |      0 |      0 |          0 |
+|                 (serving)                               |                                                serving |         48 |         48 |       0 |    0 |  111 |      0 |      0 |          0 |
+|                 rf_mem_if                               |                                      servile_rf_mem_if |         21 |         21 |       0 |    0 |   27 |      0 |      0 |          0 |
+|                 servile                                 |                                                servile |        258 |        258 |       0 |    0 |  207 |      0 |      0 |          0 |
+|                   cpu                                   |                                               serv_top |        233 |        233 |       0 |    0 |  163 |      0 |      0 |          0 |
+|                     alu                                 |                                               serv_alu |          2 |          2 |       0 |    0 |    2 |      0 |      0 |          0 |
+|                     bufreg                              |                                            serv_bufreg |         39 |         39 |       0 |    0 |   33 |      0 |      0 |          0 |
+|                     bufreg2                             |                                           serv_bufreg2 |         42 |         42 |       0 |    0 |   32 |      0 |      0 |          0 |
+|                     ctrl                                |                                              serv_ctrl |          2 |          2 |       0 |    0 |   34 |      0 |      0 |          0 |
+|                     decode                              |                                            serv_decode |         72 |         72 |       0 |    0 |   13 |      0 |      0 |          0 |
+|                     gen_csr.csr                         |                                               serv_csr |          3 |          3 |       0 |    0 |   10 |      0 |      0 |          0 |
+|                     immdec                              |                                            serv_immdec |          5 |          5 |       0 |    0 |   27 |      0 |      0 |          0 |
+|                     mem_if                              |                                            serv_mem_if |          0 |          0 |       0 |    0 |    1 |      0 |      0 |          0 |
+|                     state                               |                                             serv_state |         69 |         69 |       0 |    0 |   11 |      0 |      0 |          0 |
+|                   mux                                   |                                            servile_mux |          0 |          0 |       0 |    0 |    1 |      0 |      0 |          0 |
+|                   rf_ram_if                             |                                         serv_rf_ram_if |         26 |         26 |       0 |    0 |   43 |      0 |      0 |          0 |
+|           shrinker                                      |                                     TLSourceShrinker_1 |         29 |         29 |       0 |    0 |   20 |      0 |      0 |          0 |
+|           tl2axi4                                       |                                               TLToAXI4 |         72 |         72 |       0 |    0 |   87 |      0 |      0 |          0 |
+|             (tl2axi4)                                   |                                               TLToAXI4 |         18 |         18 |       0 |    0 |   16 |      0 |      0 |          0 |
+|             nodeOut_w_deq_q                             |                                     Queue1_AXI4BundleW |         39 |         39 |       0 |    0 |   37 |      0 |      0 |          0 |
+|             queue_arw_deq_q                             |                                   Queue1_AXI4BundleARW |         16 |         16 |       0 |    0 |   34 |      0 |      0 |          0 |
+|           xbar                                          |                             TLXbar_i1_o2_a31d32s3k1z4u |         18 |         18 |       0 |    0 |    9 |      0 |      0 |          0 |
+|       tlDM                                              |                                          TLDebugModule |       1050 |       1042 |       8 |    0 | 1195 |      0 |      0 |          0 |
+|         dmInner                                         |                                TLDebugModuleInnerAsync |       1022 |       1014 |       8 |    0 | 1079 |      0 |      0 |          0 |
+|           dmInner                                       |                                     TLDebugModuleInner |        696 |        688 |       8 |    0 |  970 |      0 |      0 |          0 |
+|             (dmInner)                                   |                                     TLDebugModuleInner |        515 |        515 |       0 |    0 |  957 |      0 |      0 |          0 |
+|             hartIsInResetSync_0_debug_hartReset_0       |             AsyncResetSynchronizerShiftReg_w1_d3_i0_39 |          3 |          3 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               output_chain                              |       AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_40 |          3 |          3 |       0 |    0 |    3 |      0 |      0 |          0 |
+|             sb2tlOpt                                    |                                                 SBToTL |        178 |        170 |       8 |    0 |   10 |      0 |      0 |          0 |
+|               (sb2tlOpt)                                |                                                 SBToTL |        127 |        127 |       0 |    0 |    7 |      0 |      0 |          0 |
+|               d_q                                       |                          Queue2_TLBundleD_a31d8s1k1z4u |         51 |         43 |       8 |    0 |    3 |      0 |      0 |          0 |
+|                 (d_q)                                   |                          Queue2_TLBundleD_a31d8s1k1z4u |         24 |         24 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                 ram_ext                                 |                                               ram_2x10 |         27 |         19 |       8 |    0 |    0 |      0 |      0 |          0 |
+|           dmactive_synced_dmInner_io_innerCtrl_sink     |                     AsyncQueueSink_DebugInternalBundle |          4 |          4 |       0 |    0 |    7 |      0 |      0 |          0 |
+|             (dmactive_synced_dmInner_io_innerCtrl_sink) |                     AsyncQueueSink_DebugInternalBundle |          1 |          1 |       0 |    0 |    2 |      0 |      0 |          0 |
+|             io_deq_bits_deq_bits_reg                    |                                   ClockCrossingReg_w15 |          2 |          2 |       0 |    0 |    2 |      0 |      0 |          0 |
+|             widx_widx_gray                              |             AsyncResetSynchronizerShiftReg_w1_d3_i0_37 |          1 |          1 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               output_chain                              |       AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_38 |          1 |          1 |       0 |    0 |    3 |      0 |      0 |          0 |
+|           dmactive_synced_dmactive_synced_dmactiveSync  |             AsyncResetSynchronizerShiftReg_w1_d3_i0_19 |         32 |         32 |       0 |    0 |    8 |      0 |      0 |          0 |
+|             output_chain                                |       AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_36 |         32 |         32 |       0 |    0 |    8 |      0 |      0 |          0 |
+|           dmiXing                                       |                       TLAsyncCrossingSink_a9d32s1k1z2u |        292 |        292 |       0 |    0 |   94 |      0 |      0 |          0 |
+|             nodeIn_d_source                             |                AsyncQueueSource_TLBundleD_a9d32s1k1z2u |          2 |          2 |       0 |    0 |   43 |      0 |      0 |          0 |
+|               (nodeIn_d_source)                         |                AsyncQueueSource_TLBundleD_a9d32s1k1z2u |          1 |          1 |       0 |    0 |   34 |      0 |      0 |          0 |
+|               ridx_ridx_gray                            |             AsyncResetSynchronizerShiftReg_w1_d3_i0_28 |          1 |          1 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                 output_chain                            |       AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_35 |          1 |          1 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               source_valid_0                            |                                      AsyncValidSync_29 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                 io_out_source_valid_0                   |           AsyncResetSynchronizerShiftReg_w1_d3_i0_1_33 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                   output_chain                          |       AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_34 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               source_valid_1                            |                                      AsyncValidSync_30 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                 io_out_source_valid_0                   |           AsyncResetSynchronizerShiftReg_w1_d3_i0_1_31 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                   output_chain                          |       AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_32 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|             nodeOut_a_sink                              |                  AsyncQueueSink_TLBundleA_a9d32s1k1z2u |        290 |        290 |       0 |    0 |   51 |      0 |      0 |          0 |
+|               (nodeOut_a_sink)                          |                  AsyncQueueSink_TLBundleA_a9d32s1k1z2u |          0 |          0 |       0 |    0 |    2 |      0 |      0 |          0 |
+|               io_deq_bits_deq_bits_reg                  |                                   ClockCrossingReg_w55 |        287 |        287 |       0 |    0 |   40 |      0 |      0 |          0 |
+|               source_extend                             |                                      AsyncValidSync_20 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                 io_out_source_valid_0                   |           AsyncResetSynchronizerShiftReg_w1_d3_i0_1_26 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                   output_chain                          |       AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_27 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               source_valid                              |                                      AsyncValidSync_21 |          4 |          4 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                 io_out_source_valid_0                   |           AsyncResetSynchronizerShiftReg_w1_d3_i0_1_24 |          4 |          4 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                   output_chain                          |       AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_25 |          4 |          4 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               widx_widx_gray                            |             AsyncResetSynchronizerShiftReg_w1_d3_i0_22 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                 output_chain                            |       AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_23 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|         dmOuter                                         |                                TLDebugModuleOuterAsync |         28 |         28 |       0 |    0 |  116 |      0 |      0 |          0 |
+|           asource                                       |                     TLAsyncCrossingSource_a9d32s1k1z2u |          5 |          5 |       0 |    0 |   94 |      0 |      0 |          0 |
+|             nodeIn_d_sink                               |                  AsyncQueueSink_TLBundleD_a9d32s1k1z2u |          3 |          3 |       0 |    0 |   43 |      0 |      0 |          0 |
+|               (nodeIn_d_sink)                           |                  AsyncQueueSink_TLBundleD_a9d32s1k1z2u |          0 |          0 |       0 |    0 |    2 |      0 |      0 |          0 |
+|               io_deq_bits_deq_bits_reg                  |                                   ClockCrossingReg_w43 |          0 |          0 |       0 |    0 |   32 |      0 |      0 |          0 |
+|               source_extend                             |                                      AsyncValidSync_11 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                 io_out_source_valid_0                   |           AsyncResetSynchronizerShiftReg_w1_d3_i0_1_17 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                   output_chain                          |       AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_18 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               source_valid                              |                                      AsyncValidSync_12 |          3 |          3 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                 io_out_source_valid_0                   |           AsyncResetSynchronizerShiftReg_w1_d3_i0_1_15 |          3 |          3 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                   output_chain                          |       AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_16 |          3 |          3 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               widx_widx_gray                            |             AsyncResetSynchronizerShiftReg_w1_d3_i0_13 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                 output_chain                            |       AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_14 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|             nodeOut_a_source                            |                AsyncQueueSource_TLBundleA_a9d32s1k1z2u |          3 |          3 |       0 |    0 |   51 |      0 |      0 |          0 |
+|               (nodeOut_a_source)                        |                AsyncQueueSource_TLBundleA_a9d32s1k1z2u |          2 |          2 |       0 |    0 |   42 |      0 |      0 |          0 |
+|               ridx_ridx_gray                            |              AsyncResetSynchronizerShiftReg_w1_d3_i0_5 |          1 |          1 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                 output_chain                            |       AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_10 |          1 |          1 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               source_valid_0                            |                                         AsyncValidSync |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                 io_out_source_valid_0                   |            AsyncResetSynchronizerShiftReg_w1_d3_i0_1_8 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                   output_chain                          |        AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_9 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               source_valid_1                            |                                       AsyncValidSync_6 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                 io_out_source_valid_0                   |              AsyncResetSynchronizerShiftReg_w1_d3_i0_1 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|                   output_chain                          |        AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_7 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|           dmOuter                                       |                                     TLDebugModuleOuter |          0 |          0 |       0 |    0 |    6 |      0 |      0 |          0 |
+|           dmactiveAck_dmactiveAckSync                   |              AsyncResetSynchronizerShiftReg_w1_d3_i0_2 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|             output_chain                                |        AsyncResetSynchronizerPrimitiveShiftReg_d3_i0_4 |          0 |          0 |       0 |    0 |    3 |      0 |      0 |          0 |
+|           dmiBypass                                     |                                            TLBusBypass |         12 |         12 |       0 |    0 |    4 |      0 |      0 |          0 |
+|             bar                                         |                                         TLBusBypassBar |         12 |         12 |       0 |    0 |    4 |      0 |      0 |          0 |
+|           dmiXbar                                       |                      TLXbar_dmixbar_i1_o2_a9d32s1k1z2u |          4 |          4 |       0 |    0 |    2 |      0 |      0 |          0 |
+|           io_innerCtrl_source                           |                   AsyncQueueSource_DebugInternalBundle |          7 |          7 |       0 |    0 |    7 |      0 |      0 |          0 |
+|             (io_innerCtrl_source)                       |                   AsyncQueueSource_DebugInternalBundle |          6 |          6 |       0 |    0 |    4 |      0 |      0 |          0 |
+|             ridx_ridx_gray                              |              AsyncResetSynchronizerShiftReg_w1_d3_i0_3 |          1 |          1 |       0 |    0 |    3 |      0 |      0 |          0 |
+|               output_chain                              |          AsyncResetSynchronizerPrimitiveShiftReg_d3_i0 |          1 |          1 |       0 |    0 |    3 |      0 |      0 |          0 |
+|       uartClockDomainWrapper                            |                                  TLUARTClockSinkDomain |         99 |         83 |      16 |    0 |  110 |      0 |      0 |          0 |
+|         uart_0                                          |                                                 TLUART |         99 |         83 |      16 |    0 |  110 |      0 |      0 |          0 |
+|           (uart_0)                                      |                                                 TLUART |          0 |          0 |       0 |    0 |   29 |      0 |      0 |          0 |
+|           intsource                                     |                             IntSyncCrossingSource_n1x1 |          0 |          0 |       0 |    0 |    1 |      0 |      0 |          0 |
+|             reg_0                                       |                                 AsyncResetRegVec_w1_i0 |          0 |          0 |       0 |    0 |    1 |      0 |      0 |          0 |
+|           rxm                                           |                                                 UARTRx |         34 |         34 |       0 |    0 |   36 |      0 |      0 |          0 |
+|           rxq                                           |                                           Queue8_UInt8 |         19 |         11 |       8 |    0 |    7 |      0 |      0 |          0 |
+|             (rxq)                                       |                                           Queue8_UInt8 |          8 |          8 |       0 |    0 |    7 |      0 |      0 |          0 |
+|             ram_ext                                     |                                              ram_8x8_1 |         11 |          3 |       8 |    0 |    0 |      0 |      0 |          0 |
+|           txm                                           |                                                 UARTTx |         28 |         28 |       0 |    0 |   30 |      0 |      0 |          0 |
+|           txq                                           |                                         Queue8_UInt8_0 |         18 |         10 |       8 |    0 |    7 |      0 |      0 |          0 |
+|             (txq)                                       |                                         Queue8_UInt8_0 |          9 |          9 |       0 |    0 |    7 |      0 |      0 |          0 |
+|             ram_ext                                     |                                                ram_8x8 |         10 |          2 |       8 |    0 |    0 |      0 |      0 |          0 |
+|   chiptop0_sjtag_reset_fpga_power_on                    |                                   PowerOnResetFPGAOnly |          0 |          0 |       0 |    0 |    1 |      0 |      0 |          0 |
+|   ip_mmcm                                               |                                                   mmcm |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|     inst                                                |                                           mmcm_clk_wiz |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
++---------------------------------------------------------+--------------------------------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version      : Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
+| Date              : Wed Aug 20 19:19:17 2025
+| Host              : u20-VirtualBox running 64-bit Ubuntu 20.04 LTS
+| Command           : report_clock_utilization -file /home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/report/utilization.txt -append
+| Design            : Arty35THarness
+| Device            : 7a35ti-csg324
+| Speed File        : -1L  PRODUCTION 1.23 2018-06-13
+| Temperature Grade : I
+| Design State      : Physopt postRoute
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Clock Utilization Report
+
+Table of Contents
+-----------------
+1. Clock Primitive Utilization
+2. Global Clock Resources
+3. Global Clock Source Details
+4. Clock Regions: Key Resource Utilization
+5. Clock Regions : Global Clock Summary
+6. Device Cell Placement Summary for Global Clock g0
+7. Device Cell Placement Summary for Global Clock g1
+8. Device Cell Placement Summary for Global Clock g2
+9. Device Cell Placement Summary for Global Clock g3
+10. Clock Region Cell Placement per Global Clock: Region X0Y0
+11. Clock Region Cell Placement per Global Clock: Region X1Y0
+12. Clock Region Cell Placement per Global Clock: Region X0Y1
+13. Clock Region Cell Placement per Global Clock: Region X1Y1
+14. Clock Region Cell Placement per Global Clock: Region X0Y2
+15. Clock Region Cell Placement per Global Clock: Region X1Y2
+
+1. Clock Primitive Utilization
+------------------------------
+
++----------+------+-----------+-----+--------------+--------+
+| Type     | Used | Available | LOC | Clock Region | Pblock |
++----------+------+-----------+-----+--------------+--------+
+| BUFGCTRL |    4 |        32 |   0 |            0 |      0 |
+| BUFH     |    0 |        72 |   0 |            0 |      0 |
+| BUFIO    |    0 |        20 |   0 |            0 |      0 |
+| BUFMR    |    0 |        10 |   0 |            0 |      0 |
+| BUFR     |    0 |        20 |   0 |            0 |      0 |
+| MMCM     |    1 |         5 |   0 |            0 |      0 |
+| PLL      |    0 |         5 |   0 |            0 |      0 |
++----------+------+-----------+-----+--------------+--------+
+
+
+2. Global Clock Resources
+-------------------------
+
++-----------+-----------+-----------------+------------+----------------+--------------+-------------------+-------------+-----------------+--------------+---------------+-------------------------------------------+-----------------------------------+
+| Global Id | Source Id | Driver Type/Pin | Constraint | Site           | Clock Region | Load Clock Region | Clock Loads | Non-Clock Loads | Clock Period | Clock         | Driver Pin                                | Net                               |
++-----------+-----------+-----------------+------------+----------------+--------------+-------------------+-------------+-----------------+--------------+---------------+-------------------------------------------+-----------------------------------+
+| g0        | src0      | BUFG/O          | None       | BUFGCTRL_X0Y16 | n/a          |                 5 |        2779 |               1 |       30.782 | clk_out3_mmcm | ip_mmcm/inst/clkout3_buf/O                | ip_mmcm/inst/clk_out3             |
+| g1        | src1      | BUFG/O          | None       | BUFGCTRL_X0Y0  | n/a          |                 4 |        1069 |               0 |       30.782 | clk_out3_mmcm | ABSTRACTAUTOReg_autoexecdata_reg[7]_i_3/O | _gated_clock_debug_clock_gate_out |
+| g2        | src2      | BUFG/O          | None       | BUFGCTRL_X0Y17 | n/a          |                 2 |         283 |               0 |      100.000 | JTCK          | _jtag_TCK_i_ival_pad_O_BUFG_inst/O        | _jtag_TCK_i_ival_pad_O_BUFG       |
+| g3        | src3      | BUFG/O          | None       | BUFGCTRL_X0Y18 | n/a          |                 1 |           1 |               0 |       60.000 | clkfbout_mmcm | ip_mmcm/inst/clkf_buf/O                   | ip_mmcm/inst/clkfbout_buf_mmcm    |
++-----------+-----------+-----------------+------------+----------------+--------------+-------------------+-------------+-----------------+--------------+---------------+-------------------------------------------+-----------------------------------+
+* Clock Loads column represents the clock pin loads (pin count)
+** Non-Clock Loads column represents the non-clock pin loads (pin count)
+
+
+3. Global Clock Source Details
+------------------------------
+
++-----------+-----------+---------------------+------------+-----------------+--------------+-------------+-----------------+---------------------+--------------+-----------------------------------------------------------------------------+----------------------------------------------------+
+| Source Id | Global Id | Driver Type/Pin     | Constraint | Site            | Clock Region | Clock Loads | Non-Clock Loads | Source Clock Period | Source Clock | Driver Pin                                                                  | Net                                                |
++-----------+-----------+---------------------+------------+-----------------+--------------+-------------+-----------------+---------------------+--------------+-----------------------------------------------------------------------------+----------------------------------------------------+
+| src0      | g0        | MMCME2_ADV/CLKOUT2  | None       | MMCME2_ADV_X1Y1 | X1Y1         |           1 |               0 |              30.782 | Multiple     | ip_mmcm/inst/mmcm_adv_inst/CLKOUT2                                          | ip_mmcm/inst/clk_out3_mmcm                         |
+| src1      | g1        | LUT2/O              | None       | SLICE_X36Y46    | X1Y0         |           1 |               0 |              30.782 | Multiple     | chiptop0/gated_clock_debug_clock_gate/ABSTRACTAUTOReg_autoexecdata[7]_i_6/O | chiptop0/gated_clock_debug_clock_gate/clock_en_reg |
+| src2      | g2        | IBUF/O              | IOB_X1Y74  | IOB_X1Y74       | X1Y1         |           1 |               0 |             100.000 | JTCK         | jtag_TCK_i_ival_pad/IBUF/O                                                  | jtag_TCK_i_ival_pad/O                              |
+| src3      | g3        | MMCME2_ADV/CLKFBOUT | None       | MMCME2_ADV_X1Y1 | X1Y1         |           1 |               0 |              60.000 | Multiple     | ip_mmcm/inst/mmcm_adv_inst/CLKFBOUT                                         | ip_mmcm/inst/clkfbout_mmcm                         |
++-----------+-----------+---------------------+------------+-----------------+--------------+-------------+-----------------+---------------------+--------------+-----------------------------------------------------------------------------+----------------------------------------------------+
+* Clock Loads column represents the clock pin loads (pin count)
+** Non-Clock Loads column represents the non-clock pin loads (pin count)
+
+
+4. Clock Regions: Key Resource Utilization
+------------------------------------------
+
++-------------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+--------------+
+|                   | Global Clock |     BUFRs    |    BUFMRs    |    BUFIOs    |     MMCM     |      PLL     |      GT      |      PCI     |    ILOGIC    |    OLOGIC    |      FF      |     LUTM     |    RAMB18    |    RAMB36    |    DSP48E2   |
++-------------------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+
+| Clock Region Name | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail | Used | Avail |
++-------------------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+
+| X0Y0              |    1 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |    3 |  1200 |    0 |   400 |    0 |    20 |    0 |    10 |    0 |    20 |
+| X1Y0              |    1 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |   31 |  1500 |   11 |   450 |    0 |    40 |    0 |    20 |    0 |    20 |
+| X0Y1              |    2 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |  646 |  1200 |  153 |   400 |    0 |    20 |    0 |    10 |    0 |    20 |
+| X1Y1              |    4 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    1 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 | 2504 |  1500 |  560 |   450 |    0 |    40 |    2 |    20 |    0 |    20 |
+| X0Y2              |    1 |    12 |    0 |     4 |    0 |     2 |    0 |     4 |    0 |     1 |    0 |     1 |    0 |     0 |    0 |     0 |    0 |    50 |    0 |    50 |  349 |  1800 |   41 |   400 |    0 |    20 |    0 |    10 |    0 |    20 |
+| X1Y2              |    3 |    12 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     0 |    0 |     4 |    0 |     1 |    0 |     0 |    0 |     0 |  385 |   950 |  169 |   300 |    0 |    10 |    0 |     5 |    0 |    20 |
++-------------------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+------+-------+
+* Global Clock column represents track count; while other columns represents cell counts
+
+
+5. Clock Regions : Global Clock Summary
+---------------------------------------
+
+All Modules
++----+----+----+
+|    | X0 | X1 |
++----+----+----+
+| Y2 |  1 |  3 |
+| Y1 |  2 |  4 |
+| Y0 |  1 |  1 |
++----+----+----+
+
+
+6. Device Cell Placement Summary for Global Clock g0
+----------------------------------------------------
+
++-----------+-----------------+-------------------+----------+-------------+----------------+-------------+----------+----------------+----------+-----------------------+
+| Global Id | Driver Type/Pin | Driver Region (D) | Clock    | Period (ns) | Waveform (ns)  | Slice Loads | IO Loads | Clocking Loads | GT Loads | Net                   |
++-----------+-----------------+-------------------+----------+-------------+----------------+-------------+----------+----------------+----------+-----------------------+
+| g0        | BUFG/O          | n/a               | Multiple |      30.782 | {0.000 15.391} |        2570 |        0 |              0 |        0 | ip_mmcm/inst/clk_out3 |
++-----------+-----------------+-------------------+----------+-------------+----------------+-------------+----------+----------------+----------+-----------------------+
+* Slice Loads column represents load cell count of all cell types other than IO, GT and clock resources
+** IO Loads column represents load cell count of IO types
+*** Clocking Loads column represents load cell count that are clock resources (global clock buffer, MMCM, PLL, etc)
+**** GT Loads column represents load cell count of GT types
+
+
++----+------+-------+-----------------------+
+|    | X0   | X1    | HORIZONTAL PROG DELAY |
++----+------+-------+-----------------------+
+| Y2 |    0 |    13 |                     0 |
+| Y1 |  612 |  1909 |                     0 |
+| Y0 |    3 |    33 |                     0 |
++----+------+-------+-----------------------+
+
+
+7. Device Cell Placement Summary for Global Clock g1
+----------------------------------------------------
+
++-----------+-----------------+-------------------+----------+-------------+----------------+-------------+----------+----------------+----------+-----------------------------------+
+| Global Id | Driver Type/Pin | Driver Region (D) | Clock    | Period (ns) | Waveform (ns)  | Slice Loads | IO Loads | Clocking Loads | GT Loads | Net                               |
++-----------+-----------------+-------------------+----------+-------------+----------------+-------------+----------+----------------+----------+-----------------------------------+
+| g1        | BUFG/O          | n/a               | Multiple |      30.782 | {0.000 15.391} |        1069 |        0 |              0 |        0 | _gated_clock_debug_clock_gate_out |
++-----------+-----------------+-------------------+----------+-------------+----------------+-------------+----------+----------------+----------+-----------------------------------+
+* Slice Loads column represents load cell count of all cell types other than IO, GT and clock resources
+** IO Loads column represents load cell count of IO types
+*** Clocking Loads column represents load cell count that are clock resources (global clock buffer, MMCM, PLL, etc)
+**** GT Loads column represents load cell count of GT types
+
+
++----+------+------+-----------------------+
+|    | X0   | X1   | HORIZONTAL PROG DELAY |
++----+------+------+-----------------------+
+| Y2 |  349 |  164 |                     0 |
+| Y1 |   34 |  522 |                     0 |
+| Y0 |    0 |    0 |                     0 |
++----+------+------+-----------------------+
+
+
+8. Device Cell Placement Summary for Global Clock g2
+----------------------------------------------------
+
++-----------+-----------------+-------------------+-------+-------------+----------------+-------------+----------+----------------+----------+-----------------------------+
+| Global Id | Driver Type/Pin | Driver Region (D) | Clock | Period (ns) | Waveform (ns)  | Slice Loads | IO Loads | Clocking Loads | GT Loads | Net                         |
++-----------+-----------------+-------------------+-------+-------------+----------------+-------------+----------+----------------+----------+-----------------------------+
+| g2        | BUFG/O          | n/a               | JTCK  |     100.000 | {0.000 50.000} |         283 |        0 |              0 |        0 | _jtag_TCK_i_ival_pad_O_BUFG |
++-----------+-----------------+-------------------+-------+-------------+----------------+-------------+----------+----------------+----------+-----------------------------+
+* Slice Loads column represents load cell count of all cell types other than IO, GT and clock resources
+** IO Loads column represents load cell count of IO types
+*** Clocking Loads column represents load cell count that are clock resources (global clock buffer, MMCM, PLL, etc)
+**** GT Loads column represents load cell count of GT types
+
+
++----+----+------+-----------------------+
+|    | X0 | X1   | HORIZONTAL PROG DELAY |
++----+----+------+-----------------------+
+| Y2 |  0 |  208 |                     0 |
+| Y1 |  0 |   75 |                     0 |
+| Y0 |  0 |    0 |                     0 |
++----+----+------+-----------------------+
+
+
+9. Device Cell Placement Summary for Global Clock g3
+----------------------------------------------------
+
++-----------+-----------------+-------------------+----------+-------------+----------------+-------------+----------+----------------+----------+--------------------------------+
+| Global Id | Driver Type/Pin | Driver Region (D) | Clock    | Period (ns) | Waveform (ns)  | Slice Loads | IO Loads | Clocking Loads | GT Loads | Net                            |
++-----------+-----------------+-------------------+----------+-------------+----------------+-------------+----------+----------------+----------+--------------------------------+
+| g3        | BUFG/O          | n/a               | Multiple |      60.000 | {0.000 30.000} |           0 |        0 |              1 |        0 | ip_mmcm/inst/clkfbout_buf_mmcm |
++-----------+-----------------+-------------------+----------+-------------+----------------+-------------+----------+----------------+----------+--------------------------------+
+* Slice Loads column represents load cell count of all cell types other than IO, GT and clock resources
+** IO Loads column represents load cell count of IO types
+*** Clocking Loads column represents load cell count that are clock resources (global clock buffer, MMCM, PLL, etc)
+**** GT Loads column represents load cell count of GT types
+
+
++----+----+----+-----------------------+
+|    | X0 | X1 | HORIZONTAL PROG DELAY |
++----+----+----+-----------------------+
+| Y2 |  0 |  0 |                     0 |
+| Y1 |  0 |  1 |                     0 |
+| Y0 |  0 |  0 |                     0 |
++----+----+----+-----------------------+
+
+
+10. Clock Region Cell Placement per Global Clock: Region X0Y0
+-------------------------------------------------------------
+
++-----------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+-----------------------+
+| Global Id | Track | Driver Type/Pin | Constraint | Clock Loads | Non-Clock Loads | FF | LUTRAM | RAMB | DSP | GT | MMCM | PLL | Hard IP | Net                   |
++-----------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+-----------------------+
+| g0        | n/a   | BUFG/O          | None       |           3 |               0 |  3 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | ip_mmcm/inst/clk_out3 |
++-----------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+-----------------------+
+* Clock Loads column represents the clock pin loads (pin count)
+** Non-Clock Loads column represents the non-clock pin loads (pin count)
+*** Columns FF, LUTRAM, RAMB through 'Hard IP' represents load cell counts
+
+
+11. Clock Region Cell Placement per Global Clock: Region X1Y0
+-------------------------------------------------------------
+
++-----------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+-----------------------+
+| Global Id | Track | Driver Type/Pin | Constraint | Clock Loads | Non-Clock Loads | FF | LUTRAM | RAMB | DSP | GT | MMCM | PLL | Hard IP | Net                   |
++-----------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+-----------------------+
+| g0        | n/a   | BUFG/O          | None       |          32 |               1 | 31 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | ip_mmcm/inst/clk_out3 |
++-----------+-------+-----------------+------------+-------------+-----------------+----+--------+------+-----+----+------+-----+---------+-----------------------+
+* Clock Loads column represents the clock pin loads (pin count)
+** Non-Clock Loads column represents the non-clock pin loads (pin count)
+*** Columns FF, LUTRAM, RAMB through 'Hard IP' represents load cell counts
+
+
+12. Clock Region Cell Placement per Global Clock: Region X0Y1
+-------------------------------------------------------------
+
++-----------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+-----------------------------------+
+| Global Id | Track | Driver Type/Pin | Constraint | Clock Loads | Non-Clock Loads | FF  | LUTRAM | RAMB | DSP | GT | MMCM | PLL | Hard IP | Net                               |
++-----------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+-----------------------------------+
+| g0        | n/a   | BUFG/O          | None       |         612 |               0 | 612 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | ip_mmcm/inst/clk_out3             |
+| g1        | n/a   | BUFG/O          | None       |          34 |               0 |  34 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | _gated_clock_debug_clock_gate_out |
++-----------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+-----------------------------------+
+* Clock Loads column represents the clock pin loads (pin count)
+** Non-Clock Loads column represents the non-clock pin loads (pin count)
+*** Columns FF, LUTRAM, RAMB through 'Hard IP' represents load cell counts
+
+
+13. Clock Region Cell Placement per Global Clock: Region X1Y1
+-------------------------------------------------------------
+
++-----------+-------+-----------------+------------+-------------+-----------------+------+--------+------+-----+----+------+-----+---------+-----------------------------------+
+| Global Id | Track | Driver Type/Pin | Constraint | Clock Loads | Non-Clock Loads | FF   | LUTRAM | RAMB | DSP | GT | MMCM | PLL | Hard IP | Net                               |
++-----------+-------+-----------------+------------+-------------+-----------------+------+--------+------+-----+----+------+-----+---------+-----------------------------------+
+| g0        | n/a   | BUFG/O          | None       |        1909 |               0 | 1907 |      0 |    2 |   0 |  0 |    0 |   0 |       0 | ip_mmcm/inst/clk_out3             |
+| g1        | n/a   | BUFG/O          | None       |         522 |               0 |  522 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | _gated_clock_debug_clock_gate_out |
+| g2        | n/a   | BUFG/O          | None       |          75 |               0 |   75 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | _jtag_TCK_i_ival_pad_O_BUFG       |
+| g3        | n/a   | BUFG/O          | None       |           1 |               0 |    0 |      0 |    0 |   0 |  0 |    1 |   0 |       0 | ip_mmcm/inst/clkfbout_buf_mmcm    |
++-----------+-------+-----------------+------------+-------------+-----------------+------+--------+------+-----+----+------+-----+---------+-----------------------------------+
+* Clock Loads column represents the clock pin loads (pin count)
+** Non-Clock Loads column represents the non-clock pin loads (pin count)
+*** Columns FF, LUTRAM, RAMB through 'Hard IP' represents load cell counts
+
+
+14. Clock Region Cell Placement per Global Clock: Region X0Y2
+-------------------------------------------------------------
+
++-----------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+-----------------------------------+
+| Global Id | Track | Driver Type/Pin | Constraint | Clock Loads | Non-Clock Loads | FF  | LUTRAM | RAMB | DSP | GT | MMCM | PLL | Hard IP | Net                               |
++-----------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+-----------------------------------+
+| g1        | n/a   | BUFG/O          | None       |         349 |               0 | 349 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | _gated_clock_debug_clock_gate_out |
++-----------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+-----------------------------------+
+* Clock Loads column represents the clock pin loads (pin count)
+** Non-Clock Loads column represents the non-clock pin loads (pin count)
+*** Columns FF, LUTRAM, RAMB through 'Hard IP' represents load cell counts
+
+
+15. Clock Region Cell Placement per Global Clock: Region X1Y2
+-------------------------------------------------------------
+
++-----------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+-----------------------------------+
+| Global Id | Track | Driver Type/Pin | Constraint | Clock Loads | Non-Clock Loads | FF  | LUTRAM | RAMB | DSP | GT | MMCM | PLL | Hard IP | Net                               |
++-----------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+-----------------------------------+
+| g0        | n/a   | BUFG/O          | None       |          13 |               0 |  13 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | ip_mmcm/inst/clk_out3             |
+| g1        | n/a   | BUFG/O          | None       |         164 |               0 | 164 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | _gated_clock_debug_clock_gate_out |
+| g2        | n/a   | BUFG/O          | None       |         208 |               0 | 208 |      0 |    0 |   0 |  0 |    0 |   0 |       0 | _jtag_TCK_i_ival_pad_O_BUFG       |
++-----------+-------+-----------------+------------+-------------+-----------------+-----+--------+------+-----+----+------+-----+---------+-----------------------------------+
+* Clock Loads column represents the clock pin loads (pin count)
+** Non-Clock Loads column represents the non-clock pin loads (pin count)
+*** Columns FF, LUTRAM, RAMB through 'Hard IP' represents load cell counts
+
+
+
+# Location of BUFG Primitives 
+set_property LOC BUFGCTRL_X0Y18 [get_cells ip_mmcm/inst/clkf_buf]
+set_property LOC BUFGCTRL_X0Y16 [get_cells ip_mmcm/inst/clkout3_buf]
+set_property LOC BUFGCTRL_X0Y17 [get_cells _jtag_TCK_i_ival_pad_O_BUFG_inst]
+set_property LOC BUFGCTRL_X0Y0 [get_cells ABSTRACTAUTOReg_autoexecdata_reg[7]_i_3]
+
+# Location of IO Primitives which is load of clock spine
+
+# Location of clock ports
+set_property LOC IOB_X1Y76 [get_ports CLK100MHZ]
+
+# Clock net "ip_mmcm/inst/clk_out3" driven by instance "ip_mmcm/inst/clkout3_buf" located at site "BUFGCTRL_X0Y16"
+#startgroup
+create_pblock {CLKAG_ip_mmcm/inst/clk_out3}
+add_cells_to_pblock [get_pblocks  {CLKAG_ip_mmcm/inst/clk_out3}] [get_cells -filter { PRIMITIVE_GROUP != I/O && IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="ip_mmcm/inst/clk_out3"}]]]
+resize_pblock [get_pblocks {CLKAG_ip_mmcm/inst/clk_out3}] -add {CLOCKREGION_X0Y0:CLOCKREGION_X0Y0 CLOCKREGION_X0Y1:CLOCKREGION_X0Y1 CLOCKREGION_X1Y0:CLOCKREGION_X1Y0 CLOCKREGION_X1Y1:CLOCKREGION_X1Y1 CLOCKREGION_X1Y2:CLOCKREGION_X1Y2}
+#endgroup
+
+# Clock net "_jtag_TCK_i_ival_pad_O_BUFG" driven by instance "_jtag_TCK_i_ival_pad_O_BUFG_inst" located at site "BUFGCTRL_X0Y17"
+#startgroup
+create_pblock {CLKAG__jtag_TCK_i_ival_pad_O_BUFG}
+add_cells_to_pblock [get_pblocks  {CLKAG__jtag_TCK_i_ival_pad_O_BUFG}] [get_cells -filter { PRIMITIVE_GROUP != I/O && IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="_jtag_TCK_i_ival_pad_O_BUFG"}]]]
+resize_pblock [get_pblocks {CLKAG__jtag_TCK_i_ival_pad_O_BUFG}] -add {CLOCKREGION_X1Y1:CLOCKREGION_X1Y1 CLOCKREGION_X1Y2:CLOCKREGION_X1Y2}
+#endgroup
+
+# Clock net "_gated_clock_debug_clock_gate_out" driven by instance "ABSTRACTAUTOReg_autoexecdata_reg[7]_i_3" located at site "BUFGCTRL_X0Y0"
+#startgroup
+create_pblock {CLKAG__gated_clock_debug_clock_gate_out}
+add_cells_to_pblock [get_pblocks  {CLKAG__gated_clock_debug_clock_gate_out}] [get_cells -filter { PRIMITIVE_GROUP != I/O && IS_PRIMITIVE==1 && PRIMITIVE_LEVEL !=INTERNAL } -of_object [get_pins -filter {DIRECTION==IN} -of_objects [get_nets -hierarchical -filter {PARENT=="_gated_clock_debug_clock_gate_out"}]]]
+resize_pblock [get_pblocks {CLKAG__gated_clock_debug_clock_gate_out}] -add {CLOCKREGION_X0Y1:CLOCKREGION_X0Y1 CLOCKREGION_X0Y2:CLOCKREGION_X0Y2 CLOCKREGION_X1Y1:CLOCKREGION_X1Y1 CLOCKREGION_X1Y2:CLOCKREGION_X1Y2}
+#endgroup
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2020.2 (lin64) Build 3064766 Wed Nov 18 09:12:47 MST 2020
+| Date         : Wed Aug 20 19:19:18 2025
+| Host         : u20-VirtualBox running 64-bit Ubuntu 20.04 LTS
+| Command      : report_ram_utilization -file /home/u20/chipyard/fpga/generated-src/chipyard.fpga.arty.Arty35THarness.ServArtyConfig/obj/report/utilization.txt -append -detail
+| Design       : Arty35THarness
+| Device       : xc7a35ticsg324-1L
+| Speed File   : -1L
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+RAM Usage Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Memory Description
+3. Memory Utilization - Inferred
+4. Memory Performance - Inferred
+5. Block Ram / URAM Memory Power - Inferred
+
+1. Summary
+----------
+
++--------------------------+------------+-----------+-------+-----------+
+| Memory Type              | Total Used | Available | Util% | Inferred% |
++--------------------------+------------+-----------+-------+-----------+
+| URAM                     |          0 |         0 |  0.00 |      0.00 |
+| BlockRAM                 |          2 |        50 |  4.00 |    100.00 |
+|  RAMB36E1                |          2 |           |       |    100.00 |
+| LUTMs as Distributed RAM |        832 |      9600 |  8.67 |    100.00 |
+|  LUTMs as RAM32M         |        832 |           |       |    100.00 |
++--------------------------+------------+-----------+-------+-----------+
+*  Each RAMB18 is calculated as 0.5 BlockRAM
+**  Tables 2, 3 and 4 cover RAMs inferred by Vivado Synthesis using XPMs or RTL inference
+
+
+2. Memory Description
+---------------------
+
++-------------------------------------+------------+-------------+------------------------+------------------------+
+| Memory Name                         | Array Size | Memory Type | Port 1 Dimension / Map | Port 2 Dimension / Map |
++-------------------------------------+------------+-------------+------------------------+------------------------+
+| ServCore_uut/serving/ram/mem        |      65536 | RAM_SDP     | 16384x4                | 16384x4                |
+|  ServCore_uut/serving/ram/mem_reg_0 |      32768 |             |  A:A:8192x4            |  B:B:8192x4            |
+|  ServCore_uut/serving/ram/mem_reg_1 |      32768 |             |  A:A:8192x4            |  B:B:8192x4            |
++-------------------------------------+------------+-------------+------------------------+------------------------+
+
+
+3. Memory Utilization - Inferred
+--------------------------------
+
++-------------------------------------+-----------+----------------+-----------+-----------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+
+| Memory Name                         | Primitive | Available Bits | Used Bits | Bit Util% | A Depth | A Depth Avail | A Depth Util% | A Width | A Width Avail | A Width Util% | B Depth | B Depth Avail | B Depth Util% | B Width | B Width Avail | B Width Util% |
++-------------------------------------+-----------+----------------+-----------+-----------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+
+| ServCore_uut/serving/ram/mem        |           |                |           |           |         |               |               |         |               |               |         |               |               |         |               |               |
+|  ServCore_uut/serving/ram/mem_reg_0 | RAMB36E1  |          36864 |     32768 |     88.89 |    8192 |          8192 |        100.00 |       4 |             4 |        100.00 |    8192 |          8192 |        100.00 |       4 |             4 |        100.00 |
+|  ServCore_uut/serving/ram/mem_reg_1 | RAMB36E1  |          36864 |     32768 |     88.89 |    8192 |          8192 |        100.00 |       4 |             4 |        100.00 |    8192 |          8192 |        100.00 |       4 |             4 |        100.00 |
++-------------------------------------+-----------+----------------+-----------+-----------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+---------+---------------+---------------+
+
+
+4. Memory Performance - Inferred
+--------------------------------
+
++-------------------------------------+-----------+------------------------+------------------------+-------------+-------------------------+-------------+-------------------------+-----------+--------+--------+---------+-----------+--------+--------+---------+
+| Memory Name                         | Primitive | Port 1 Dimension / Map | Port 2 Dimension / Map | Port A Type | Port A Requirement (ns) | Port B Type | Port B Requirement (ns) | A Cascade | IREG_A | OREG_A | DOA_REG | B Cascade | IREG_B | OREG_B | DOB_REG |
++-------------------------------------+-----------+------------------------+------------------------+-------------+-------------------------+-------------+-------------------------+-----------+--------+--------+---------+-----------+--------+--------+---------+
+| ServCore_uut/serving/ram/mem        |           | 16384x4                | 16384x4                |             |                         |             |                         |           |        |        |         |           |        |        |         |
+|  ServCore_uut/serving/ram/mem_reg_0 | RAMB36E1  |  A:A:8192x4            |  B:B:8192x4            |       Write |                    30.8 |        Read |                    30.8 |           |        |        |       0 |           |        |        |       0 |
+|  ServCore_uut/serving/ram/mem_reg_1 | RAMB36E1  |  A:A:8192x4            |  B:B:8192x4            |       Write |                    30.8 |        Read |                    30.8 |           |        |        |       0 |           |        |        |       0 |
++-------------------------------------+-----------+------------------------+------------------------+-------------+-------------------------+-------------+-------------------------+-----------+--------+--------+---------+-----------+--------+--------+---------+
+
+
+5. Block Ram / URAM Memory Power - Inferred
+-------------------------------------------
+
++-------------------------------------+-----------+------------------------+------------------------+--------------------+---------------+-------------------+-----------+--------------------+---------------+-------------------+-----------+
+| Memory Name                         | Primitive | Port 1 Dimension / Map | Port 2 Dimension / Map | Port A Power Gated | Port A Enable | Port A WRITE_MODE | A Cascade | Port B Power Gated | Port B Enable | Port B WRITE_MODE | B Cascade |
++-------------------------------------+-----------+------------------------+------------------------+--------------------+---------------+-------------------+-----------+--------------------+---------------+-------------------+-----------+
+| ServCore_uut/serving/ram/mem        |           | 16384x4                | 16384x4                |                    |               |                   |           |                    |               |                   |           |
+|  ServCore_uut/serving/ram/mem_reg_0 | RAMB36E1  |  A:A:8192x4            |  B:B:8192x4            |                    |        SIGNAL |        READ_FIRST |           |                    |         POWER |       WRITE_FIRST |           |
+|  ServCore_uut/serving/ram/mem_reg_1 | RAMB36E1  |  A:A:8192x4            |  B:B:8192x4            |                    |        SIGNAL |        READ_FIRST |           |                    |         POWER |       WRITE_FIRST |           |
++-------------------------------------+-----------+------------------------+------------------------+--------------------+---------------+-------------------+-----------+--------------------+---------------+-------------------+-----------+
+
+
